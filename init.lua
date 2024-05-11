@@ -262,14 +262,13 @@ require('lazy').setup({
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   { -- Theme
-    'gbprod/nord.nvim',
+    'rmehri01/onenord.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
-      vim.cmd.colorscheme 'nord'
+      vim.cmd.colorscheme 'onenord'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -281,41 +280,28 @@ require('lazy').setup({
   require 'hash.plugins.auto-save',
   require 'hash.plugins.barbar',
 
+  -- Kickstart Default Plugins
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
-  require 'hash.plugins.gitsigns',
-  require 'hash.plugins.which-key',
-  require 'hash.plugins.telescope',
-  require 'hash.plugins.conform',
-  require 'hash.plugins.nvim_cmp',
-  require 'hash.plugins.lsp-config',
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
-  require 'hash.plugins.mini',
   require 'hash.plugins.treesitter',
+  require 'hash.plugins.gitsigns',
+  require 'hash.plugins.which-key',
+  require 'hash.plugins.telescope',
+  require 'hash.plugins.mini',
+  require 'hash.plugins.conform',
+  require 'hash.plugins.nvim-cmp',
+  require 'hash.plugins.lsp-config',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
+    icons = {},  
     },
-  },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
