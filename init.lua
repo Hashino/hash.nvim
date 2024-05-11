@@ -232,7 +232,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 
   -- NOTE: Plugins can also be added by using a table,
-  --
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
   --
@@ -255,7 +254,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-    -- NOTE: Plugins can specify dependencies.
+  -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
   -- you do for a plugin at the top level, you can do for a dependency.
@@ -271,6 +270,7 @@ require('lazy').setup({
     init = function()
       -- Load the colorscheme here.
       vim.cmd.colorscheme 'nord'
+
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
