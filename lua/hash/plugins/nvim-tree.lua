@@ -9,11 +9,6 @@ return { -- File Explorer - nvim-tree
     local api = require 'nvim-tree.api'
 
     require('nvim-tree').setup {
-      actions = {
-        change_dir = {
-          global = true,
-        },
-      },
 
       on_attach = function(bufnr)
         local function opts(desc)
@@ -34,6 +29,14 @@ return { -- File Explorer - nvim-tree
       end,
 
       vim.keymap.set('n', '<leader>e', api.tree.toggle, { desc = 'Open/Close File [E]xplorer' }),
+
+      actions = {
+        change_dir = {
+          global = true,
+        },
+      },
+
+      view = { adaptive_size = true },
 
       git = {
         enable = true,

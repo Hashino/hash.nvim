@@ -14,6 +14,7 @@ return {
           -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
           NvimTree = true,
         },
+        no_name_title = ' ',
     }
   end,
   opts = {
