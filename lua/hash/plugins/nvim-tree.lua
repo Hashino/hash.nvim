@@ -9,6 +9,12 @@ return { -- File Explorer - nvim-tree
     local api = require 'nvim-tree.api'
 
     require('nvim-tree').setup {
+      actions = {
+        change_dir = {
+          global = true,
+        },
+      },
+
       on_attach = function(bufnr)
         local function opts(desc)
           return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
