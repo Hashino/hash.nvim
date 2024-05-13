@@ -83,7 +83,6 @@ require('lazy').setup({
   require 'hash.plugins.gitsigns',
   require 'hash.plugins.which-key',
   require 'hash.plugins.telescope',
-  require 'hash.plugins.mini',
   require 'hash.plugins.conform',
   require 'hash.plugins.nvim-cmp',
   require 'hash.plugins.lsp-config',
