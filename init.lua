@@ -14,6 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- each import loads all lua files inside the folder
+-- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
 require('lazy').setup {
   { import = 'hash.plugins.theme' },
   { import = 'hash.plugins.interface' },
