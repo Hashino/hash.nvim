@@ -1,4 +1,4 @@
-return { -- File Explorer - nvim-tree
+return { -- File explorer "<leader>e" to toggle
   'nvim-tree/nvim-tree.lua',
   version = '*',
   lazy = false,

@@ -1,4 +1,4 @@
-return {
+return { -- Tabline with nvim-tree native support
   'romgrk/barbar.nvim',
   dependencies = {
     'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status

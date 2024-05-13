@@ -1,4 +1,4 @@
-return { -- Autoformat
+return { -- "<leader>f" To format whole document
   'stevearc/conform.nvim',
   lazy = false,
   keys = {

@@ -1,4 +1,4 @@
-return { -- auto save in normal mode
+return {  -- Auto-saves on exit insert mode
   'Pocco81/auto-save.nvim',
   config = function()
     require('auto-save').setup {
