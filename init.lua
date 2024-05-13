@@ -23,9 +23,24 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Buffer Navigation
-vim.keymap.set('n', '<tab>', ':bn<CR>', { desc = 'next buffer' })
-vim.keymap.set('n', '<S-tab>', ':bp<CR>', { desc = 'previous buffer' })
-vim.keymap.set('n', '<leader>q', ':bp<bar>sp<bar>bn<bar>bd<CR>', { desc = 'previous buffer' })
+vim.keymap.set('n', '<tab>', '<Cmd>BufferNext<CR>', { desc = 'next buffer' })
+vim.keymap.set('n', '<S-tab>', '<Cmd>BufferPrevious<CR>', { desc = 'previous buffer' })
+
+-- Goto buffer in position...
+vim.api.nvim_set_keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-0>', '<Cmd>BufferLast<CR>', { noremap = true, silent = true })
+-- Pin/unpin buffer
+vim.api.nvim_set_keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', { noremap = true, silent = true })
+-- Close buffer
+vim.api.nvim_set_keymap('n', '<A-c>', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
 
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -74,6 +89,8 @@ require('lazy').setup({
   require 'hash.plugins.lsp-config',
 }, { ui = { icons = {}, },
 })
+
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

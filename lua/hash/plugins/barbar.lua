@@ -10,11 +10,15 @@ return {
         -- Enable/disable animations
         animation = false,  
         -- Set the filetypes which barbar will offset itself for
+        icons = {
+          button = '',
+          buffer_index = true,
+        },
+        no_name_title = ' ',
         sidebar_filetypes = {
           -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
           NvimTree = true,
         },
-        no_name_title = ' ',
     }
   end,
   opts = {
