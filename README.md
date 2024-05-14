@@ -1,4 +1,4 @@
-# kickstart.nvim
+# hash.nvim
 
 ## Installation
 
