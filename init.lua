@@ -21,7 +21,7 @@ require('lazy').setup({
 
   -- tree, barline, statusline, terminal, notifications, git info and keybinds
   { import = 'hash.plugins.interface' },
-  
+
   -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
   { import = 'hash.plugins.formatting' },
 
