@@ -1,7 +1,27 @@
-return { -- Simple status line in lua
+local clients_lsp = function()
+  local bufnr = vim.api.nvim_get_current_buf()
 
+  local clients = vim.lsp.get_active_clients({bufnr = 0})
+  if next(clients) == nil then
+    return ''
+  end
+
+  local c = {}
+  for _, client in pairs(clients) do
+    table.insert(c, client.name)
+  end
+  return '\u{f085} ' .. table.concat(c, '|')
+end
+
+local full_file_path = function()
+  return vim.api.nvim_buf_get_name(0):gsub(vim.fn.expand '$HOME', '~')
+end
+
+return { -- Simple status line in lua
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  -- LSP clients attached to buffer
+
   init = function()
     require('lualine').setup {
       options = {
@@ -25,8 +45,8 @@ return { -- Simple status line in lua
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_c = { full_file_path },
+        lualine_x = { clients_lsp },
         lualine_y = { '' },
         lualine_z = { 'location' },
       },
@@ -41,7 +61,7 @@ return { -- Simple status line in lua
       tabline = {},
       winbar = {},
       inactive_winbar = {},
-      extensions = {'nvim-tree'},
+      extensions = { 'nvim-tree' },
     }
   end,
 }

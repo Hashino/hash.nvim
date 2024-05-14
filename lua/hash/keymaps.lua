@@ -16,6 +16,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<tab>', '<Cmd>BufferNext<CR>', { desc = 'next buffer' })
 vim.keymap.set('n', '<S-tab>', '<Cmd>BufferPrevious<CR>', { desc = 'previous buffer' })
 
+-- :q Shortcut
+vim.keymap.set('n', '<A-q>', '<Cmd>q<CR>', { desc = 'quick quit' })
+
 -- Goto buffer in position...
 vim.api.nvim_set_keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', { noremap = true, silent = true })
