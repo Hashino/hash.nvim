@@ -30,6 +30,10 @@ return { -- File explorer "<leader>e" to toggle
 
       vim.keymap.set('n', '<leader>e', api.tree.toggle, { desc = 'Open/Close File [E]xplorer' }),
 
+      diagnostics = {
+        enable = true,
+      },
+
       actions = {
         change_dir = {
           global = true,
@@ -43,6 +47,7 @@ return { -- File explorer "<leader>e" to toggle
       },
 
       renderer = {
+        root_folder_label = false,
         highlight_git = true,
         icons = {
           show = {
