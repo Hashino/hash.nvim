@@ -4,5 +4,6 @@ return { -- Theme
   init = function()
     -- Load the colorscheme here.
     vim.cmd.colorscheme 'onenord'
+    vim.api.nvim_set_hl(0, 'CurrentScope', { fg = require('onenord.colors').load().light_gray })
   end,
 }
