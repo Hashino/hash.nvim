@@ -1,11 +1,10 @@
-vim.api.nvim_set_hl(0, 'CurrentScope', { fg = require('onenord.colors').load().light_gray })
-return {
+return { -- vertical lines for idents. also highlights current scope
   'lukas-reineke/indent-blankline.nvim',
   main = 'ibl',
   init = function()
     require('ibl').setup {
       scope = {
-        highlight = 'CurrentScope',
+        highlight = { 'TabLine' }, -- gets highlight from colorscheme
         show_start = false,
       },
       indent = { char = '┆' },
