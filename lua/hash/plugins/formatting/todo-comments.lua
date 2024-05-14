@@ -3,4 +3,7 @@ return { -- Highlight todo, notes, etc in comments
   event = 'VimEnter',
   dependencies = { 'nvim-lua/plenary.nvim' },
   opts = { signs = false },
+  keys = {
+    { '<leader>td', '<cmd>TodoQuickFix<cr>', desc = 'Show all todos in workspace' },
+  },
 }

@@ -1,7 +1,7 @@
 local clients_lsp = function()
   local bufnr = vim.api.nvim_get_current_buf()
 
-  local clients = vim.lsp.get_active_clients({bufnr = 0})
+  local clients = vim.lsp.get_active_clients { bufnr = 0 }
   if next(clients) == nil then
     return ''
   end
@@ -10,58 +10,40 @@ local clients_lsp = function()
   for _, client in pairs(clients) do
     table.insert(c, client.name)
   end
-  return '\u{f085} ' .. table.concat(c, '|')
+  return ' ' .. table.concat(c, '|')
 end
-
-local full_file_path = function()
-  return vim.api.nvim_buf_get_name(0):gsub(vim.fn.expand '$HOME', '~')
+local function git_repo()
+  local git_repo_name = vim.fn.system "basename $(git remote get-url origin) | tr -d '\n'"
+  local branch = vim.fn.system "git branch --show-current 2> /dev/null | tr -d '\n'"
+  if branch ~= '' then
+    return '[' .. git_repo_name .. '/' .. branch .. ']'
+  else
+    return ''
+  end
 end
-
 return { -- Simple status line in lua
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   -- LSP clients attached to buffer
 
   init = function()
+    local lualine_sections = {
+      lualine_a = { 'mode' },
+      lualine_b = { git_repo, 'diff' },
+      lualine_c = { 'diagnostics' },
+      -- right side
+      lualine_x = { { 'filename', path = 3 } },
+      lualine_y = { clients_lsp, { 'filetype', icon_only = true } },
+      lualine_z = { 'location' },
+    }
     require('lualine').setup {
       options = {
-        icons_enabled = true,
-        theme = 'auto',
         component_separators = '',
         section_separators = '',
-        disabled_filetypes = {
-          statusline = {},
-          winbar = {},
-        },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-          statusline = 1000,
-          tabline = 1000,
-          winbar = 1000,
-        },
       },
-      sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { full_file_path },
-        lualine_x = { clients_lsp },
-        lualine_y = { '' },
-        lualine_z = { 'location' },
-      },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { 'filename' },
-        lualine_x = { 'location' },
-        lualine_y = {},
-        lualine_z = {},
-      },
-      tabline = {},
-      winbar = {},
-      inactive_winbar = {},
-      extensions = { 'nvim-tree' },
+      sections = lualine_sections,
+      inactive_sections = lualine_sections,
+      extensions = { 'nvim-tree', 'trouble' },
     }
   end,
 }
