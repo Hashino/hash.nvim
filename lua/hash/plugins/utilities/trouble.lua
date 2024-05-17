@@ -8,7 +8,8 @@ return {
     -- refer to the configuration section below
   },
   keys = {
-    { '<leader>q', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Show [Q]uickfix diagnostics in current document' },
-    { '<leader>qw', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Show [Q]uifix diagnostics in whole [W]orkspace' },
+    { '<leader>qd', '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>', desc = 'Show [Q]uickfix diagnostics in current [D]ocument' },
+    { '<leader>qw', '<cmd>Trouble diagnostics toggle focus=true<cr>', desc = 'Show [Q]uifix diagnostics in whole [W]orkspace' },
+    { '<leader>qp', '<cmd>Trouble symbols toggle pinned=true results.win.relative=win results.win.position=right<cr>', desc = '[P]in [Q]uifix diagnostics ub current document' },
   },
 }
