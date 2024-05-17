@@ -38,7 +38,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- This opens a window that shows you all of the keymaps for the current
     -- Telescope picker. This is really useful to discover what Telescope can
     -- do as well as how to actually do it!
-    
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
