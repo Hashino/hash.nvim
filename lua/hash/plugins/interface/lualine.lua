@@ -1,5 +1,6 @@
+-- gets the current active lsp client of the buffer
 local clients_lsp = function()
-  local clients = vim.lsp.get_active_clients { bufnr = 0 }
+  local clients = vim.lsp.get_clients { bufnr = 0 }
   if next(clients) == nil then
     return ''
   end
@@ -10,6 +11,8 @@ local clients_lsp = function()
   end
   return ' ' .. table.concat(c, '|')
 end
+
+-- gets the workspace git repository name and branch
 local function git_repo()
   local git_repo_name = vim.fn.system "basename $(git remote get-url origin) | tr -d '\n'"
   local branch = vim.fn.system "git branch --show-current 2> /dev/null | tr -d '\n'"
@@ -19,6 +22,7 @@ local function git_repo()
     return ''
   end
 end
+
 return { -- Simple status line in lua
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
