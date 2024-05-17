@@ -7,6 +7,7 @@ return {
     -- or leave it empty to us the default settings
     -- refer to the configuration section below
   },
+  -- TODO: use api commands instead 
   keys = {
     { '<leader>qd', '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>', desc = 'Show [Q]uickfix diagnostics in current [D]ocument' },
     { '<leader>qw', '<cmd>Trouble diagnostics toggle focus=true<cr>', desc = 'Show [Q]uifix diagnostics in whole [W]orkspace' },
