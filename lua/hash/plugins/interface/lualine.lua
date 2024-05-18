@@ -26,7 +26,6 @@ end
 return { -- Simple status line in lua
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  -- LSP clients attached to buffer
 
   init = function()
     local lualine_sections = {
