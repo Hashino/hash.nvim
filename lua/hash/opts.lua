@@ -68,3 +68,10 @@ vim.opt.scrolloff = 10
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
+
+-- Neovide stuff
+vim.g.neovide_cursor_animation_length = 0.0
+
+vim.o.guifont = 'UbuntuMono Nerd Font:h14'
+
+vim.g.neovide_transparency = 0.9
