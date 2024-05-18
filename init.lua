@@ -13,6 +13,10 @@ require 'hash.keymaps' -- global keymaps.
 -- bootstrap package manager
 require 'init_lazy'
 
+-- TODO: Padronize plugins configuration
+--  [-] init/config function
+--  [-] keymaps
+
 -- each import loads all lua files inside the folder
 -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
 require('lazy').setup({
