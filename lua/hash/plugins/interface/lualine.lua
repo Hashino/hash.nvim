@@ -14,8 +14,13 @@ end
 
 -- gets the workspace git repository name and branch
 local function git_repo()
+  if vim.fn.system 'git remote' == '' then
+    return '[local repository]'
+  end
+
   local git_repo_name = vim.fn.system "basename $(git remote get-url origin) | tr -d '\n'"
   local branch = vim.fn.system "git branch --show-current 2> /dev/null | tr -d '\n'"
+
   if branch ~= '' then
     return '[' .. git_repo_name .. '/' .. branch .. ']'
   else
@@ -25,13 +30,24 @@ end
 
 return { -- Simple status line in lua
   'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
-
+  lazy = false,
+  dependencies = { 'nvim-tree/nvim-web-devicons', 'folke/trouble.nvim' },
   init = function()
+    local trouble = require 'trouble'
+    local symbols = trouble.statusline {
+      mode = 'lsp_document_symbols',
+      groups = {},
+      title = false,
+      filter = { range = true },
+      format = '{kind_icon}{symbol.name:Normal}',
+      -- The following line is needed to fix the background color
+      -- Set it to the lualine section you want to use
+      hl_group = 'lualine_c_normal',
+    }
     local lualine_sections = {
       lualine_a = { 'mode' },
       lualine_b = { git_repo, 'diff' },
-      lualine_c = { 'diagnostics' },
+      lualine_c = { 'diagnostics', symbols },
       -- right side
       lualine_x = { { 'filename', path = 3 } },
       lualine_y = { clients_lsp, { 'filetype', icon_only = true } },
@@ -41,10 +57,11 @@ return { -- Simple status line in lua
       options = {
         component_separators = '',
         section_separators = '',
+        disabled_filetypes = { statusline = { 'alpha', 'trouble', 'help' } },
       },
       sections = lualine_sections,
       inactive_sections = lualine_sections,
-      extensions = { 'nvim-tree', 'trouble' },
+      extensions = { 'nvim-tree', 'nvim-dap-ui' },
     }
   end,
 }

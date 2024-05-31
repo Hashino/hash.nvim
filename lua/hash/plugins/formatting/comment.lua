@@ -1,4 +1,4 @@
-return { -- "<leader>gc" to comment visual regions/lines
+return { -- "gb"/"gc" to comment regions/lines
   'numToStr/Comment.nvim',
   opts = {},
 }

@@ -13,7 +13,7 @@ require 'hash.keymaps' -- global keymaps.
 -- bootstrap package manager
 require 'init_lazy'
 
--- TODO: Padronize plugins configuration
+-- TODO:Padronize plugins configuration
 --  [-] init/config function
 --  [-] keymaps
 
@@ -31,6 +31,8 @@ require('lazy').setup({
 
   -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
   { import = 'hash.plugins.utilities' },
+
+  { import = 'hash.plugins.debugging' },
 }, { change_detection = { notify = false } })
 
 -- vim: ts=2 sts=2 sw=2 et

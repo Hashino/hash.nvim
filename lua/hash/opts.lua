@@ -69,9 +69,20 @@ vim.opt.scrolloff = 10
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
+vim.o.cmdheight = 0
+
+vim.o.sessionoptions="globals,blank,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0.0
 
 vim.o.guifont = 'UbuntuMono Nerd Font:h14'
 
+-- vim.opt.guicursor = { 'n:blinkwait700-blinkoff400-blinkon250' }
+
 vim.g.neovide_transparency = 0.9
+
+if vim.g.neovide then
+  vim.api.nvim_set_keymap('i', '<sc-v>', '<ESC>"+pli', { noremap = true })
+  vim.api.nvim_set_keymap('c', '<sc-v>', '<C-R>+', { noremap = true })
+end
