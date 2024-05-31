@@ -71,7 +71,7 @@ vim.opt.hlsearch = true
 
 vim.o.cmdheight = 0
 
-vim.o.sessionoptions="globals,blank,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- vim.o.sessionoptions="globals,blank,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0.0

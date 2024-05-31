@@ -33,21 +33,11 @@ return { -- Simple status line in lua
   lazy = false,
   dependencies = { 'nvim-tree/nvim-web-devicons', 'folke/trouble.nvim' },
   init = function()
-    local trouble = require 'trouble'
-    local symbols = trouble.statusline {
-      mode = 'lsp_document_symbols',
-      groups = {},
-      title = false,
-      filter = { range = true },
-      format = '{kind_icon}{symbol.name:Normal}',
-      -- The following line is needed to fix the background color
-      -- Set it to the lualine section you want to use
-      hl_group = 'lualine_c_normal',
-    }
+    local troublev3 = { sections = { lualine_a = { 'Trouble' } }, filetypes = { 'trouble' } }
     local lualine_sections = {
       lualine_a = { 'mode' },
       lualine_b = { git_repo, 'diff' },
-      lualine_c = { 'diagnostics', symbols },
+      lualine_c = { 'diagnostics' },
       -- right side
       lualine_x = { { 'filename', path = 3 } },
       lualine_y = { clients_lsp, { 'filetype', icon_only = true } },
@@ -57,11 +47,11 @@ return { -- Simple status line in lua
       options = {
         component_separators = '',
         section_separators = '',
-        disabled_filetypes = { statusline = { 'alpha', 'trouble', 'help' } },
+        disabled_filetypes = { statusline = { 'alpha', 'help', 'trouble' } },
       },
       sections = lualine_sections,
       inactive_sections = lualine_sections,
-      extensions = { 'nvim-tree', 'nvim-dap-ui' },
+      extensions = { 'nvim-tree', 'nvim-dap-ui', troublev3 },
     }
   end,
 }

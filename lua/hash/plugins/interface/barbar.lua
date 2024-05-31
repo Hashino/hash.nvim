@@ -5,7 +5,6 @@ return { -- Tabline with nvim-tree native support
   },
   init = function()
     require('barbar').setup {
-
       animation = true, -- Enable/disable animations
 
       icons = {
@@ -17,7 +16,7 @@ return { -- Tabline with nvim-tree native support
       sidebar_filetypes = { NvimTree = true }, -- filetypes that barbar will offset
     }
     -- nvimtree autosession workaround
-    vim.g.barbar_auto_setup = false
+    -- vim.g.barbar_auto_setup = false
     -- Buffer Navigation
     vim.keymap.set('n', '<tab>', '<Cmd>BufferNext<CR>', { desc = 'next buffer' })
     vim.keymap.set('n', '<S-tab>', '<Cmd>BufferPrevious<CR>', { desc = 'previous buffer' })

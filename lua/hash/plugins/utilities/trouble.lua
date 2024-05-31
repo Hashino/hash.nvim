@@ -10,7 +10,9 @@ return {
   -- TODO: use api commands instead
   keys = {
     { '<leader>qd', '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>', desc = 'Show [Q]uickfix diagnostics in current [D]ocument' },
+
     { '<leader>qw', '<cmd>Trouble diagnostics toggle focus=true<cr>', desc = 'Show [Q]uifix diagnostics in whole [W]orkspace' },
+
     { '<leader>qs', '<cmd>Trouble symbols toggle results.win = { position = right }<cr>', desc = 'Pin [Q]uick navigation pane for [S]ymbols' },
   },
 }

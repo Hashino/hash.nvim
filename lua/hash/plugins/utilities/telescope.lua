@@ -16,23 +16,31 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-telescope/telescope-ui-select.nvim' },
   },
   config = function()
+    local mappings = {
+      ['<A-l>'] = require('telescope.actions').cycle_history_next,
+      ['<A-h>'] = require('telescope.actions').cycle_history_prev,
+      ['<Tab>'] = require('telescope.actions').move_selection_next,
+      ['<S-Tab>'] = require('telescope.actions').move_selection_previous,
+      [' '] = require('telescope.actions').toggle_selection,
+      ['<C-j>'] = require('telescope.actions').preview_scrolling_down,
+      ['<C-k>'] = require('telescope.actions').preview_scrolling_up,
+    }
     require('telescope').setup {
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
         },
+        persisted = {
+          layout_config = { width = 0.55, height = 0.55 },
+        },
       },
       defaults = {
         mappings = {
-          n = {
-            ['<A-l>'] = require('telescope.actions').cycle_history_next,
-            ['<A-h>'] = require('telescope.actions').cycle_history_prev,
-          },
+          n = mappings,
+          i = mappings,
         },
       },
     }
-    -- TODO: read and learn the keybindings
-
     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')

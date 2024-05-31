@@ -81,7 +81,7 @@ return { -- LSP Configuration & Plugins
         --  Most Language Servers support renaming across files, etc.
         map('<leader>r', vim.lsp.buf.rename, '[R]e[n]ame')
 
-        map('qa', vim.lsp.buf.code_action(), '[A]pply [Q]uickfix')
+        map('qa', vim.lsp.buf.code_action, '[A]pply [Q]uickfix')
 
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.

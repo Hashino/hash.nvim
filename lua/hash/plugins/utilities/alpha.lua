@@ -1,24 +1,37 @@
 local function session_buttons()
   local buttons = {}
-  local auto_sessions = require 'auto-session'
-  local sessions = auto_sessions.get_session_files()
-  for i = 1, #sessions do
+
+  local sessions = io.popen("ls -pa --sort=time " .. require('persisted.config').options.save_dir .. " | grep -v /"):lines()
+  local i = 0
+  for dir in sessions do
+    local full_path = dir:gsub('%%', '/'):gsub('%.vim', '')
+    local short_path = full_path:gsub(vim.fn.expand '$HOME', '~')
+    i = i + 1
     table.insert(buttons, {
       type = 'button',
-      val = sessions[i].display_name:gsub(tostring(os.getenv 'HOME'), '~'),
+      val = short_path,
       on_press = function()
-        require('auto-session').RestoreSession(auto_sessions.get_root_dir() .. sessions[i].path)
+        require('persisted').load(nil, full_path)
       end,
       opts = {
         position = 'center',
         shortcut = '[' .. tostring(i) .. ']',
         cursor = 0,
-        width = 70,
+        width = 40,
         align_shortcut = 'right',
         hl_shortcut = 'Keyword',
-        keymap = { 'n', tostring(i), '<cmd>SessionRestoreFromFile ' .. vim.fn.stdpath 'data' .. '/sessions/' .. sessions[i].path .. '<CR>' },
+        keymap = {
+          'n',
+          tostring(i),
+          function()
+            require('persisted').load(nil, full_path)
+          end,
+        },
       },
     })
+    if i == 9 then
+      break
+    end
   end
   return buttons
 end
@@ -41,10 +54,19 @@ return {
   config = function()
     require('alpha').setup {
       layout = {
+        section('padding', 10),
+        section('text', {
+          [[  _               _                  _]],
+          [[ | |             | |                (_)]],
+          [[ | |__   __ _ ___| |__    _ ____   ___ _ __ ___]],
+          [[ | '_ \ / _` / __| '_ \  | '_ \ \ / / | '_ ` _ \]],
+          [[ | | | | (_| \__ \ | | |_| | | \ V /| | | | | | |]],
+          [[ |_| |_|\__,_|___/_| |_(_)_| |_|\_/ |_|_| |_| |_|]],
+        }, '@function'),
         section('padding', 2),
-        section('text', { 'Previous Sessions' }, 'Type'),
+        section('text', { 'Sessions' }, 'Type'),
         section('padding', 2),
-        section('group', session_buttons(), nil, 1),
+        section('group', session_buttons(), nil, 0),
         section('padding', 2),
       },
       opts = {

@@ -8,19 +8,19 @@ return { -- File explorer "<leader>e" to toggle
   config = function()
     local api = require 'nvim-tree.api'
 
-    -- -- Restores NvimTree on session load
-    -- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    --   pattern = 'NvimTree*',
-    --   callback = function()
-    --     local view = require 'nvim-tree.view'
-    --
-    --     if not view.is_visible() then
-    --       api.tree.open()
-    --     end
-    --
-    --     pcall(vim.api.nvim_command, 'doautocmd User SessionLoaded')
-    --   end,
-    -- })
+    -- Restores NvimTree on session load
+    vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+      pattern = 'NvimTree*',
+      callback = function()
+        local view = require 'nvim-tree.view'
+
+        if not view.is_visible() then
+          api.tree.open()
+        end
+
+        pcall(vim.api.nvim_command, 'doautocmd User SessionLoaded')
+      end,
+    })
 
     require('nvim-tree').setup {
 
