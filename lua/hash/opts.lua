@@ -64,7 +64,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 25
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -81,6 +81,10 @@ vim.o.guifont = 'UbuntuMono Nerd Font:h14'
 -- vim.opt.guicursor = { 'n:blinkwait700-blinkoff400-blinkon250' }
 
 vim.g.neovide_transparency = 0.9
+vim.g.neovide_floating_shadow = false
+
+vim.g.neovide_floating_blur_amount_x = 0.0
+vim.g.neovide_floating_blur_amount_y = 0.0
 
 if vim.g.neovide then
   vim.api.nvim_set_keymap('i', '<sc-v>', '<ESC>"+pli', { noremap = true })

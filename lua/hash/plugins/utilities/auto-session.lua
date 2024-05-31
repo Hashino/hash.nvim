@@ -25,12 +25,14 @@ return {
           if nvimtree.is_visible() then
             nvimtree.close()
           end
+          vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
         end,
       },
 
       post_restore_cmds = {
         function()
           -- require('auto-session').get_session_files
+          require 'barbar'
           require('nvim-tree.api').tree.toggle { focus = false }
         end,
       },
