@@ -14,7 +14,6 @@ require 'hash.keymaps' -- global keymaps.
 require 'init_lazy'
 
 -- TODO:Padronize plugins configuration
---  [-] init/config function
 --  [-] keymaps
 
 -- each import loads all lua files inside the folder

@@ -21,7 +21,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       ['<A-h>'] = require('telescope.actions').cycle_history_prev,
       ['<Tab>'] = require('telescope.actions').move_selection_next,
       ['<S-Tab>'] = require('telescope.actions').move_selection_previous,
-      [' '] = require('telescope.actions').toggle_selection,
+      ['<C- >'] = require('telescope.actions').toggle_selection,
       ['<C-j>'] = require('telescope.actions').preview_scrolling_down,
       ['<C-k>'] = require('telescope.actions').preview_scrolling_up,
     }

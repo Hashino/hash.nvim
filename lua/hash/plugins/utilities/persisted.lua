@@ -10,11 +10,7 @@ return {
 
       -- don't save session when in the alpha greeter window
       should_autosave = function()
-        if vim.bo.filetype == 'alpha' or vim.fn.getcwd() == vim.fn.expand("$HOME") then
-          return false
-        else
-          return true
-        end
+        return not (vim.bo.filetype == 'alpha' or vim.fn.getcwd() == vim.fn.expand '$HOME')
       end,
     }
 

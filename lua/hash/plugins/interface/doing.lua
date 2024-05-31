@@ -1,19 +1,20 @@
 return {
   'hashino/doing.nvim',
+  branch = 'dev',
   opts = {},
   config = function()
     require('doing').setup {
-      -- default options
+        -- default options
       message_timeout = 2000,
       doing_prefix = 'Doing: ',
 
       winbar = {
-        enabled = true,
-        ignored_buffers = { 'NvimTree' },
+        enabled = false,
+        ignored_buffers = { 'NvimTree', 'trouble' },
       },
 
       store = {
-        auto_create_file = true,
+        auto_create_file = false,
         file_name = '.tasks',
       },
     }

@@ -28,6 +28,10 @@ local function git_repo()
   end
 end
 
+local function doing()
+  return require('doing').view 'active'
+end
+
 return { -- Simple status line in lua
   'nvim-lualine/lualine.nvim',
   lazy = false,
@@ -39,7 +43,7 @@ return { -- Simple status line in lua
       lualine_b = { git_repo, 'diff' },
       lualine_c = { 'diagnostics' },
       -- right side
-      lualine_x = { { 'filename', path = 3 } },
+      lualine_x = { doing, { 'filename', path = 3 } },
       lualine_y = { clients_lsp, { 'filetype', icon_only = true } },
       lualine_z = { 'location' },
     }
@@ -51,6 +55,9 @@ return { -- Simple status line in lua
       },
       sections = lualine_sections,
       inactive_sections = lualine_sections,
+
+      -- winbar = { lualine_a = { doing } },
+
       extensions = { 'nvim-tree', 'nvim-dap-ui', troublev3 },
     }
   end,
