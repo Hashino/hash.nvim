@@ -6,7 +6,7 @@
 -- | | | | (_| \__ \ | | |_| | | \ V /| | | | | | |
 -- |_| |_|\__,_|___/_| |_(_)_| |_|\_/ |_|_| |_| |_|
 --
-require 'hash.opts' -- neovim options
+require 'hash.opts'    -- neovim options
 require 'hash.keymaps' -- global keymaps.
 -- NOTE: specific plugin keymaps defined inside plugin config
 

@@ -1,8 +1,8 @@
 local function section(
-  type,
-  val, --[[optional]]
-  hl, --[[string]]--[[optional]]
-  spacing --[[integer]] --[[optional]]
+    type,
+    val, --[[optional]]
+    hl, --[[string]] --[[optional]]
+    spacing --[[integer]] --[[optional]]
 )
   return { type = type, val = val, opts = { position = 'center', hl = hl, spacing = spacing } }
 end
@@ -10,7 +10,8 @@ end
 local function session_buttons()
   local buttons = {}
 
-  local sessions = io.popen('ls -pa --sort=time ' .. require('persisted.config').options.save_dir .. ' | grep -v /'):lines()
+  local sessions = io.popen('ls -pa --sort=time ' .. require('persisted.config').options.save_dir .. ' | grep -v /')
+      :lines()
   local i = 0
   for dir in sessions do
     local full_path = dir:gsub('%%', '/'):gsub('%.vim', '')
@@ -29,7 +30,7 @@ local function session_buttons()
       table.insert(buttons, section('padding', 1))
     end
 
-    if i == 20 then 
+    if i == 20 then
       return
     end
 

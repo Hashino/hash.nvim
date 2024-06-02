@@ -5,8 +5,8 @@ return {
   config = function()
     require('persisted').setup {
       save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
-      silent = true, -- silent nvim message when sourcing session file
-      autosave = true, -- automatically save session files when exiting Neovim
+      silent = true,                                                   -- silent nvim message when sourcing session file
+      autosave = true,                                                 -- automatically save session files when exiting Neovim
 
       -- don't save session when in the alpha greeter window
       should_autosave = function()

@@ -71,6 +71,12 @@ vim.opt.hlsearch = true
 
 vim.o.cmdheight = 0
 
+-- formatting
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.textwidth = 80
+
 -- vim.o.sessionoptions="globals,blank,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Neovide stuff

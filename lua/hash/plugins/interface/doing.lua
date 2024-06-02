@@ -4,7 +4,7 @@ return {
   opts = {},
   config = function()
     require('doing').setup {
-        -- default options
+      -- default options
       message_timeout = 2000,
       doing_prefix = 'Doing: ',
 

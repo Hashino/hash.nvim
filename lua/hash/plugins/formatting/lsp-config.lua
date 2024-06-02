@@ -7,11 +7,11 @@ return { -- LSP Configuration & Plugins
     'WhoIsSethDaniel/mason-tool-installer.nvim',
 
     -- Useful status updates for LSP.
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',       opts = {} },
 
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
-    { 'folke/neodev.nvim', opts = {} },
+    { 'folke/neodev.nvim',       opts = {} },
   },
   config = function()
     local servers = {
@@ -24,8 +24,18 @@ return { -- LSP Configuration & Plugins
         -- capabilities = {},
         settings = {
           Lua = {
-            completion = {
-              callSnippet = 'Replace',
+            format = {
+              enable = true,
+              format = {
+                enable = true,
+                -- Put format options here
+                -- NOTE: the value should be String!
+                defaultConfig = {
+                  indent_style = "tab",
+                  indent_size = "2",
+                  max_line_length = "80",
+                }
+              },
             },
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             diagnostics = { globals = { 'vim', 'screen', 'awesome', 'root', 'client', 'tag' } },
@@ -41,6 +51,8 @@ return { -- LSP Configuration & Plugins
         local map = function(keys, func, desc)
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
+
+        map('<leader>f', function() vim.lsp.buf.format({ async = true }) end, "[F]ormat buffer")
 
         -- Jump to the definition of the word under your cursor.
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -136,7 +148,7 @@ return { -- LSP Configuration & Plugins
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
+      -- 'stylua', -- Used to format Lua code
     })
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }

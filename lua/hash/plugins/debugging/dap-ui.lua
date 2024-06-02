@@ -22,7 +22,7 @@ return {
     vim.keymap.set('n', '<F5>', function()
       require('nvim-tree.api').tree.close()
       dap_projects.search_project_config()
-      dap.continue()
+      -- dap.continue()
     end, { desc = '[F5] Start/Continue running' })
 
     vim.keymap.set('n', '<C-F5>', function()

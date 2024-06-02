@@ -1,3 +1,3 @@
 return { -- auto pairs
-    'cohama/lexima.vim',
+  'cohama/lexima.vim',
 }

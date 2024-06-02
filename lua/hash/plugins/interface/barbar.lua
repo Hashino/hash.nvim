@@ -5,7 +5,7 @@ return { -- Tabline with nvim-tree native support
   },
   init = function()
     require('barbar').setup {
-      animation = true, -- Enable/disable animations
+      animation = false, -- Enable/disable animations
 
       icons = {
         button = '',
@@ -34,6 +34,7 @@ return { -- Tabline with nvim-tree native support
     -- Pin/unpin buffer
     vim.api.nvim_set_keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', { noremap = true, silent = true })
     -- Close buffer
+    vim.api.nvim_set_keymap('n', '<A-S-c>', '<Cmd>BufferCloseAllButCurrent<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<A-c>', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
   end,
   version = '^1.0.0', -- optional: only update when a new 1.x version is released

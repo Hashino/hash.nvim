@@ -1,6 +1,7 @@
 return {
   'mfussenegger/nvim-dap',
-  init = function()
+  opts = {},
+  config = function()
     require 'hash.plugins.debugging.adapters.gdb'
   end,
 }
