@@ -7,7 +7,7 @@ return {
       disableOnLastBuffer = false,
       killAllBuffersOnDisable = false,
       autocmds = {
-        -- enableOnVimEnter = true,
+        enableOnVimEnter = true,
         -- enableOnTabEnter = true,
         -- skipEnteringNoNeckPainBuffer = true,
       },

@@ -69,7 +69,7 @@ vim.opt.scrolloff = 25
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 
 -- formatting
 vim.opt.tabstop = 2
@@ -83,7 +83,7 @@ vim.g.neovide_cursor_animation_length = 0.0
 vim.o.guifont = 'UbuntuMono Nerd Font:h14'
 
 -- global status line
-vim.opt.laststatus = 3
+-- vim.opt.laststatus = 3
 -- vim.opt.guicursor = { 'n:blinkwait700-blinkoff400-blinkon250' }
 
 vim.g.neovide_transparency = 0.9

@@ -2,10 +2,10 @@ local function doing()
   local view = require('doing').view 'active'
 
   if view.left ~= '' then
-    local res = '' .. view.left .. view.middle
+    local res = '' .. view.left -- .. view.middle
 
     if view.right ~= '' then
-      res = res .. view.right
+      res = res .. '  ' .. view.right
     end
 
     return res .. ''
@@ -42,13 +42,13 @@ return {
   dependencies = { 'rmehri01/onenord.nvim' },
   lazy = false,
   config = function()
-    local colors = require("onenord.colors").load()
-    local bg_color = colors.blue
+    -- local colors = require("onenord.colors").load()
+    -- local bg_color = colors.blue
 
     require('incline').setup {
       window = {
         placement = {
-          horizontal = "center",
+          horizontal = "right",
           vertical = "top"
         },
         width = "fit",
