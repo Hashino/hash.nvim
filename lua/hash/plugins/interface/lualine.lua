@@ -29,7 +29,10 @@ local function git_repo()
 end
 
 local function doing()
-  return require('doing').view 'active'
+  local curr_doing = require('doing').view 'active'
+  if curr_doing ~= '' then
+    return '   ' .. curr_doing .. '   '
+  end
 end
 
 return { -- Simple status line in lua
@@ -37,28 +40,31 @@ return { -- Simple status line in lua
   lazy = false,
   dependencies = { 'nvim-tree/nvim-web-devicons', 'folke/trouble.nvim' },
   init = function()
-    local troublev3 = { sections = { lualine_a = { 'Trouble' } }, filetypes = { 'trouble' } }
+    -- local troublev3 = { sections = { lualine_a = { 'Trouble' } }, filetypes = { 'trouble' } }
+
     local lualine_sections = {
       lualine_a = { 'mode' },
       lualine_b = { git_repo, 'diff' },
       lualine_c = { 'diagnostics' },
       -- right side
-      lualine_x = { doing, { 'filename', path = 3 } },
+      lualine_x = { { 'filename', path = 3 } },
       lualine_y = { clients_lsp, { 'filetype', icon_only = true } },
       lualine_z = { 'location' },
     }
+
     require('lualine').setup {
       options = {
         component_separators = '',
         section_separators = '',
-        disabled_filetypes = { statusline = { 'alpha', 'help', 'trouble' } },
+        disabled_filetypes = { statusline = { 'alpha', 'help', 'trouble', 'no-neck-pain' } },
       },
       sections = lualine_sections,
       inactive_sections = lualine_sections,
 
       -- winbar = { lualine_a = { doing } },
+      -- winbar = { lualine_c = { function() return ' ' end } },
 
-      extensions = { 'nvim-tree', 'nvim-dap-ui', troublev3 },
+      extensions = { 'nvim-tree', 'nvim-dap-ui' },
     }
   end,
 }
