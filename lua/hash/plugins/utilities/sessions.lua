@@ -4,18 +4,24 @@ return {
   lazy = false, -- make sure the plugin is always loaded at startup
   config = function()
     require('persisted').setup {
-      save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
-      silent = true,                                                   -- silent nvim message when sourcing session file
-      autosave = true,                                                 -- automatically save session files when exiting Neovim
+      -- directory where session files are saved
+      save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'),
 
-      -- don't save session when in the alpha greeter window
+      silent = true,   -- silent nvim message when sourcing session file
+      autosave = true, -- automatically save session files when exiting Neovim
+
+      -- don't save session when in the alpha greeter window or home dir
       should_autosave = function()
-        return not (vim.bo.filetype == 'alpha' or vim.fn.getcwd() == vim.fn.expand '$HOME')
+        return not (
+          vim.bo.filetype == 'alpha' or
+          vim.fn.getcwd() == vim.fn.expand '$HOME'
+        )
       end,
     }
 
     require('telescope').load_extension 'persisted'
-    vim.keymap.set('n', '<C-s>', '<cmd>Telescope persisted<cr>', { desc = '[S]earch [C]ommands' })
+    vim.keymap.set('n', '<C-s>', '<cmd>Telescope persisted<cr>',
+      { desc = '[S]earch [C]ommands' })
 
     -- stops barbar from giving errors on session load
     vim.opt.sessionoptions:append 'globals'

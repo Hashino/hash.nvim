@@ -66,5 +66,11 @@ return { -- Simple status line in lua
 
       extensions = { 'nvim-tree', 'nvim-dap-ui' },
     }
+    -- makes the bar global
+    vim.api.nvim_create_autocmd('VimEnter', {
+      callback = function()
+        vim.opt.laststatus = 3
+      end,
+    })
   end,
 }

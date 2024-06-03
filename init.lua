@@ -13,25 +13,26 @@ require 'hash.keymaps' -- global keymaps.
 -- bootstrap package manager
 require 'init_lazy'
 
--- TODO:Padronize plugins configuration
+-- TODO: Padronize plugins configuration
 --  [-] keymaps
 
 -- each import loads all lua files inside the folder
 -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
 require('lazy').setup({
-  -- colorscheme
-  require 'hash.theme',
+    -- colorscheme
+    require 'hash.theme',
 
-  -- tree, barline, statusline, terminal, notifications, git info and keybinds
-  { import = 'hash.plugins.interface' },
+    -- tree, barline, statusline, terminal, notifications, git info and keybinds
+    { import = 'hash.plugins.interface' },
 
-  -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
-  { import = 'hash.plugins.formatting' },
+    -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
+    { import = 'hash.plugins.formatting' },
 
-  -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
-  { import = 'hash.plugins.utilities' },
+    -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
+    { import = 'hash.plugins.utilities' },
 
-  { import = 'hash.plugins.debugging' },
-}, { change_detection = { notify = false } })
-
--- vim: ts=2 sts=2 sw=2 et
+    { import = 'hash.plugins.debugging' },
+  },
+  {
+    change_detection = { notify = false }
+  })

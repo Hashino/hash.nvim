@@ -1,10 +1,7 @@
 return { -- File explorer "<leader>e" to toggle
   'nvim-tree/nvim-tree.lua',
   version = '*',
-  lazy = false,
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-  },
+  dependencies = { 'nvim-tree/nvim-web-devicons', },
   config = function()
     local api = require 'nvim-tree.api'
 
@@ -36,10 +33,14 @@ return { -- File explorer "<leader>e" to toggle
         api.config.mappings.default_on_attach(bufnr)
 
         -- custom mappings
-        vim.keymap.set('n', '<Enter>', api.tree.change_root_to_node, opts 'Change Directory')
-        vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent, opts 'Up a Directory')
-        vim.keymap.set('n', '<Left>', api.node.navigate.parent_close, opts 'Close Directory')
-        vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts 'Close Directory')
+        vim.keymap.set('n', '<Enter>', api.tree.change_root_to_node,
+          opts 'Change Directory')
+        vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent,
+          opts 'Up a Directory')
+        vim.keymap.set('n', '<Left>', api.node.navigate.parent_close,
+          opts 'Close Directory')
+        vim.keymap.set('n', 'h', api.node.navigate.parent_close,
+          opts 'Close Directory')
         vim.keymap.set('n', '<Right>', api.node.open.edit, opts 'Open')
         vim.keymap.set('n', 'l', api.node.open.edit, opts 'Open')
         vim.keymap.set('n', '?', api.tree.toggle_help, opts 'Help')
@@ -58,7 +59,7 @@ return { -- File explorer "<leader>e" to toggle
         },
       },
 
-      view = {
+      view = { -- configures floating
         float = {
           enable = true,
           open_win_config = function()
@@ -70,7 +71,7 @@ return { -- File explorer "<leader>e" to toggle
             local window_h_int = math.floor(window_h)
             local center_x = (screen_w - window_w) / 2
             local center_y = ((vim.opt.lines:get() - window_h) / 2)
-                - vim.opt.cmdheight:get()
+               - vim.opt.cmdheight:get()
             return {
               border = "rounded",
               relative = "editor",
@@ -86,13 +87,9 @@ return { -- File explorer "<leader>e" to toggle
         end,
       },
 
-      filters = {
-        git_ignored = false,
-      },
+      filters = { git_ignored = false, },
 
-      git = {
-        enable = true,
-      },
+      git = { enable = true, },
 
       renderer = {
         root_folder_label = false,
