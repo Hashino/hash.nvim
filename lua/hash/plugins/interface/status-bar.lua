@@ -66,5 +66,6 @@ return { -- Simple status line in lua
 
       extensions = { 'nvim-tree', 'nvim-dap-ui' },
     }
+    vim.opt.laststatus = 3
   end,
 }

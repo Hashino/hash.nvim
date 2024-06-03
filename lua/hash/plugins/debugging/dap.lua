@@ -7,17 +7,17 @@ return {
   },
   config = function()
     local dap = require 'dap'
-    local dapui = require 'dapui'
+    local dap_ui = require 'dapui'
     local dap_projects = require 'nvim-dap-projects'
 
     dap.listeners.before.attach.dapui_config = function()
-      dapui.open()
+      dap_ui.open()
     end
     dap.listeners.before.launch.dapui_config = function()
-      dapui.open()
+      dap_ui.open()
     end
     dap.listeners.before.event_terminated.dapui_config = function()
-      dapui.close()
+      dap_ui.close()
     end
 
     vim.fn.sign_define('DapStopped',
@@ -33,8 +33,8 @@ return {
 
     vim.keymap.set('n', '<C-F5>', function()
       dap.close()
-      dapui.close()
-    end, { desc = '[F5] Stop debuging' })
+      dap_ui.close()
+    end, { desc = '[Ctrl+F5] Stop debuging' })
 
     vim.keymap.set('n', '<F9>', dap.toggle_breakpoint,
       { desc = '[F9] Toggle breakpoint' })

@@ -13,7 +13,7 @@ require 'hash.keymaps' -- global keymaps.
 -- bootstrap package manager
 require 'init_lazy'
 
--- TODO:Padronize plugins configuration
+-- TODO: Padronize plugins configuration
 --  [-] keymaps
 
 -- each import loads all lua files inside the folder

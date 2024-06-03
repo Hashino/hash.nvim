@@ -12,8 +12,11 @@ return { -- Tabline with nvim-tree native support
         buffer_index = false,
       },
       no_name_title = '[New File]',
+
       sidebar_filetypes = {
-        Trouble = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
+        ['no-neck-pain'] = { event = 'BufWinLeave', text = '', align = 'left' },
+        -- ['no-neck-pain'] = { event = 'BufWinLeave', text = '', align = 'right' },
+        -- Trouble = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
         -- NvimTree = true
       }, -- filetypes that barbar will offset
     }

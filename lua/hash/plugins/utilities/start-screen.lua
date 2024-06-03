@@ -1,17 +1,20 @@
+-- helper function to simplify section declaration
 local function section(
-    type,
-    val, --[[optional]]
-    hl, --[[string]] --[[optional]]
-    spacing --[[integer]] --[[optional]]
+   type,
+   val, --[[optional]]
+   hl, --[[string]] --[[optional]]
+   spacing --[[integer]] --[[optional]]
 )
   return { type = type, val = val, opts = { position = 'center', hl = hl, spacing = spacing } }
 end
 
+-- gets buttons for previous sessions from persisted
 local function session_buttons()
   local buttons = {}
 
-  local sessions = io.popen('ls -pa --sort=time ' .. require('persisted.config').options.save_dir .. ' | grep -v /')
-      :lines()
+  local sessions = io.popen('ls -pa --sort=time ' ..
+       require('persisted.config').options.save_dir .. ' | grep -v /')
+     :lines()
   local i = 0
   for dir in sessions do
     local full_path = dir:gsub('%%', '/'):gsub('%.vim', '')
@@ -72,12 +75,12 @@ return {
       layout = {
         section('padding', 10),
         section('text', {
-          [[  _               _                  _]],
-          [[ | |             | |                (_)]],
-          [[ | |__   __ _ ___| |__    _ ____   ___ _ __ ___]],
-          [[ | '_ \ / _` / __| '_ \  | '_ \ \ / / | '_ ` _ \]],
-          [[ | | | | (_| \__ \ | | |_| | | \ V /| | | | | | |]],
-          [[ |_| |_|\__,_|___/_| |_(_)_| |_|\_/ |_|_| |_| |_|]],
+          [[  _               _                  _            ]],
+          [[ | |             | |                (_)           ]],
+          [[ | |__   __ _ ___| |__    _ ____   ___ _ __ ___   ]],
+          [[ | '_ \ / _` / __| '_ \  | '_ \ \ / / | '_ ` _ \  ]],
+          [[ | | | | (_| \__ \ | | |_| | | \ V /| | | | | | | ]],
+          [[ |_| |_|\__,_|___/_| |_(_)_| |_|\_/ |_|_| |_| |_| ]],
         }, '@function'),
         section('padding', 2),
         section('text', { 'Previous Sessions' }, 'Type'),
