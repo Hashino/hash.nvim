@@ -23,14 +23,17 @@ return {
     vim.keymap.set('n', '<C-s>', '<cmd>Telescope persisted<cr>',
       { desc = '[S]earch [C]ommands' })
 
+    local hook_group = vim.api.nvim_create_augroup('PersistedHooks', {})
+
     -- stops barbar from giving errors on session load
-    vim.opt.sessionoptions:append 'globals'
     vim.api.nvim_create_autocmd({ 'User' }, {
       pattern = 'PersistedSavePre',
-      group = vim.api.nvim_create_augroup('PersistedHooks', {}),
+      group = hook_group,
       callback = function()
         vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
       end,
     })
+
+    vim.opt.sessionoptions:append 'globals'
   end,
 }

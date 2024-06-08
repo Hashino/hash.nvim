@@ -8,60 +8,77 @@ local function section(
   return { type = type, val = val, opts = { position = 'center', hl = hl, spacing = spacing } }
 end
 
+--- @param keybind string
+--- @param txt string
+--- @param action function
+--- @param keybind_opts table? optional
+--- @param highlight string? optional
+local function button(keybind, txt, action, highlight, keybind_opts)
+  return {
+    type = "button",
+    val = '  ' .. txt,
+    on_press = action,
+    opts = {
+      hl = 'Normal',
+      position = "center",
+      width = 50,
+      cursor = 1,
+
+      keymap = {
+        'n',
+        keybind,
+        action,
+        keybind_opts or { noremap = true, silent = true, nowait = true }
+      },
+      shortcut = '[' .. keybind .. ']',
+      align_shortcut = "left",
+      hl_shortcut = "Keyword",
+    },
+  }
+end
+
 -- gets buttons for previous sessions from persisted
-local function session_buttons()
-  local buttons = {}
+local function sessions_section()
+  local sections = {}
 
   local sessions = io.popen('ls -pa --sort=time ' ..
-       require('persisted.config').options.save_dir .. ' | grep -v /')
-     :lines()
-  local i = 0
+    require('persisted.config').options.save_dir .. ' | grep -v /'):lines()
+
+  local i = 1
+
   for dir in sessions do
     local full_path = dir:gsub('%%', '/'):gsub('%.vim', '')
     local short_path = full_path:gsub(vim.fn.expand '$HOME', '~')
+
+    local shortcut = tostring(i)
+
+    if i > 9 then shortcut = '-' end
+
+    local load = function()
+      require('persisted').load(nil, full_path)
+    end
+
+    table.insert(sections, button(shortcut, short_path, load))
+
     i = i + 1
 
-    local n_to_display = ''
-
-    if i > 9 then
-      n_to_display = '-'
-    else
-      n_to_display = tostring(i)
-    end
-
     if i == 10 then
-      table.insert(buttons, section('padding', 1))
+      table.insert(sections, section('padding', 1))
     end
-
     if i == 20 then
-      return
+      break
     end
-
-    table.insert(buttons, {
-      type = 'button',
-      val = ' ' .. short_path,
-      on_press = function()
-        require('persisted').load(nil, full_path)
-      end,
-      opts = {
-        hl = 'Normal',
-        position = 'center',
-        shortcut = '[' .. n_to_display .. ']',
-        cursor = 1,
-        width = 50,
-        align_shortcut = 'left',
-        hl_shortcut = 'Keyword',
-        keymap = {
-          'n',
-          tostring(i),
-          function()
-            require('persisted').load(nil, full_path)
-          end,
-        },
-      },
-    })
   end
-  return buttons
+
+  if sections == {} then
+    sections = { section('text', 'No previous session found') }
+  end
+
+  return sections
+end
+
+local function new_file()
+  vim.cmd('ene')
 end
 
 return {
@@ -73,7 +90,7 @@ return {
   config = function()
     require('alpha').setup {
       layout = {
-        section('padding', 10),
+        section('padding', 7),
         section('text', {
           [[  _               _                  _            ]],
           [[ | |             | |                (_)           ]],
@@ -85,7 +102,11 @@ return {
         section('padding', 2),
         section('text', { 'Previous Sessions' }, 'Type'),
         section('padding', 1),
-        section('group', session_buttons(), nil, 0),
+        section('group', sessions_section(), nil, 0),
+        section('padding', 1),
+        section('text', { 'Commands' }, 'Type'),
+        section('padding', 1),
+        button("n", "  New File", new_file),
         section('padding', 2),
       },
       opts = {
