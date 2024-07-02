@@ -16,22 +16,27 @@ require 'init_lazy'
 -- TODO: Padronize plugins configuration
 --  [-] keymaps
 
--- each import loads all lua files inside the folder
--- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
 require('lazy').setup({
-    -- colorscheme
-    require 'hash.theme',
+    -- each import loads all lua files inside the folder
+    -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
+    spec = {
+      -- colorscheme
+      require 'hash.theme',
 
-    -- tree, barline, statusline, terminal, notifications, git info and keybinds
-    { import = 'hash.plugins.interface' },
+      -- tree, barline, statusline, terminal, notifications, git info and keybinds
+      { import = 'hash.plugins.interface' },
 
-    -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
-    { import = 'hash.plugins.formatting' },
+      -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
+      { import = 'hash.plugins.formatting' },
 
-    -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
-    { import = 'hash.plugins.utilities' },
+      -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
+      { import = 'hash.plugins.utilities' },
 
-    { import = 'hash.plugins.debugging' },
+      -- dap and dap-ui
+      { import = 'hash.plugins.debugging' },
+    },
+    -- colorscheme that will be used when installing plugins.
+    install = { colorscheme = { "onenord" } },
   },
   {
     change_detection = { notify = false }

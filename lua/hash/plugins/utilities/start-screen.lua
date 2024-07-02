@@ -37,37 +37,44 @@ local function button(keybind, txt, action, highlight, keybind_opts)
   }
 end
 
+vim.g.get_sessions = function()
+  local session_files = io.popen('ls -pa --sort=time ' ..
+    require('persisted.config').options.save_dir .. ' | grep -v /'):lines()
+
+  local sessions = {}
+
+  for s in session_files do
+    local full_path = s:gsub('%%', '/'):gsub('%.vim', '')
+    local short_path = full_path:gsub(vim.fn.expand '$HOME', '~')
+    table.insert(sessions, short_path)
+  end
+
+  return sessions
+end
+
 -- gets buttons for previous sessions from persisted
 local function sessions_section()
   local sections = {}
 
-  local sessions = io.popen('ls -pa --sort=time ' ..
-    require('persisted.config').options.save_dir .. ' | grep -v /'):lines()
-
-  local i = 1
-
-  for dir in sessions do
-    local full_path = dir:gsub('%%', '/'):gsub('%.vim', '')
-    local short_path = full_path:gsub(vim.fn.expand '$HOME', '~')
-
+  for i, s in ipairs(vim.g.get_sessions()) do
     local shortcut = tostring(i)
-
-    if i > 9 then shortcut = '-' end
-
-    local load = function()
-      require('persisted').load(nil, full_path)
-    end
-
-    table.insert(sections, button(shortcut, short_path, load))
-
-    i = i + 1
 
     if i == 10 then
       table.insert(sections, section('padding', 1))
     end
+
     if i == 20 then
       break
     end
+
+    if i > 9 then shortcut = '-' end
+
+    local load = function()
+      local full_path = s:gsub('~', vim.fn.expand '$HOME')
+      require('persisted').load(nil, full_path)
+    end
+
+    table.insert(sections, button(shortcut, s, load))
   end
 
   if sections == {} then

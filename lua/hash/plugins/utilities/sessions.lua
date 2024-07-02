@@ -1,7 +1,7 @@
 return {
   'olimorris/persisted.nvim',
   dependencies = { 'nvim-telescope/telescope.nvim' },
-  lazy = false, -- make sure the plugin is always loaded at startup
+  -- lazy = false, -- make sure the plugin is always loaded at startup
   config = function()
     require('persisted').setup {
       -- directory where session files are saved
@@ -19,9 +19,8 @@ return {
       end,
     }
 
-    require('telescope').load_extension 'persisted'
-    vim.keymap.set('n', '<C-s>', '<cmd>Telescope persisted<cr>',
-      { desc = '[S]earch [C]ommands' })
+    vim.keymap.set('n', '<C-s>', "<cmd>Telescope persisted<cr>",
+      { desc = '[S]ession Picker' })
 
     local hook_group = vim.api.nvim_create_augroup('PersistedHooks', {})
 
@@ -31,6 +30,18 @@ return {
       group = hook_group,
       callback = function()
         vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+      end,
+    })
+
+    vim.api.nvim_create_autocmd({ "User" }, {
+      pattern = "PersistedTelescopeLoadPre",
+      group = hook_group,
+      callback = function(session)
+        -- Save the currently loaded session using a global variable
+        require("persisted").save({ session = vim.g.persisted_loaded_session })
+
+        -- Delete all of the open buffers
+        vim.api.nvim_input("<ESC>:%bd!<CR>")
       end,
     })
 

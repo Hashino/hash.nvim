@@ -20,11 +20,14 @@ return { -- Tabline with nvim-tree native support
         -- NvimTree = true
       }, -- filetypes that barbar will offset
     }
+    local api = require 'barbar.api'
     -- nvimtree autosession workaround
-    -- vim.g.barbar_auto_setup = false
+    vim.g.barbar_auto_setup = false
     -- Buffer Navigation
-    vim.keymap.set('n', '<tab>', '<Cmd>BufferNext<CR>')
-    vim.keymap.set('n', '<S-tab>', '<Cmd>BufferPrevious<CR>')
+    -- TODO: use api instead
+    --
+    vim.keymap.set('n', '<tab>', function() api.goto_buffer_relative(1) end)
+    vim.keymap.set('n', '<S-tab>', function() api.goto_buffer_relative(-1) end)
     vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
     -- Goto buffer in position...

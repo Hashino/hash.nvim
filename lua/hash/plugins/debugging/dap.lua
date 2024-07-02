@@ -6,6 +6,8 @@ return {
     'ldelossa/nvim-dap-projects',
   },
   config = function()
+    require 'hash.plugins.debugging.adapters.gdb'
+
     local dap = require 'dap'
     local dap_ui = require 'dapui'
     local dap_projects = require 'nvim-dap-projects'
@@ -28,7 +30,7 @@ return {
     vim.keymap.set('n', '<F5>', function()
       require('nvim-tree.api').tree.close()
       dap_projects.search_project_config()
-      -- dap.continue()
+      dap.continue()
     end, { desc = '[F5] Start/Continue running' })
 
     vim.keymap.set('n', '<C-F5>', function()
@@ -72,41 +74,33 @@ return {
         current_frame = '',
         expanded = '',
       },
-      layouts = {
-        {
-          elements = {
-            {
-              id = 'scopes',
-              size = 0.25,
-            },
-            {
-              id = 'breakpoints',
-              size = 0.25,
-            },
-            {
-              id = 'stacks',
-              size = 0.25,
-            },
-            {
-              id = 'watches',
-              size = 0.25,
-            },
-          },
-          position = 'left',
-          size = 40,
-        },
-        {
-          elements = { {
-            id = 'repl',
-            size = 0.5,
-          }, {
-            id = 'console',
-            size = 0.5,
-          } },
-          position = 'bottom',
-          size = 10,
-        },
-      },
+      layouts = { {
+        elements = { {
+          id = "scopes",
+          size = 0.25
+        }, {
+          id = "breakpoints",
+          size = 0.25
+        }, {
+          id = "stacks",
+          size = 0.25
+        }, {
+          id = "watches",
+          size = 0.25
+        } },
+        position = "left",
+        size = 40
+      }, {
+        elements = { {
+          id = "repl",
+          size = 0.5
+        }, {
+          id = "console",
+          size = 0.5
+        } },
+        position = "bottom",
+        size = 10
+      } },
       mappings = {
         edit = 'e',
         expand = { '<CR>', '<2-LeftMouse>' },

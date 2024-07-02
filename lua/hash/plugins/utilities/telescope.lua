@@ -24,6 +24,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       ['<C- >'] = require('telescope.actions').toggle_selection,
       ['<C-j>'] = require('telescope.actions').preview_scrolling_down,
       ['<C-k>'] = require('telescope.actions').preview_scrolling_up,
+      ['<A-q>'] = require('telescope.actions').close,
     }
     require('telescope').setup {
       extensions = {
