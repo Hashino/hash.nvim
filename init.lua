@@ -17,27 +17,24 @@ require 'init_lazy'
 --  [-] keymaps
 
 require('lazy').setup({
-    -- each import loads all lua files inside the folder
-    -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
-    spec = {
-      -- colorscheme
-      require 'hash.theme',
+  -- each import loads all lua files inside the folder
+  -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
+  spec = {
+    -- colorscheme
+    require 'hash.theme',
 
-      -- tree, barline, statusline, terminal, notifications, git info and keybinds
-      { import = 'hash.plugins.interface' },
+    -- tree, barline, statusline, terminal, notifications, git info and keybinds
+    { import = 'hash.plugins.interface' },
 
-      -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
-      { import = 'hash.plugins.formatting' },
+    -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
+    { import = 'hash.plugins.formatting' },
 
-      -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
-      { import = 'hash.plugins.utilities' },
+    -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
+    { import = 'hash.plugins.utilities' },
 
-      -- dap and dap-ui
-      { import = 'hash.plugins.debugging' },
-    },
-    -- colorscheme that will be used when installing plugins.
-    install = { colorscheme = { "onenord" } },
+    -- dap and dap-ui
+    { import = 'hash.plugins.debugging' },
   },
-  {
-    change_detection = { notify = false }
-  })
+  -- colorscheme that will be used when installing plugins.
+  install = { colorscheme = { "onenord" } },
+}, {})

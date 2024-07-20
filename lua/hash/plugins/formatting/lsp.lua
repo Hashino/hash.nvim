@@ -14,13 +14,12 @@ return { -- LSP Configuration & Plugins
               defaultConfig = {
                 -- TODO: investigate why not working
                 indent_style = "space",
-                indent_size = "2",
+                indent_size = "4",
                 nax_line_length = "80",
               }
             },
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            diagnostics = {
-              globals = { 'vim', 'screen', 'awesome', 'root', 'client', 'tag' }
+            diagnostics = { globals = { 'vim', 'screen', 'awesome', 'root', 'client', 'tag' }
             },
           },
         },
@@ -29,7 +28,8 @@ return { -- LSP Configuration & Plugins
 
     vim.api.nvim_create_autocmd('LspAttach', {
 
-      group = vim.api.nvim_create_augroup('hash-lsp-attach', { clear = true }),
+      group = vim.api.nvim_create_augroup('hash-lsp-attach',
+        { clear = true }),
 
       --  This function gets run when an LSP attaches to a particular buffer.
       callback = function(event)
@@ -40,62 +40,66 @@ return { -- LSP Configuration & Plugins
 
         map_key('gd', require('telescope.builtin').lsp_definitions,
           '[G]oto [D]efinition')
-        map_key('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map_key('gD', vim.lsp.buf.declaration,
+          '[G]oto [D]eclaration')
         map_key('gr', require('telescope.builtin').lsp_references,
           '[G]oto [R]eferences')
         map_key('gI', require('telescope.builtin').lsp_implementations,
           '[G]oto [I]mplementation')
-        map_key('<leader>f', function() vim.lsp.buf.format({ async = true }) end,
+        map_key('<leader>f',
+          function() vim.lsp.buf.format({ async = true }) end,
           "[F]ormat buffer")
-        map_key('<leader>r', vim.lsp.buf.rename, '[R]e[n]ame')
+        map_key('<leader>r', vim.lsp.buf.rename,
+          '[R]e[n]ame')
         map_key('<leader>ws',
           require('telescope.builtin').lsp_dynamic_workspace_symbols,
           '[W]orkspace [S]ymbols')
+        map_key("<C-h>", vim.lsp.buf.signature_help,
+          "[H]elp")
 
-        local client = vim.lsp.get_client_by_id(
-          event.data.client_id)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
-          local highlight_augroup = vim.api
-             .nvim_create_augroup(
-               'hash-lsp-highlight', { clear = false })
+          local hl = vim.api.nvim_create_augroup('hash-lsp-hl', { clear = false })
 
           -- highlights variable mentions on cursor hover
-          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf
-               .document_highlight,
-          })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' },
+            {
+              buffer = event.buf,
+              group = hl,
+              callback = vim.lsp.buf.document_highlight,
+            })
 
           -- removes highlight once cursor moves
-          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf
-               .clear_references,
-          })
+          vim.api.nvim_create_autocmd(
+            { 'CursorMoved', 'CursorMovedI' }, {
+              buffer = event.buf,
+              group = hl,
+              callback = vim.lsp.buf.clear_references,
+            })
 
           -- removes highlights on lsp detach
-          vim.api.nvim_create_autocmd('LspDetach', {
-            group = vim.api.nvim_create_augroup('hash-lsp-detach',
-              { clear = true }),
+          vim.api.nvim_create_autocmd('LspDetach',
+            {
+              group = vim.api.nvim_create_augroup(
+                'hash-lsp-detach',
+                { clear = true }),
 
-            callback = function(event2)
-              vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds
-              { group = 'hash-lsp-highlight', buffer = event2.buf }
-            end,
-          })
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds
+                { group = 'hash-lsp-hl', buffer = event2.buf }
+              end,
+            })
         end
 
-        -- if client
-        --    and client.server_capabilities.inlayHintProvider
-        --    and vim.lsp.inlay_hint then
-        --   map_key('<leader>th', function()
-        --     vim.lsp.inlay_hint.enable(not vim.lsp
-        --       .inlay_hint.is_enabled {})
-        --   end, '[T]oggle Inlay [H]ints')
-        -- end
+        if client
+           and client.server_capabilities.inlayHintProvider
+           and vim.lsp.inlay_hint then
+          map_key('<leader>th',
+            function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
+            end, '[T]oggle Inlay [H]ints')
+        end
       end,
     })
 

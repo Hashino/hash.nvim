@@ -14,14 +14,12 @@ return { -- incline and doing
   {
     'b0o/incline.nvim',
     dependencies = {
-      'rmehri01/onenord.nvim',
       {
         'hashino/doing.nvim',
         branch = 'idk',
         opts = {},
         config = function()
           require('doing').setup {
-            -- default options
             message_timeout = 2000,
             doing_prefix = 'Doing: ',
 
@@ -42,11 +40,7 @@ return { -- incline and doing
         end,
       }
     },
-    -- lazy = false,
     config = function()
-      -- local colors = require("onenord.colors").load()
-      -- local bg_color = colors.blue
-
       require('incline').setup {
         window = {
           placement = {
@@ -66,7 +60,6 @@ return { -- incline and doing
         render = function()
           return {
             doing()
-            -- { doing(), guifg = '#001122' }, guibg = bg_color,
           }
         end,
       }

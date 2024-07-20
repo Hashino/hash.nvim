@@ -61,12 +61,10 @@ return { -- Simple status line in lua
       sections = lualine_sections,
       inactive_sections = lualine_sections,
 
-      -- winbar = { lualine_a = { doing } },
-      -- winbar = { lualine_c = { function() return ' ' end } },
+      winbar = { lualine_a = { doing } },
 
       extensions = { 'nvim-tree', 'nvim-dap-ui' },
     }
-    -- makes the bar global
     vim.api.nvim_create_autocmd('VimEnter', {
       callback = function()
         vim.opt.laststatus = 3
