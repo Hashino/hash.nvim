@@ -33,29 +33,21 @@ return { -- LSP Configuration & Plugins
 
       --  This function gets run when an LSP attaches to a particular buffer.
       callback = function(event)
-        local map_key = function(keys, func, desc)
-          vim.keymap.set('n', keys, func,
-            { buffer = event.buf, desc = 'LSP: ' .. desc })
-        end
-
-        map_key('gd', require('telescope.builtin').lsp_definitions,
-          '[G]oto [D]efinition')
-        map_key('gD', vim.lsp.buf.declaration,
-          '[G]oto [D]eclaration')
-        map_key('gr', require('telescope.builtin').lsp_references,
-          '[G]oto [R]eferences')
-        map_key('gI', require('telescope.builtin').lsp_implementations,
-          '[G]oto [I]mplementation')
-        map_key('<leader>f',
-          function() vim.lsp.buf.format({ async = true }) end,
-          "[F]ormat buffer")
-        map_key('<leader>r', vim.lsp.buf.rename,
-          '[R]e[n]ame')
-        map_key('<leader>ws',
-          require('telescope.builtin').lsp_dynamic_workspace_symbols,
-          '[W]orkspace [S]ymbols')
-        map_key("<C-h>", vim.lsp.buf.signature_help,
-          "[H]elp")
+        vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions,
+          { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition' })
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+          { buffer = event.buf, desc = 'LSP: [G]oto [D]eclaration' })
+        vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references,
+          { buffer = event.buf, desc = 'LSP: [G]oto [R]eferences' })
+        vim.keymap.set('n', 'gI',
+          require('telescope.builtin').lsp_implementations,
+          { buffer = event.buf, desc = 'LSP: [G]oto [I]mplementation' })
+        vim.keymap.set('n', '<leader>f', vim.lsp.buf.format,
+          { buffer = event.buf, desc = 'LSP: [F]ormat buffer' })
+        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename,
+          { buffer = event.buf, desc = 'LSP: [R]e[n]ame' })
+        vim.keymap.set('n', "<C-h>", vim.lsp.buf.signature_help,
+          { buffer = event.buf, desc = 'LSP: [H]elp' })
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
@@ -84,49 +76,33 @@ return { -- LSP Configuration & Plugins
                 'hash-lsp-detach',
                 { clear = true }),
 
-              callback = function(event2)
+              callback = function(e)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds
-                { group = 'hash-lsp-hl', buffer = event2.buf }
+                { group = 'hash-lsp-hl', buffer = e.buf }
               end,
             })
-        end
-
-        if client
-           and client.server_capabilities.inlayHintProvider
-           and vim.lsp.inlay_hint then
-          map_key('<leader>th',
-            function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
-            end, '[T]oggle Inlay [H]ints')
         end
       end,
     })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-    capabilities = vim.tbl_deep_extend('force', capabilities,
+    local capabilities = vim.tbl_deep_extend('force',
+      vim.lsp.protocol.make_client_capabilities(),
       require('cmp_nvim_lsp').default_capabilities())
 
     require('mason').setup()
-
     -- Install all servers before configuring them
-    require('mason-tool-installer').setup {
-      ensure_installed = vim.tbl_keys(servers or {})
-    }
+    require('mason-tool-installer').setup { ensure_installed = vim.tbl_keys(servers or {}) }
 
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
-
-          -- overrides only values explicitly passed
-          -- by the server configuration above.
+          -- overrides only values explicitly passed by the server configuration above.
           server.capabilities = vim
              .tbl_deep_extend('force', {},
                capabilities,
                server.capabilities or {})
-
           require('lspconfig')[server_name].setup(server)
         end,
       },

@@ -13,9 +13,6 @@ require 'hash.keymaps' -- global keymaps.
 -- bootstrap package manager
 require 'init_lazy'
 
--- TODO: Padronize plugins configuration
---  [-] keymaps
-
 require('lazy').setup({
   -- each import loads all lua files inside the folder
   -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
@@ -37,4 +34,10 @@ require('lazy').setup({
   },
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "onenord" } },
+
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = true,
+    notify = false, -- get a notification when changes are found
+  },
 }, {})

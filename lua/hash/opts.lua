@@ -93,6 +93,6 @@ vim.g.neovide_floating_blur_amount_x = 0.0
 vim.g.neovide_floating_blur_amount_y = 0.0
 
 if vim.g.neovide then
-  vim.api.nvim_set_keymap('i', '<sc-v>', '<ESC>"+pli', { noremap = true })
-  vim.api.nvim_set_keymap('c', '<sc-v>', '<C-R>+', { noremap = true })
+  vim.keymap.set('i', '<sc-v>', '<ESC>"+pli')
+  vim.keymap.set('c', '<sc-v>', '<C-R>+')
 end

@@ -15,48 +15,27 @@ return { -- Tabline with nvim-tree native support
 
       sidebar_filetypes = {
         ['no-neck-pain'] = { event = 'BufWinLeave', text = '', align = 'left' },
-        -- ['no-neck-pain'] = { event = 'BufWinLeave', text = '', align = 'right' },
-        -- Trouble = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
-        -- NvimTree = true
       }, -- filetypes that barbar will offset
     }
-    local api = require 'barbar.api'
     -- nvimtree autosession workaround
     vim.g.barbar_auto_setup = false
+
+    local api = require 'barbar.api'
+    local bbye = require 'barbar.bbye'
+
     -- Buffer Navigation
-    -- TODO: use api instead
-    --
     vim.keymap.set('n', '<tab>', function() api.goto_buffer_relative(1) end)
     vim.keymap.set('n', '<S-tab>', function() api.goto_buffer_relative(-1) end)
-    vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
-    -- Goto buffer in position...
-    vim.api.nvim_set_keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-3>', '<Cmd>BufferGoto 3<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-4>', '<Cmd>BufferGoto 4<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-5>', '<Cmd>BufferGoto 5<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-6>', '<Cmd>BufferGoto 6<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-7>', '<Cmd>BufferGoto 7<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-8>', '<Cmd>BufferGoto 8<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-9>', '<Cmd>BufferGoto 9<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<A-0>', '<Cmd>BufferLast<CR>',
-      { noremap = true, silent = true })
-    -- Pin/unpin buffer
-    vim.api.nvim_set_keymap('n', '<A-p>', '<Cmd>BufferPin<CR>',
-      { noremap = true, silent = true })
+    -- Goto buffer in position 1 to 9
+    for i = 1, 9, 1 do
+      local curr = tostring(i)
+      vim.keymap.set('n', '<A-' .. curr .. '>', function() api.goto_buffer(i) end)
+    end
+
     -- Close buffer
-    vim.api.nvim_set_keymap('n', '<A-S-c>', '<Cmd>BufferCloseAllButCurrent<CR>',
-      { noremap = true, silent = true })
+    vim.keymap.set('n', '<A-c>', bbye.bdelete)
+    vim.keymap.set('n', '<A-S-c>', api.close_all_but_current)
   end,
   version = '^1.0.0', -- optional: only update when a new 1.x version is released
 }

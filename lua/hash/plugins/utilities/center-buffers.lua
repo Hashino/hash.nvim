@@ -17,16 +17,9 @@ return {
           -- skipEnteringNoNeckPainBuffer = true,
         },
 
-        mappings = {
-          enabled = true,
-          toggle = "<Leader>nnp",
-          toggleLeftSide = "<Leader>npl",
-          toggleRightSide = "<Leader>npr",
-          widthUp = "<Leader>n=",
-          widthDown = "<Leader>n-",
-          scratchPad = "<Leader>ns",
-        },
+        mappings = { enabled = false, },
       })
+      -- vim.keymap.set('n', '<leader>nnp', require 'no-neck-pain'.toggle, { desc = "Toggle [N]o[N]eck[P]ain" })
     end
   },
   {

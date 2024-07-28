@@ -57,11 +57,7 @@ return { -- incline and doing
             winbar = true
           },
         },
-        render = function()
-          return {
-            doing()
-          }
-        end,
+        render = doing,
       }
     end
   }
