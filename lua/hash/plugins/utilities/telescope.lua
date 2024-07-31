@@ -22,6 +22,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       ['<Tab>'] = require('telescope.actions').move_selection_next,
       ['<S-Tab>'] = require('telescope.actions').move_selection_previous,
       ['<C- >'] = require('telescope.actions').toggle_selection,
+      ['<C-a>'] = require('telescope.actions').git_staging_toggle,
       ['<C-j>'] = require('telescope.actions').preview_scrolling_down,
       ['<C-k>'] = require('telescope.actions').preview_scrolling_up,
       ['<A-q>'] = require('telescope.actions').close,
@@ -41,6 +42,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
           i = mappings,
         },
       },
+      pickers = {
+        git_status = {
+          mappings = {
+            n = {
+              ['<Tab>'] = require('telescope.actions').move_selection_next,
+              ['<S-Tab>'] = require('telescope.actions').move_selection_previous,
+              ['<C-a>'] = require('telescope.actions').git_staging_toggle,
+            }
+          }
+        }
+      }
     }
     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
