@@ -5,27 +5,16 @@ return { -- LSP Configuration & Plugins
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       clangd = {},
       rust_analyzer = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            format = {
-              enable = true,
-              -- NOTE: values should be strings
-              defaultConfig = {
-                -- TODO: investigate why not working
-                indent_style = "space",
-                indent_size = "4",
-                nax_line_length = "80",
-              }
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            diagnostics = { globals = { 'vim', 'screen', 'awesome', 'root', 'client', 'tag' }
-            },
-          },
-        },
-      },
+      lua_ls = {},
     }
-
+    vim.fn.sign_define('DiagnosticSignError',
+      { text = '', texthl = 'DiagnosticSignError' })
+    vim.fn.sign_define('DiagnosticSignWarn',
+      { text = '', texthl = 'DiagnosticSignWarn' })
+    vim.fn.sign_define('DiagnosticSignInfo',
+      { text = '', texthl = 'DiagnosticSignInfo' })
+    vim.fn.sign_define('DiagnosticSignHint',
+      { text = '', texthl = 'DiagnosticSignHint' })
     vim.api.nvim_create_autocmd('LspAttach', {
 
       group = vim.api.nvim_create_augroup('hash-lsp-attach',
@@ -45,7 +34,7 @@ return { -- LSP Configuration & Plugins
         vim.keymap.set('n', '<leader>f', vim.lsp.buf.format,
           { buffer = event.buf, desc = 'LSP: [F]ormat buffer' })
         vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename,
-          { buffer = event.buf, desc = 'LSP: [R]e[n]ame' })
+          { buffer = event.buf, desc = 'LSP: [R]ename' })
         vim.keymap.set('n', "<C-h>", vim.lsp.buf.signature_help,
           { buffer = event.buf, desc = 'LSP: [H]elp' })
 
