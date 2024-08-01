@@ -12,15 +12,9 @@ return {
     local dap_ui = require 'dapui'
     local dap_projects = require 'nvim-dap-projects'
 
-    dap.listeners.before.attach.dapui_config = function()
-      dap_ui.open()
-    end
-    dap.listeners.before.launch.dapui_config = function()
-      dap_ui.open()
-    end
-    dap.listeners.before.event_terminated.dapui_config = function()
-      dap_ui.close()
-    end
+    dap.listeners.before.attach.dapui_config = function() dap_ui.open() end
+    dap.listeners.before.launch.dapui_config = function() dap_ui.open() end
+    dap.listeners.before.event_terminated.dapui_config = function() dap_ui.close() end
 
     vim.fn.sign_define('DapStopped',
       { text = '', texthl = 'String', linehl = '', numhl = '' })
