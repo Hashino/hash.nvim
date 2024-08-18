@@ -1,4 +1,4 @@
-return {           -- Theme
+return { -- Theme
   'rmehri01/onenord.nvim',
   priority = 1000, -- Make sure to load this before all the other start plugins.
   init = function()
@@ -27,9 +27,9 @@ return {           -- Theme
         none         = 'NONE',
       },
       custom_highlights = {
-        ["GitBlame"] = { fg = "#646a76", bg = "#353B49", italic = true, underline = true }, -- only applies in light theme
+        ["GitBlame"] = { fg = "#646a76", bg = "#353B49", style = 'italic'}, -- only applies in light theme
       },
     }
-    vim.cmd.colorscheme 'onenord' -- Load the colorscheme here.
+    vim.cmd.colorscheme('onenord') -- Load the colorscheme here.
   end,
 }

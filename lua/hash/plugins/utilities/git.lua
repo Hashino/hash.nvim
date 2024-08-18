@@ -7,7 +7,7 @@ return {
         change = { text = '~' },
         delete = { text = '_' },
         topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        changedelete = { text = '≁' },
       },
     },
   },
@@ -16,13 +16,13 @@ return {
     -- load the plugin at startup
     event = "VeryLazy",
     -- Because of the keys part, you will be lazy loading this plugin.
-    -- The plugin wil only load once one of the keys is used.
+    -- The plugin will only load once one of the keys is used.
     -- If you want to load the plugin at startup, add something like event = "VeryLazy",
     -- or lazy = false. One of both options will work.
     opts = {
       enabled = true,
       message_when_not_committed = "",
-      message_template = "[<date>] by [<author>] - <summary> |<sha>|",
+      message_template = "   <date> by [<author>] - <summary> |<sha>|",
       date_format = "%b %d, %Y at %H:%M",
       virtual_text_column = 1,
       highlight_group = "GitBlame",
@@ -35,6 +35,8 @@ return {
         { desc = '[G]it [S]tatus' })
       vim.keymap.set('n', '<leader>gc', '<cmd>Git commit<CR>',
         { desc = '[G]it [C]ommit' })
+      vim.keymap.set('n', '<leader>gp', '<cmd>Git push<CR>',
+        { desc = '[G]it [P]ush' })
     end
   }
 }

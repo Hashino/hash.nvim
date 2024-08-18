@@ -14,8 +14,11 @@ return {
               },
             },
           },
-        }
+        },
       }
+
+      require'lspconfig'.gleam.setup{}
+
       vim.fn.sign_define('DiagnosticSignError',
         { text = '', texthl = 'DiagnosticSignError' })
       vim.fn.sign_define('DiagnosticSignWarn',
@@ -42,43 +45,8 @@ return {
             { buffer = event.buf, desc = 'LSP: [F]ormat buffer' })
           vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename,
             { buffer = event.buf, desc = 'LSP: [R]ename' })
-          vim.keymap.set('n', "<C-h>", vim.lsp.buf.signature_help,
+          vim.keymap.set('n', "<leader>h", vim.lsp.buf.signature_help,
             { buffer = event.buf, desc = 'LSP: [H]elp' })
-
-          -- local client = vim.lsp.get_client_by_id(event.data.client_id)
-          -- if client and client.server_capabilities.documentHighlightProvider then
-          --   local hl = vim.api.nvim_create_augroup('hash-lsp-hl', { clear = false })
-          --
-          --   -- highlights variable mentions on cursor hover
-          --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' },
-          --     {
-          --       buffer = event.buf,
-          --       group = hl,
-          --       callback = vim.lsp.buf.document_highlight,
-          --     })
-          --
-          --   -- removes highlight once cursor moves
-          --   vim.api.nvim_create_autocmd(
-          --     { 'CursorMoved', 'CursorMovedI' }, {
-          --       buffer = event.buf,
-          --       group = hl,
-          --       callback = vim.lsp.buf.clear_references,
-          --     })
-          --
-          --   -- removes highlights on lsp detach
-          --   vim.api.nvim_create_autocmd('LspDetach',
-          --     {
-          --       group = vim.api.nvim_create_augroup(
-          --         'hash-lsp-detach',
-          --         { clear = true }),
-          --
-          --       callback = function(e)
-          --         vim.lsp.buf.clear_references()
-          --         vim.api.nvim_clear_autocmds
-          --         { group = 'hash-lsp-hl', buffer = e.buf }
-          --       end,
-          --     })
-          -- end
         end,
       })
 
@@ -117,14 +85,12 @@ return {
   -- show notifications in bottom right corner
   { "j-hui/fidget.nvim", opts = {}, },
 
-
   { -- used for completion, annotations and signatures of Neovim apis
     'ray-x/lsp_signature.nvim',
     event = 'VeryLazy',
     opts = {},
     config = function()
-      require('lsp_signature')
-         .setup { hint_prefix = '> ', }
+      require('lsp_signature').setup { hint_enable = false, }
     end,
   },
 

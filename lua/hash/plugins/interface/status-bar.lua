@@ -40,8 +40,6 @@ return { -- Simple status line in lua
   lazy = false,
   dependencies = { 'nvim-tree/nvim-web-devicons', 'folke/trouble.nvim' },
   init = function()
-    -- local troublev3 = { sections = { lualine_a = { 'Trouble' } }, filetypes = { 'trouble' } }
-
     local lualine_sections = {
       lualine_a = { 'mode' },
       lualine_b = { git_repo, 'diff' },

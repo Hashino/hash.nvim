@@ -8,12 +8,11 @@ local function section(
   return { type = type, val = val, opts = { position = 'center', hl = hl, spacing = spacing } }
 end
 
---- @param keybind string
---- @param txt string
---- @param action function
+--- @param keybind string the keybind of the button
 --- @param keybind_opts table? optional
---- @param highlight string? optional
-local function button(keybind, txt, action, highlight, keybind_opts)
+--- @param txt string the text of the button
+--- @param action function function to be executed when button pressed
+local function button(keybind, txt, action, keybind_opts)
   return {
     type = "button",
     val = '  ' .. txt,
@@ -32,14 +31,14 @@ local function button(keybind, txt, action, highlight, keybind_opts)
       },
       shortcut = '[' .. keybind .. ']',
       align_shortcut = "left",
-      hl_shortcut = "Keyword",
+      hl_shortcut = "@symbol",
     },
   }
 end
 
 vim.g.get_sessions = function()
   local session_files = io.popen('ls -pa --sort=time ' ..
-    require('persisted.config').options.save_dir .. ' | grep -v /'):lines()
+    require('persisted.config').save_dir .. ' | grep -v /'):lines()
 
   local sessions = {}
 
@@ -71,7 +70,9 @@ local function sessions_section()
 
     local load = function()
       local full_path = s:gsub('~', vim.fn.expand '$HOME')
-      require('persisted').load(nil, full_path)
+      print(full_path)
+      vim.fn.chdir(full_path)
+      require('persisted').load()
     end
 
     table.insert(sections, button(shortcut, s, load))

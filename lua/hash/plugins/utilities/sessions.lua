@@ -24,24 +24,33 @@ return {
 
     local hook_group = vim.api.nvim_create_augroup('PersistedHooks', {})
 
-    -- stops barbar from giving errors on session load
-    vim.api.nvim_create_autocmd({ 'User' }, {
-      pattern = 'PersistedSavePre',
-      group = hook_group,
-      callback = function()
-        vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-      end,
-    })
+    -- -- stops barbar from giving errors on session load
+    -- vim.api.nvim_create_autocmd({ 'User' }, {
+    --   pattern = 'PersistedSavePre',
+    --   group = hook_group,
+    --   callback = function()
+    --     vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+    --   end,
+    -- })
 
     vim.api.nvim_create_autocmd({ "User" }, {
       pattern = "PersistedTelescopeLoadPre",
       group = hook_group,
-      callback = function(session)
+      callback = function()
         -- Save the currently loaded session using a global variable
         require("persisted").save({ session = vim.g.persisted_loaded_session })
 
         -- Delete all of the open buffers
         vim.api.nvim_input("<ESC>:%bd!<CR>")
+        require("no-neck-pain").disable()
+      end,
+    })
+
+    vim.api.nvim_create_autocmd({ "User" }, {
+      pattern = "PersistedTelescopeLoadPost",
+      group = hook_group,
+      callback = function()
+        require("no-neck-pain").enable()
       end,
     })
 

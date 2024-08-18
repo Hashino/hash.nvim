@@ -11,3 +11,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>',
 
 -- :q Shortcut
 vim.keymap.set('n', '<A-q>', '<Cmd>q<CR>', { desc = 'quick quit' })
+
+vim.keymap.set('n', '<leader>as', 'f=lC ',
+  { desc = 'assign new value to variable' }) -- edit variable value

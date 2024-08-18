@@ -33,7 +33,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           require('telescope.themes').get_dropdown(),
         },
         persisted = {
-          layout_config = { width = 0.35, height = 0.55 },
+          layout_config = { width = 0.5, height = 0.7 },
         },
       },
       defaults = {
@@ -62,8 +62,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader> ', builtin.commands,
       { desc = '[S]earch [C]ommands' })
-    vim.keymap.set('n', '<leader>sh', builtin.help_tags,
-      { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps,
       { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>sf', builtin.find_files,
@@ -76,5 +74,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
       { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sr', builtin.resume,
       { desc = '[S]earch [R]esume' })
+
+    vim.keymap.set('n', '<leader>sh', builtin.help_tags,
+      { desc = '[S]earch [H]elp' })
+    vim.keymap.set('n', '<leader>sm', builtin.man_pages,
+      { desc = '[S]earch [M]anuals' })
   end,
 }
