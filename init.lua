@@ -22,6 +22,7 @@ require('lazy').setup({
     { import = 'hash.plugins.interface' },
 
     { import = 'hash.plugins.formatting' },
+    { import = 'hash.plugins.formatting.lsp' },
 
     { import = 'hash.plugins.utilities' },
 
