@@ -5,25 +5,15 @@ return { -- File explorer "<leader>e" to toggle
   config = function()
     local api = require 'nvim-tree.api'
 
-    local HEIGHT_RATIO = 0.8 -- You can change this
-    local WIDTH_RATIO = 0.5  -- You can change this too
-
-    -- Restores NvimTree on session load
-    vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-      pattern = 'NvimTree*',
-      callback = function()
-        local view = require 'nvim-tree.view'
-
-        if not view.is_visible() then
-          api.tree.open()
-        end
-
-        pcall(vim.api.nvim_command, 'doautocmd User SessionLoaded')
-      end,
-    })
+    -- ratios of the floating window
+    local HEIGHT_RATIO = 0.8
+    local WIDTH_RATIO = 0.5
 
     require('nvim-tree').setup {
 
+      vim.keymap.set('n', '<leader>e', api.tree.toggle, { desc = 'Open/Close File [E]xplorer' }),
+
+      -- mappings inside nvim-tree
       on_attach = function(bufnr)
         local function opts(desc)
           return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -31,33 +21,22 @@ return { -- File explorer "<leader>e" to toggle
 
         -- default mappings
         api.config.mappings.default_on_attach(bufnr)
-
         -- custom mappings
-        vim.keymap.set('n', '<Enter>', api.tree.change_root_to_node,
-          opts 'Change Directory')
-        vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent,
-          opts 'Up a Directory')
-        vim.keymap.set('n', '<Left>', api.node.navigate.parent_close,
-          opts 'Close Directory')
-        vim.keymap.set('n', 'h', api.node.navigate.parent_close,
-          opts 'Close Directory')
+        vim.keymap.set('n', '<Enter>', api.tree.change_root_to_node, opts 'Change Directory')
+        vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent, opts 'Up a Directory')
+        vim.keymap.set('n', '<Left>', api.node.navigate.parent_close, opts 'Close Directory')
+        vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts 'Close Directory')
         vim.keymap.set('n', '<Right>', api.node.open.edit, opts 'Open')
         vim.keymap.set('n', 'l', api.node.open.edit, opts 'Open')
         vim.keymap.set('n', '?', api.tree.toggle_help, opts 'Help')
       end,
 
-      vim.keymap.set('n', '<leader>e', api.tree.toggle, { desc = 'Open/Close File [E]xplorer' }),
-
-      diagnostics = {
-        enable = true,
-      },
+      diagnostics = { enable = true, },
 
       sync_root_with_cwd = true,
-      actions = {
-        change_dir = {
-          global = true,
-        },
-      },
+      actions = { change_dir = { global = true, }, },
+      filters = { git_ignored = false, },
+      git = { enable = true, },
 
       view = { -- configures floating
         float = {
@@ -86,10 +65,6 @@ return { -- File explorer "<leader>e" to toggle
           return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
         end,
       },
-
-      filters = { git_ignored = false, },
-
-      git = { enable = true, },
 
       renderer = {
         root_folder_label = false,

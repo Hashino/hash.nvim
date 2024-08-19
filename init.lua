@@ -17,27 +17,21 @@ require('lazy').setup({
   -- each import loads all lua files inside the folder
   -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
   spec = {
-    -- colorscheme
     require 'hash.theme',
 
-    -- tree, barline, statusline, terminal, notifications, git info and keybinds
     { import = 'hash.plugins.interface' },
 
-    -- auto format, auto pairs, toggle comment, hilight todo, hilight scope, ts/lsp
     { import = 'hash.plugins.formatting' },
 
-    -- auto save, fuzzy finder, diagnostics, auto detect tabstop and shiftwidht
     { import = 'hash.plugins.utilities' },
 
-    -- dap and dap-ui
     { import = 'hash.plugins.debugging' },
   },
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "onenord" } },
 
   change_detection = {
-    -- automatically check for config file changes and reload the ui
-    enabled = true,
+    enabled = true, -- automatically check for config file changes and reload the ui
     notify = false, -- get a notification when changes are found
   },
 }, {})

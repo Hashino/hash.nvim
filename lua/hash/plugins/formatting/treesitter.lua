@@ -13,11 +13,8 @@ return { -- Highlight, edit, and navigate code
       'llvm',
       'gleam',
     },
-    highlight = {
-      enable = true
-    },
-    -- Autoinstall languages that are not installed
-    auto_install = true,
+    highlight = { enable = true },
+    auto_install = true, -- Autoinstall languages that are not installed
   },
   config = function(_, opts)
     -- Prefer git instead of curl in order to improve connectivity in some environments

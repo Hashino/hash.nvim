@@ -27,7 +27,7 @@ return { -- Theme
         none         = 'NONE',
       },
       custom_highlights = {
-        ["GitBlame"] = { fg = "#646a76", bg = "#353B49", style = 'italic'}, -- only applies in light theme
+        ["GitBlame"] = { fg = "#646a76", bg = "#353B49", style = 'italic'},
       },
     }
     vim.cmd.colorscheme('onenord') -- Load the colorscheme here.
