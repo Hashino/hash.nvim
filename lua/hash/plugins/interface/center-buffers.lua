@@ -9,7 +9,7 @@ return {
 
         -- minSideBufferWidth = 0,
         disableOnLastBuffer = false,
-        killAllBuffersOnDisable = false,
+        killAllBuffersOnDisable = true,
 
         autocmds = {
           enableOnVimEnter = true,
@@ -18,7 +18,7 @@ return {
 
         mappings = { enabled = false, },
       })
-      vim.keymap.set('n', '<leader>np', require'no-neck-pain'.toggle, { desc = "Toggle [N]oNeck[P]ain" })
+      vim.keymap.set('n', '<leader>n', require'no-neck-pain'.toggle, { desc = "Toggle [N]oNeck[P]ain" })
     end
   },
   {

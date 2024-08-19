@@ -1,6 +1,6 @@
 return {
   'olimorris/persisted.nvim',
-  dependencies = { 'nvim-telescope/telescope.nvim' },
+  dependencies = { 'nvim-telescope/telescope.nvim', 'shortcuts/no-neck-pain.nvim' },
   -- lazy = false, -- make sure the plugin is always loaded at startup
   config = function()
     require('persisted').setup {
@@ -19,41 +19,31 @@ return {
       end,
     }
 
-    vim.keymap.set('n', '<C-s>', "<cmd>Telescope persisted<cr>",
-      { desc = '[S]ession Picker' })
-
     local hook_group = vim.api.nvim_create_augroup('PersistedHooks', {})
 
-    -- -- stops barbar from giving errors on session load
-    -- vim.api.nvim_create_autocmd({ 'User' }, {
-    --   pattern = 'PersistedSavePre',
-    --   group = hook_group,
-    --   callback = function()
-    --     vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-    --   end,
-    -- })
-
-    vim.api.nvim_create_autocmd({ "User" }, {
-      pattern = "PersistedTelescopeLoadPre",
+    -- stops barbar from giving errors on session load
+    vim.api.nvim_create_autocmd({ 'User' }, {
+      pattern = 'PersistedSavePre',
       group = hook_group,
       callback = function()
-        -- Save the currently loaded session using a global variable
-        require("persisted").save({ session = vim.g.persisted_loaded_session })
+        vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+      end,
+    })
 
-        -- Delete all of the open buffers
-        vim.api.nvim_input("<ESC>:%bd!<CR>")
+    vim.api.nvim_create_autocmd({ 'User' }, {
+      pattern = 'PersistedSavePre',
+      group = hook_group,
+      callback = function()
         require("no-neck-pain").disable()
       end,
     })
-
-    vim.api.nvim_create_autocmd({ "User" }, {
-      pattern = "PersistedTelescopeLoadPost",
+    vim.api.nvim_create_autocmd({ 'User' }, {
+      pattern = 'PersistedLoadPost',
       group = hook_group,
       callback = function()
+        --re enables the centering of buffers
         require("no-neck-pain").enable()
       end,
     })
-
-    vim.opt.sessionoptions:append 'globals'
   end,
 }
