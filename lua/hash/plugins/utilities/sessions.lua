@@ -1,7 +1,6 @@
 return {
   'olimorris/persisted.nvim',
-  dependencies = { 'nvim-telescope/telescope.nvim', 'shortcuts/no-neck-pain.nvim' },
-  -- lazy = false, -- make sure the plugin is always loaded at startup
+  lazy = false, -- make sure the plugin is always loaded at startup
   config = function()
     require('persisted').setup {
       -- directory where session files are saved
@@ -19,30 +18,17 @@ return {
       end,
     }
 
-    local hook_group = vim.api.nvim_create_augroup('PersistedHooks', {})
-
-    -- stops barbar from giving errors on session load
+    -- fixes weird behaviours of no-neck-pain scratch buffers on save/load
     vim.api.nvim_create_autocmd({ 'User' }, {
       pattern = 'PersistedSavePre',
-      group = hook_group,
       callback = function()
-        vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-      end,
-    })
-
-    vim.api.nvim_create_autocmd({ 'User' }, {
-      pattern = 'PersistedSavePre',
-      group = hook_group,
-      callback = function()
-        require("no-neck-pain").disable()
+        pcall(require("no-neck-pain").disable)
       end,
     })
     vim.api.nvim_create_autocmd({ 'User' }, {
       pattern = 'PersistedLoadPost',
-      group = hook_group,
       callback = function()
-        --re enables the centering of buffers
-        require("no-neck-pain").enable()
+        pcall(require("no-neck-pain").enable)
       end,
     })
   end,

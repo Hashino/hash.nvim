@@ -77,14 +77,12 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.textwidth = 80
 
+-- session options
+vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
+
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0.0
-
 vim.o.guifont = 'UbuntuMono Nerd Font:h16'
-
--- global status line
--- vim.opt.laststatus = 3
--- vim.opt.guicursor = { 'n:blinkwait700-blinkoff400-blinkon250' }
 
 vim.g.neovide_transparency = 0.9
 vim.g.neovide_floating_shadow = false

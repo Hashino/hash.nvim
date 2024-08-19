@@ -18,7 +18,7 @@ return {
 
         mappings = { enabled = false, },
       })
-      vim.keymap.set('n', '<leader>n', require'no-neck-pain'.toggle, { desc = "Toggle [N]oNeck[P]ain" })
+      vim.keymap.set('n', '<leader>n', require'no-neck-pain'.toggle, { desc = "Toggle [N]oNeckPain" })
     end
   },
   {

@@ -7,6 +7,7 @@ return { -- Highlight, edit, and navigate code
       'c',
       'rust',
       'bash',
+      'html',
       'markdown',
       'markdown_inline',
       'vimdoc',
