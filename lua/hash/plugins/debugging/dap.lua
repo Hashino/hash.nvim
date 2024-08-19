@@ -16,11 +16,22 @@ return {
     dap.listeners.before.launch.dapui_config = function() dap_ui.open() end
     dap.listeners.before.event_terminated.dapui_config = function() dap_ui.close() end
 
-    vim.fn.sign_define('DapStopped', { text = '', texthl = 'String', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
+    -- editor icons
+    vim.fn.sign_define('DapStopped',
+      { text = '', texthl = 'String', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpoint',
+      { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointCondition',
+      { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointRejected',
+      { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapLogPoint',
+      { text = '', texthl = 'Type', linehl = '', numhl = '' })
 
+    -- debugging keymaps
     vim.keymap.set('n', '<F5>', function()
-      require('nvim-tree.api').tree.close()
+      require 'no-neck-pain'.disable()
+
       dap_projects.search_project_config()
       dap.continue()
     end, { desc = '[F5] Start/Continue running' })
@@ -28,82 +39,41 @@ return {
     vim.keymap.set('n', '<C-F5>', function()
       dap.close()
       dap_ui.close()
+
+      require 'no-neck-pain'.enable()
     end, { desc = '[Ctrl+F5] Stop debuging' })
 
-    vim.keymap.set('n', '<F9>', dap.toggle_breakpoint,
-      { desc = '[F9] Toggle breakpoint' })
+    vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { desc = '[F9] Toggle breakpoint' })
     vim.keymap.set('n', '<F10>', dap.step_over, { desc = '[F10] Step over' })
     vim.keymap.set('n', '<F11>', dap.step_into, { desc = '[F11] Step into' })
     vim.keymap.set('n', '<F12>', dap.step_out, { desc = '[F12] Step out' })
 
+    -- plugin configs
     require('dapui').setup {
-      controls = {
-        element = 'repl',
-        enabled = true,
-        icons = {
-          disconnect = '',
-          pause = '',
-          play = '',
-          run_last = '',
-          step_back = '',
-          step_into = '',
-          step_out = '',
-          step_over = '',
-          terminate = '',
+      layouts = {
+        {
+          elements = {
+            { id = "scopes",      size = 0.5 },
+            { id = "breakpoints", size = 0.25 },
+            { id = "watches",     size = 0.25 }
+          },
+          position = "left",
+          size = 40
         },
+        {
+          elements = {
+            { id = "console", size = 1 }
+          },
+          position = "bottom",
+          size = 15
+        }
       },
-      element_mappings = {},
-      expand_lines = true,
-      floating = {
-        border = 'single',
-        mappings = {
-          close = { 'q', '<Esc>' },
-        },
-      },
-      force_buffers = true,
-      icons = {
-        collapsed = '',
-        current_frame = '',
-        expanded = '',
-      },
-      layouts = { {
-        elements = { {
-          id = "scopes",
-          size = 0.25
-        }, {
-          id = "breakpoints",
-          size = 0.25
-        }, {
-          id = "stacks",
-          size = 0.25
-        }, {
-          id = "watches",
-          size = 0.25
-        } },
-        position = "left",
-        size = 40
-      }, {
-        elements = { {
-          id = "repl",
-          size = 0.5
-        }, {
-          id = "console",
-          size = 0.5
-        } },
-        position = "bottom",
-        size = 10
-      } },
       mappings = {
         edit = 'e',
-        expand = { '<CR>', '<2-LeftMouse>' },
+        expand = ' ',
         open = 'o',
         remove = 'd',
-        repl = 'r',
         toggle = 't',
-      },
-      render = {
-        indent = 1,
-        max_value_lines = 100,
       },
     }
   end,

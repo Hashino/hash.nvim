@@ -7,7 +7,20 @@ return { -- LSP Configuration & Plugins
       lua_ls = {
         settings = {
           Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            diagnostics = { globals = { 'vim', 'screen', 'awesome', 'root', 'client', 'tag' }
+            telemetry = { enable = false },
+            diagnostics = {
+              globals =
+              {
+                'vim',
+                'screen',
+                'awesome',
+                'root',
+                'client',
+                'tag'
+              },
+              disable = {
+                "missing-fields",
+              }
             },
           },
         },

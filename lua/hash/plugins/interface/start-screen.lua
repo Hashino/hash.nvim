@@ -89,6 +89,10 @@ local function new_file()
   vim.cmd('ene')
 end
 
+local function search_sessions()
+  vim.cmd('Telescope persisted')
+end
+
 return {
   'goolord/alpha-nvim',
   dependencies = {
@@ -115,6 +119,7 @@ return {
         section('text', { 'Commands' }, 'Type'),
         section('padding', 1),
         button("n", "  New File", new_file),
+        button("s", "󰩉  Search Sessions", search_sessions),
         section('padding', 2),
       },
       opts = {
