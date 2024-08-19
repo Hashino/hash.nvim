@@ -41,7 +41,7 @@ return {
     -- current document symbols
     {
       '<leader>ts',
-      '<cmd>Trouble symbols toggle focus=true win.position=bottom win.relative=win<cr>',
+      '<cmd>Trouble symbols toggle<cr>',
       desc = '[T]rouble: [S]ymbols'
     },
   },

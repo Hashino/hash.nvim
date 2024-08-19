@@ -16,10 +16,8 @@ return {
     dap.listeners.before.launch.dapui_config = function() dap_ui.open() end
     dap.listeners.before.event_terminated.dapui_config = function() dap_ui.close() end
 
-    vim.fn.sign_define('DapStopped',
-      { text = '', texthl = 'String', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpoint',
-      { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = 'String', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'ErrorMsg', linehl = '', numhl = '' })
 
     vim.keymap.set('n', '<F5>', function()
       require('nvim-tree.api').tree.close()

@@ -1,9 +1,9 @@
 return {
   {
     'shortcuts/no-neck-pain.nvim',
+    lazy = false,
     config = function()
       require("no-neck-pain").setup({
-
         width = 120,
         buffers = { bo = { filetype = "no-neck-pain", } },
 
@@ -14,12 +14,11 @@ return {
         autocmds = {
           enableOnVimEnter = true,
           enableOnTabEnter = true,
-          -- skipEnteringNoNeckPainBuffer = true,
         },
 
         mappings = { enabled = false, },
       })
-      -- vim.keymap.set('n', '<leader>nnp', require 'no-neck-pain'.toggle, { desc = "Toggle [N]o[N]eck[P]ain" })
+      vim.keymap.set('n', '<leader>np', require'no-neck-pain'.toggle, { desc = "Toggle [N]oNeck[P]ain" })
     end
   },
   {

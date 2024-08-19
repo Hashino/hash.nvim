@@ -5,7 +5,7 @@ return { -- Auto-saves on exit insert mode
     local fidget = require 'fidget'
 
     fidget.notification.set_config('autosave',
-      { name = '', icon = '' --[[ icon = '󱣪 '  ]] }, false)
+      { name = '', icon = '' }, false)
 
     require('auto-save').setup {
       -- your config goes here
