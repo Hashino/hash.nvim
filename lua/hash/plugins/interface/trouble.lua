@@ -1,48 +1,42 @@
 return {
   'folke/trouble.nvim',
-  -- branch = 'dev', -- IMPORTANT!
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'folke/todo-comments.nvim',
   },
-  opts = {
-    focus = true,
-    win = {
+
+  config = function()
+    local win_opts = {
       type = 'split',
       position = 'bottom',
       relative = 'win'
-    },
-    preview = {
-      type = "main",
-      scratch = true,
-    },
-  },
-  -- TODO: use api commands instead
-  -- need docs for that
-  keys = {
-    -- diagnostics in current document
-    {
-      '<leader>td',
-      '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
-      desc = '[T]rouble: [D]ocument Diagnostics'
-    },
-    -- diagnostics in whole workspace
-    {
-      '<leader>tw',
-      "<cmd>Trouble diagnostics toggle<cr>",
-      desc = '[T]rouble: [W]orkspace Diagnostics'
-    },
-    -- todo-comments
-    {
-      '<leader>tn',
-      '<cmd>Trouble todo toggle <cr>',
-      desc = '[T]rouble: [N]otes'
-    },
-    -- current document symbols
-    {
-      '<leader>ts',
-      '<cmd>Trouble symbols toggle<cr>',
-      desc = '[T]rouble: [S]ymbols'
-    },
-  },
+    }
+
+    local api = require 'trouble.api'
+
+    vim.keymap.set('n', '<leader>tw', function()
+      api.toggle({ mode = 'diagnostics', win = win_opts })
+    end, { desc = '[T]rouble: [W]orkspace Diagnostics' })
+
+    vim.keymap.set('n', '<leader>td', function()
+      api.toggle({ mode = 'diagnostics', filter = { buf = 0 }, win = win_opts })
+    end, { desc = '[T]rouble: [D]ocument Diagnostics' })
+
+    vim.keymap.set('n', '<leader>tn', function()
+      api.toggle({ mode = 'todo', win = win_opts })
+    end, { desc = '[T]rouble: [N]otes' })
+
+    vim.keymap.set('n', '<leader>ts', function()
+      api.toggle({ mode = 'symbols', win = win_opts })
+    end, { desc = '[T]rouble: [S]ymbols' })
+
+    require 'trouble'.setup {
+      focus = true,
+      win = win_opts,
+      preview = {
+        type = "main",
+        scratch = true,
+      },
+    }
+  end,
 }

@@ -13,6 +13,8 @@ require 'hash.keymaps' -- global keymaps.
 -- bootstrap package manager
 require 'init_lazy'
 
+require 'hash.plugins.cmdline' -- TODO: install as a plugin
+
 require('lazy').setup({
   -- each import loads all lua files inside the folder
   -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
