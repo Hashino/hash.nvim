@@ -30,8 +30,7 @@ return {
 
     -- debugging keymaps
     vim.keymap.set('n', '<F5>', function()
-      require 'no-neck-pain'.disable()
-
+      pcall(require("no-neck-pain").disable)
       dap_projects.search_project_config()
       dap.continue()
     end, { desc = '[F5] Start/Continue running' })
@@ -39,7 +38,6 @@ return {
     vim.keymap.set('n', '<C-F5>', function()
       dap.close()
       dap_ui.close()
-
       require 'no-neck-pain'.enable()
     end, { desc = '[Ctrl+F5] Stop debuging' })
 

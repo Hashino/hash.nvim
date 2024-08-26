@@ -11,8 +11,23 @@ return {
     local presets = require("markview.presets");
 
     require("markview").setup({
-      headings = presets.headings.glow_labels,
       hybrid_modes = { "n" },
+
+      horizontal_rules = {
+        enable = true,
+
+        parts = {
+          {
+            type = "repeating",
+            text = "─",
+            hl = "Note",
+
+            repeat_amount = function()
+              return vim.o.columns;
+            end
+          },
+        }
+      }
     })
   end
 }
