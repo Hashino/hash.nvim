@@ -21,9 +21,4 @@ return {
       vim.keymap.set('n', '<leader>n', require'no-neck-pain'.toggle, { desc = "Toggle [N]oNeckPain" })
     end
   },
-  {
-    'Aasim-A/scrollEOF.nvim',
-    event = { 'CursorMoved', 'WinScrolled' },
-    opts = {},
-  }
 }
