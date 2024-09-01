@@ -9,18 +9,8 @@ return { -- LSP Configuration & Plugins
           Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             telemetry = { enable = false },
             diagnostics = {
-              globals =
-              {
-                'vim',
-                'screen',
-                'awesome',
-                'root',
-                'client',
-                'tag'
-              },
-              disable = {
-                "missing-fields",
-              }
+              globals = { 'vim', },
+              disable = { "missing-fields", }
             },
           },
         },
@@ -74,6 +64,10 @@ return { -- LSP Configuration & Plugins
                 { buffer = bufnr, desc = 'LSP: [R]ename' })
               vim.keymap.set('n', "<leader>h", vim.lsp.buf.signature_help,
                 { buffer = bufnr, desc = 'LSP: [H]elp' })
+
+              if client.server_capabilities["documentSymbolProvider"] then
+                require("nvim-navic").attach(client, bufnr)
+              end
             end
           })
         end,

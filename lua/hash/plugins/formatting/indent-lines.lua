@@ -2,7 +2,10 @@ return {
   {
     "nvimdev/indentmini.nvim",
     config = function()
-      require("indentmini").setup({ char = '┆' })
+      require("indentmini").setup({
+        char = '┆',
+        exclude = { '' }
+      })
 
       vim.api.nvim_set_hl(0, "IndentLineCurrent", { link = "TabLine" })
       vim.api.nvim_set_hl(0, "IndentLine", { link = "WinSeparator" })
