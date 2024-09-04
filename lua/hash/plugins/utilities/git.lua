@@ -37,6 +37,8 @@ return {
         { desc = '[G]it [C]ommit' })
       vim.keymap.set('n', '<leader>gp', '<cmd>Git push<CR>',
         { desc = '[G]it [P]ush' })
+      vim.keymap.set('n', '<leader>gl', '<cmd>Git log<CR>',
+        { desc = '[G]it [L]og' })
     end
   }
 }

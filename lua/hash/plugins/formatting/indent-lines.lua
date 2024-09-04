@@ -4,7 +4,7 @@ return {
     config = function()
       require("indentmini").setup({
         char = '┆',
-        exclude = { '' }
+        exclude = { 'yaml' }
       })
 
       vim.api.nvim_set_hl(0, "IndentLineCurrent", { link = "TabLine" })
