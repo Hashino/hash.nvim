@@ -40,5 +40,25 @@ return {
       vim.keymap.set('n', '<leader>gl', '<cmd>Git log<CR>',
         { desc = '[G]it [L]og' })
     end
+  },
+  {
+    'pwntester/octo.nvim',
+    -- event = "VeryLazy",
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      -- OR 'ibhagwan/fzf-lua',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require "octo".setup {
+        enable_builtin = true,
+        default_to_projects_v2 = true
+      }
+
+      vim.keymap.set('n', '<leader>gi', function()
+        vim.cmd("Octo issue list")
+      end, { desc = '[G]it [I]ssues' })
+    end
   }
 }

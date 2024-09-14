@@ -10,7 +10,7 @@ return {
       autosave = true, -- automatically save session files when exiting Neovim
 
       -- don't save session when in the alpha greeter window or home dir
-      should_autosave = function()
+      should_save = function()
         return not (
           vim.bo.filetype == 'alpha' or
           vim.fn.getcwd() == vim.fn.expand '$HOME'
@@ -18,17 +18,19 @@ return {
       end,
     }
 
-    -- fixes weird behaviours of no-neck-pain scratch buffers on save/load
+    -- prevents certain buffers from beings saved to session
     vim.api.nvim_create_autocmd({ 'User' }, {
       pattern = 'PersistedSavePre',
       callback = function()
-        pcall(require("no-neck-pain").disable)
-      end,
-    })
-    vim.api.nvim_create_autocmd({ 'User' }, {
-      pattern = 'PersistedLoadPost',
-      callback = function()
-        pcall(require("no-neck-pain").enable)
+        for _, buf in pairs(vim.api.nvim_list_bufs()) do
+          for _, filetype in pairs({ "gitcommit", "octo" }) do
+            if vim.bo[buf].filetype == filetype then
+              vim.api.nvim_buf_delete(buf, { force = true })
+              -- to bypass the "Press any key to continue" when exiting
+              vim.api.nvim_feedkeys(' ', 'm', true)
+            end
+          end
+        end
       end,
     })
   end,

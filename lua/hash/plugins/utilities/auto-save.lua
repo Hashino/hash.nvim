@@ -15,8 +15,7 @@ return { -- Auto-saves on exit insert mode
 
         return
            vim.fn.getbufvar(buf, '&modifiable') == 1
-           and utils.not_in(vim.fn.getbufvar(buf, '&filetype'), {})
-           -- ignore git commit messages
+           and vim.fn.getbufvar(buf, '&filetype') ~= 'octo'
            and not string.find(vim.fn.expand '%', '.git/COMMIT_EDITMSG')
       end,
       execution_message = {
