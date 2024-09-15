@@ -46,7 +46,7 @@ vim.g.get_sessions = function()
   for s in session_files do
     local full_path = s:gsub("%%", "/"):gsub("%.vim", "")
     local short_path = full_path:gsub(vim.fn.expand("$HOME"), "~")
-    table.insert(sessions, short_path)
+    table.insert(sessions, { short_path = short_path, full_path = full_path, name = s, })
   end
 
   return sessions
@@ -72,13 +72,11 @@ local function sessions_section()
     end
 
     local load = function()
-      local full_path = s:gsub("~", vim.fn.expand("$HOME"))
-      print(full_path)
-      vim.fn.chdir(full_path)
+      vim.fn.chdir(s.full_path)
       require("persisted").load()
     end
 
-    table.insert(sections, button(shortcut, s, load))
+    table.insert(sections, button(shortcut, s.short_path, load))
   end
 
   if sections == {} then
@@ -96,6 +94,15 @@ local function search_sessions()
   vim.cmd("Telescope persisted")
 end
 
+local function clear_sessions()
+  for _, s in pairs(vim.g.get_sessions()) do
+    if vim.fn.isdirectory(s.full_path) == 0 then
+      require("persisted").delete({ session = require("persisted.config").save_dir .. s.name, })
+      vim.notify("deleted session: " .. s.short_path)
+    end
+  end
+end
+
 return {
   "goolord/alpha-nvim",
   dependencies = {
@@ -103,6 +110,8 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
+    -- deletes old sessions
+    clear_sessions()
     require("alpha").setup({
       layout = {
         section("padding", 7),
