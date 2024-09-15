@@ -45,14 +45,14 @@ return { -- Autocompletion
 
         ['<C-Space>'] = cmp.mapping.close(),
 
-        -- <c-l> will move you to the right of each of the expansion locations.
-        -- <c-h> is similar, except moving you backwards.
-        ['<C-l>'] = cmp.mapping(function()
+        -- <A-l> will move you to the right of each of the expansion locations.
+        -- <A-h> is similar, except moving you backwards.
+        ['<A-l>'] = cmp.mapping(function()
           if luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
           end
         end, { 'i', 's' }),
-        ['<C-h>'] = cmp.mapping(function()
+        ['<A-h>'] = cmp.mapping(function()
           if luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           end
