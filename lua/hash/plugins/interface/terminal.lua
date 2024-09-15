@@ -1,16 +1,16 @@
 return { -- Persistent togglabe terminal "<A-t>" to toggle
   -- amongst your other plugins
-  'akinsho/toggleterm.nvim',
-  version = '*',
+  "akinsho/toggleterm.nvim",
+  version = "*",
   init = function()
-    require('toggleterm').setup {
+    require("toggleterm").setup({
       open_mapping = [[<A-t>]],
       size = 30,
-      direction = 'float',
+      direction = "float",
       float_opts = {
-        border = 'single',
-        title_pos = 'center',
+        border = "single",
+        title_pos = "center",
       },
-    }
+    })
   end,
 }

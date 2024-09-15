@@ -1,25 +1,25 @@
 return { -- task list
-  'hashino/doing.nvim',
+  "hashino/doing.nvim",
   opts = {},
   config = function()
-    require('doing').setup {
+    require("doing").setup({
       message_timeout = 2000,
-      doing_prefix = 'Doing: ',
+      doing_prefix = "Doing: ",
 
       winbar = {
         enabled = false,
-        ignored_buffers = { 'NvimTree', 'trouble' },
+        ignored_buffers = { "NvimTree", "trouble", },
       },
 
       store = {
         auto_create_file = false,
-        file_name = '.tasks',
+        file_name = ".tasks",
       },
-    }
+    })
 
-    local api = require('doing.api')
+    local api = require("doing.api")
 
-    vim.keymap.set('n', '<leader>de', api.edit, { desc = '[E]dit what tasks you`re [D]oing' })
-    vim.keymap.set('n', '<leader>dn', api.done, { desc = '[D]o[n]e with current task' })
+    vim.keymap.set("n", "<leader>de", api.edit, { desc = "[E]dit what tasks you`re [D]oing", })
+    vim.keymap.set("n", "<leader>dn", api.done, { desc = "[D]o[n]e with current task", })
   end,
 }

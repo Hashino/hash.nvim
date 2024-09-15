@@ -1,34 +1,40 @@
 return { -- File explorer "<leader>e" to toggle
-  'nvim-tree/nvim-tree.lua',
-  version = '*',
-  dependencies = { 'nvim-tree/nvim-web-devicons', },
+  "nvim-tree/nvim-tree.lua",
+  version = "*",
+  dependencies = { "nvim-tree/nvim-web-devicons", },
   config = function()
-    local api = require 'nvim-tree.api'
+    local api = require("nvim-tree.api")
 
     -- ratios of the floating window
     local HEIGHT_RATIO = 0.8
     local WIDTH_RATIO = 0.5
 
-    require('nvim-tree').setup {
+    require("nvim-tree").setup({
 
-      vim.keymap.set('n', '<leader>e', api.tree.toggle, { desc = 'Open/Close File [E]xplorer' }),
+      vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Open/Close File [E]xplorer", }),
 
       -- mappings inside nvim-tree
       on_attach = function(bufnr)
         local function opts(desc)
-          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          return {
+            desc = "nvim-tree: " .. desc,
+            buffer = bufnr,
+            noremap = true,
+            silent = true,
+            nowait = true,
+          }
         end
 
         -- default mappings
         api.config.mappings.default_on_attach(bufnr)
         -- custom mappings
-        vim.keymap.set('n', '<Enter>', api.tree.change_root_to_node, opts 'Change Directory')
-        vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent, opts 'Up a Directory')
-        vim.keymap.set('n', '<Left>', api.node.navigate.parent_close, opts 'Close Directory')
-        vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts 'Close Directory')
-        vim.keymap.set('n', '<Right>', api.node.open.edit, opts 'Open')
-        vim.keymap.set('n', 'l', api.node.open.edit, opts 'Open')
-        vim.keymap.set('n', '?', api.tree.toggle_help, opts 'Help')
+        vim.keymap.set("n", "<Enter>", api.tree.change_root_to_node, opts("Change Directory"))
+        vim.keymap.set("n", "<BS>", api.tree.change_root_to_parent, opts("Up a Directory"))
+        vim.keymap.set("n", "<Left>", api.node.navigate.parent_close, opts("Close Directory"))
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+        vim.keymap.set("n", "<Right>", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
       end,
 
       diagnostics = { enable = true, },
@@ -49,8 +55,7 @@ return { -- File explorer "<leader>e" to toggle
             local window_w_int = math.floor(window_w)
             local window_h_int = math.floor(window_h)
             local center_x = (screen_w - window_w) / 2
-            local center_y = ((vim.opt.lines:get() - window_h) / 2)
-               - vim.opt.cmdheight:get()
+            local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
             return {
               border = "rounded",
               relative = "editor",
@@ -74,30 +79,30 @@ return { -- File explorer "<leader>e" to toggle
             git = true,
           },
           glyphs = {
-            default = '󰈚',
-            symlink = '',
+            default = "󰈚",
+            symlink = "",
             folder = {
-              default = '',
-              empty = '',
-              empty_open = '',
-              open = '',
-              symlink = '',
-              symlink_open = '',
-              arrow_open = '',
-              arrow_closed = '',
+              default = "",
+              empty = "",
+              empty_open = "",
+              open = "",
+              symlink = "",
+              symlink_open = "",
+              arrow_open = "",
+              arrow_closed = "",
             },
             git = {
-              unstaged = '',
-              staged = '',
-              unmerged = '',
-              renamed = '',
-              untracked = '',
-              deleted = '',
-              ignored = '◌',
+              unstaged = "",
+              staged = "",
+              unmerged = "",
+              renamed = "",
+              untracked = "",
+              deleted = "",
+              ignored = "◌",
             },
           },
         },
       },
-    }
+    })
   end,
 }

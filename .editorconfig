@@ -1,6 +1,4 @@
-# see https://github.com/CppCXY/EmmyLuaCodeStyle
 [*.lua]
-# [basic]
 
 # optional space/tab
 indent_style = space
@@ -9,7 +7,9 @@ indent_size = 2
 # if indent_style is tab, this is valid
 tab_width = 2
 # none/single/double
-quote_style = none
+quote_style = double
+trailing_table_separator = always
+call_arg_parentheses = keep
 
 continuation_indent = 3
 

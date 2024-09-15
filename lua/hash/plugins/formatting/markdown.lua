@@ -5,13 +5,13 @@ return {
 
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons"
+    "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    local presets = require("markview.presets");
+    local presets = require("markview.presets")
 
     require("markview").setup({
-      hybrid_modes = { "n" },
+      hybrid_modes = { "n", },
 
       horizontal_rules = {
         enable = true,
@@ -23,11 +23,11 @@ return {
             hl = "Note",
 
             repeat_amount = function()
-              return vim.o.columns;
-            end
+              return vim.o.columns
+            end,
           },
-        }
-      }
+        },
+      },
     })
-  end
+  end,
 }
