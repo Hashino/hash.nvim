@@ -8,22 +8,20 @@
 --
 require("hash.opts")    -- neovim options
 require("hash.keymaps") -- global keymaps.
--- NOTE: specific plugin keymaps defined inside plugin config
 
--- bootstrap package manager
-require("init_lazy")
+require("init_lazy")    -- bootstrap package manager
 
-require("hash.plugins.cmdline") -- TODO: install as a plugin
+-- TODO: install as a plugin
+require("hash.plugins.cmdline")
 
 require("lazy").setup({
-  -- each import loads all lua files inside the folder
-  -- 'a.b.c' = ~/.config/nvim/lua/a/b/c/*.lua
   spec = {
-    require("hash.theme"),
+    require("hash.plugins.theme"),
 
     { import = "hash.plugins.interface", },
 
     { import = "hash.plugins.formatting", },
+
     { import = "hash.plugins.formatting.lsp", },
 
     { import = "hash.plugins.utilities", },
