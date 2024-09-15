@@ -4,6 +4,7 @@ return { -- LSP Configuration & Plugins
     local servers = { -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       clangd = {},
       rust_analyzer = {},
+      gopls = {},
       lua_ls = {
         settings = {
           Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
