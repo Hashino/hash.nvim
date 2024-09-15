@@ -1,9 +1,10 @@
 return {
   'rcarriga/nvim-dap-ui',
   dependencies = {
-    'mfussenegger/nvim-dap',
     'nvim-neotest/nvim-nio',
-    'ldelossa/nvim-dap-projects',
+    'mfussenegger/nvim-dap',
+    'ldelossa/nvim-dap-projects', -- dap config per project
+    'theHamsta/nvim-dap-virtual-text' -- displays variable value while debugging
   },
   config = function()
     require 'hash.plugins.debugging.adapters.gdb'
@@ -47,6 +48,7 @@ return {
     vim.keymap.set('n', '<F12>', dap.step_out, { desc = '[F12] Step out' })
 
     -- plugin configs
+    require("nvim-dap-virtual-text").setup()
     require('dapui').setup {
       layouts = {
         {
