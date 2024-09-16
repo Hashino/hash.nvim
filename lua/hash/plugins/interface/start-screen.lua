@@ -1,10 +1,5 @@
 -- helper function to simplify section declaration
-local function section(
-   type,
-   val, --[[optional]]
-   hl, --[[string]] --[[optional]]
-   spacing --[[integer]] --[[optional]]
-)
+local function section(type, val, hl, spacing)
   return { type = type, val = val, opts = { position = "center", hl = hl, spacing = spacing, }, }
 end
 

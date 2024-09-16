@@ -51,6 +51,9 @@ return {
             view = "mini",
           },
         },
+        presets = {
+          long_message_to_split = true, -- long messages will be sent to a split
+        },
       }
     end,
   },

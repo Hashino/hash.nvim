@@ -7,7 +7,6 @@ return {
         width = 120,
         buffers = { bo = { filetype = "no-neck-pain", }, },
 
-        -- minSideBufferWidth = 0,
         disableOnLastBuffer = false,
         killAllBuffersOnDisable = true,
 
@@ -18,10 +17,7 @@ return {
 
         mappings = { enabled = false, },
       })
-      vim.keymap.set(
-        "n",
-        "<leader>n",
-        require("no-neck-pain").toggle,
+      vim.keymap.set("n", "<leader>n", require("no-neck-pain").toggle,
         { desc = "Toggle [N]oNeckPain", }
       )
     end,

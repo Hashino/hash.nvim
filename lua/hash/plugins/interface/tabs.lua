@@ -15,13 +15,13 @@ return { -- Tabline with nvim-tree native support
 
       sidebar_filetypes = {
         ["no-neck-pain"] = { event = "BufWinLeave", text = "", align = "left", },
+        ["undotree"] = { event = "BufWinLeave", text = "", align = "left", },
       }, -- filetypes that barbar will offset
     })
     -- nvimtree autosession workaround
     vim.g.barbar_auto_setup = false
 
     local api = require("barbar.api")
-    local bbye = require("barbar.bbye")
 
     -- Buffer Navigation
     vim.keymap.set("n", "<tab>", function()
@@ -40,7 +40,7 @@ return { -- Tabline with nvim-tree native support
     end
 
     -- Close buffer
-    vim.keymap.set("n", "<A-c>", bbye.bdelete)
+    vim.keymap.set("n", "<A-c>", require("barbar.bbye").bdelete)
     vim.keymap.set("n", "<A-S-c>", api.close_all_but_current)
   end,
   version = "^1.0.0", -- optional: only update when a new 1.x version is released

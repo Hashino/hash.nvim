@@ -31,12 +31,9 @@ return {
   {
     "tpope/vim-fugitive",
     config = function()
-      vim.keymap.set(
-        "n",
-        "<leader>gs",
-        require("telescope.builtin").git_status,
-        { desc = "[G]it [S]tatus", }
-      )
+      vim.keymap.set("n", "<leader>gs", require("telescope.builtin").git_status,
+        { desc = "[G]it [S]tatus", })
+
       vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[G]it [C]ommit", })
       vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>", { desc = "[G]it [P]ush", })
       vim.keymap.set("n", "<leader>gl", "<cmd>Git log<CR>", { desc = "[G]it [L]og", })

@@ -3,12 +3,9 @@ return {
     "folke/todo-comments.nvim",
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim", },
-    config = function()
-      require("todo-comments").setup({})
-    end,
+    config = true
   },
   { -- "gb"/"gc" to comment regions/lines
     "numToStr/Comment.nvim",
-    opts = {},
   },
 }

@@ -55,8 +55,7 @@ return { -- LSP Configuration & Plugins
                 { buffer = bufnr, desc = "LSP: [G]oto [D]eclaration", })
               vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references,
                 { buffer = bufnr, desc = "LSP: [G]oto [R]eferences", })
-              vim.keymap.set("n", "gI",
-                require("telescope.builtin").lsp_implementations,
+              vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations,
                 { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation", })
               vim.keymap.set("n", "<leader>f", vim.lsp.buf.format,
                 { buffer = bufnr, desc = "LSP: [F]ormat buffer", })
