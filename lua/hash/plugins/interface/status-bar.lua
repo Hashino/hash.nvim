@@ -34,7 +34,7 @@ return { -- Simple status line in lua
   dependencies = { "nvim-tree/nvim-web-devicons", "folke/trouble.nvim", },
   init = function()
     local lualine_sections = {
-      lualine_a = { "mode", },
+      lualine_a = {  },
       lualine_b = { git_repo, "diff", },
       lualine_c = { "diagnostics", require("doing.api").status, },
       -- right side

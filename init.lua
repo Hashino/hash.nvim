@@ -11,9 +11,6 @@ require("hash.keymaps") -- global keymaps.
 
 require("init_lazy")    -- bootstrap package manager
 
--- TODO: install as a plugin
-require("hash.plugins.cmdline")
-
 require("lazy").setup({
   spec = {
     require("hash.plugins.theme"),
@@ -28,11 +25,4 @@ require("lazy").setup({
 
     { import = "hash.plugins.debugging", },
   },
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "onenord", }, },
-
-  change_detection = {
-    enabled = true, -- automatically check for config file changes and reload the ui
-    notify = false, -- get a notification when changes are found
-  },
-}, {})
+})

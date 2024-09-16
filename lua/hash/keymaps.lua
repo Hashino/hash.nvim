@@ -14,15 +14,11 @@ vim.keymap.set("i", "<C-l>", "<Right>", { desc = "navigate right in insert mode"
 vim.keymap.set("i", "<C-j>", "<Down>", { desc = "navigate down in insert mode", })
 vim.keymap.set("i", "<C-k>", "<Up>", { desc = "navigate up in insert mode", })
 
--- arrow keys bad
-vim.keymap.set("i", "<Left>", "", { desc = "", })
-vim.keymap.set("i", "<Right>", "", { desc = "", })
-vim.keymap.set("i", "<Down>", "", { desc = "", })
-vim.keymap.set("i", "<Up>", "", { desc = "", })
-vim.keymap.set("n", "<Left>", "", { desc = "", })
-vim.keymap.set("n", "<Right>", "", { desc = "", })
-vim.keymap.set("n", "<Down>", "", { desc = "", })
-vim.keymap.set("n", "<Up>", "", { desc = "", })
+-- disables arrow keys
+vim.keymap.set({ "i", "n", }, "<Left>", "", { desc = "", })
+vim.keymap.set({ "i", "n", }, "<Right>", "", { desc = "", })
+vim.keymap.set({ "i", "n", }, "<Down>", "", { desc = "", })
+vim.keymap.set({ "i", "n", }, "<Up>", "", { desc = "", })
 
 -- :q Shortcut
 vim.keymap.set("n", "<A-q>", "<Cmd>q<CR>", { desc = "quick quit", })

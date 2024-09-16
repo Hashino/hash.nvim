@@ -4,13 +4,54 @@ return {
     opts = {},
   },
   {
-    "rcarriga/nvim-notify",
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      {
+        "rcarriga/nvim-notify",
+        config = function()
+          vim.notify = require("notify")
+          require("notify").setup({
+            render = "wrapped-compact",
+            stages = "static",
+          })
+        end,
+      },
+    },
     config = function()
-      vim.notify = require("notify")
-      require("notify").setup({
-        render = "wrapped-compact",
-        stages = "static",
-      })
+      require("noice").setup {
+        cmdline = {
+          format = {
+            cmdline = {
+              title = "",
+            },
+          },
+          enabled = true,
+          view = "cmdline_popup",
+        },
+        views = {
+          cmdline_popup = {
+            position = {
+              row = "90%",
+              col = "50%",
+            },
+            size = {
+              width = 80,
+              height = "auto",
+            },
+          },
+        },
+        messages = { view = "mini", },
+        routes = {
+          {
+            filter = {
+              find = "Autosaved",
+            },
+            view = "mini",
+          },
+        },
+      }
     end,
   },
 }
