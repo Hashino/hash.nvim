@@ -25,7 +25,7 @@ return {
       message_template = "   <date> by [<author>] ⬪ <summary> ⬪ «<sha>»",
       date_format = "%b %d, %Y at %H:%M",
       virtual_text_column = 1,
-      highlight_group = "GitBlame",
+      highlight_group = "GitBlame", -- defined in theme
     },
   },
   {

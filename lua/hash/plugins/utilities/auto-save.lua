@@ -7,8 +7,6 @@ return { -- Auto-saves on exit insert mode
       -- or just leave it empty :)
       trigger_events = { "InsertLeave", },
       condition = function(buf)
-        local utils = require("auto-save.utils.data")
-
         return vim.fn.getbufvar(buf, "&modifiable") == 1
            and vim.fn.getbufvar(buf, "&filetype") ~= "octo"
            and not string.find(vim.fn.expand("%"), ".git/COMMIT_EDITMSG")

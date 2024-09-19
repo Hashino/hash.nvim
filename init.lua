@@ -25,4 +25,5 @@ require("lazy").setup({
 
     { import = "hash.plugins.debugging", },
   },
+  change_detection = { notify = false, }
 })

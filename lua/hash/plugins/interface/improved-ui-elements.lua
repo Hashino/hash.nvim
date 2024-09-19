@@ -42,11 +42,13 @@ return {
             },
           },
         },
-        messages = { view = "mini", },
+        messages = {
+          view = "mini",
+        },
         routes = {
           {
             filter = {
-              find = "Autosaved",
+              find = "󰆓 Autosaved",
             },
             view = "mini",
           },
