@@ -13,20 +13,24 @@ return {
   },
   {
     "f-person/git-blame.nvim",
-    -- load the plugin at startup
-    event = "VeryLazy",
-    -- Because of the keys part, you will be lazy loading this plugin.
-    -- The plugin will only load once one of the keys is used.
-    -- If you want to load the plugin at startup, add something like event = "VeryLazy",
-    -- or lazy = false. One of both options will work.
-    opts = {
-      enabled = true,
-      message_when_not_committed = "",
-      message_template = "   <date> by [<author>] ⬪ <summary> ⬪ «<sha>»",
-      date_format = "%b %d, %Y at %H:%M",
-      virtual_text_column = 1,
-      highlight_group = "GitBlame",
-    },
+    dependencies = { "rmehri01/onenord.nvim", },
+    config = function()
+      -- sets highlight for the virtual text
+      local colors = require("onenord.colors").load()
+      require("onenord.util").highlight("GitBlame", {
+        fg    = colors.gray,
+        bg    = "#353B49",
+        style = "italic",
+      })
+      require("gitblame").setup({
+        enabled = true,
+        message_when_not_committed = "",
+        message_template = "   <date> by [<author>] ⬪ <summary> ⬪ «<sha>»",
+        date_format = "%b %d, %Y at %H:%M",
+        virtual_text_column = 1,
+        highlight_group = "GitBlame",
+      })
+    end,
   },
   {
     "tpope/vim-fugitive",
