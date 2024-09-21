@@ -3,7 +3,7 @@ return {
     "folke/todo-comments.nvim",
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim", },
-    config = true
+    config = true,
   },
   { -- "gb"/"gc" to comment regions/lines
     "numToStr/Comment.nvim",

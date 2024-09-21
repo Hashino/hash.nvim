@@ -8,7 +8,7 @@ return { -- task list
 
       winbar = {
         enabled = false,
-        ignored_buffers = { "NvimTree", "trouble", "no-neck-pain" },
+        ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
       },
 
       store = {

@@ -20,7 +20,7 @@ return {
       },
     },
     config = function()
-      require("noice").setup {
+      require("noice").setup({
         cmdline = {
           format = {
             cmdline = {
@@ -59,7 +59,7 @@ return {
             filter = {
               any = {
                 { find = "Found a swap file", },
-                { find = "Ignoring swapfile" },
+                { find = "Ignoring swapfile", },
               },
             },
             skip = true,
@@ -69,10 +69,10 @@ return {
               event = "msg_show",
               min_height = 2,
             },
-            view = "popup",
+            view = "messages",
           },
         },
-      }
+      })
       vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>", { desc = "[N]otifications", })
       vim.keymap.set("n", "<leader>n", "<cmd>Noice pick<CR>", { desc = "[N]otifications", })
     end,
