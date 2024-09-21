@@ -1,6 +1,5 @@
 return { -- Auto-saves on exit insert mode
   "Pocco81/auto-save.nvim",
-  dependencies = { "j-hui/fidget.nvim", },
   config = function()
     require("auto-save").setup({
       -- your config goes here

@@ -55,9 +55,22 @@ return {
             },
             view = "mini",
           },
-        },
-        presets = {
-          long_message_to_split = true, -- long messages will be sent to a split
+          {
+            filter = {
+              any = {
+                { find = "Found a swap file", },
+                { find = "Ignoring swapfile" },
+              },
+            },
+            skip = true,
+          },
+          {
+            filter = {
+              event = "msg_show",
+              min_height = 2,
+            },
+            view = "popup",
+          },
         },
       }
       vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>", { desc = "[N]otifications", })
