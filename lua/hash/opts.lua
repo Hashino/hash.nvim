@@ -92,8 +92,3 @@ vim.g.neovide_floating_shadow = false
 
 vim.g.neovide_floating_blur_amount_x = 0.0
 vim.g.neovide_floating_blur_amount_y = 0.0
-
-if vim.g.neovide then
-  vim.keymap.set("i", "<sc-v>", '<ESC>"+pli')
-  vim.keymap.set("c", "<sc-v>", "<C-R>+")
-end

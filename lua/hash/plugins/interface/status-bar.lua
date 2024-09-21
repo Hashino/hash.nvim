@@ -28,13 +28,21 @@ local function git_repo()
   end
 end
 
+local macro_recording = function()
+  if vim.fn.reg_recording() ~= "" then
+    return "@" .. vim.fn.reg_recording()
+  else
+    return ""
+  end
+end
+
 return { -- Simple status line in lua
   "nvim-lualine/lualine.nvim",
   lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons", "folke/trouble.nvim", },
   init = function()
     local lualine_sections = {
-      lualine_a = {  },
+      lualine_a = { macro_recording },
       lualine_b = { git_repo, "diff", },
       lualine_c = { "diagnostics", require("doing.api").status, },
       -- right side

@@ -25,3 +25,11 @@ vim.keymap.set("n", "<A-q>", "<Cmd>q<CR>", { desc = "quick quit", })
 
 -- edit variable value
 vim.keymap.set("n", "<leader>a", "f=lC ", { desc = "assign new value to variable", })
+
+-- makes more sense to me that way
+vim.keymap.set("x", "p", "P", { desc = "paste without replacing clipboard", })
+
+if vim.g.neovide then
+  vim.keymap.set("i", "<sc-v>", '<ESC>"+pli')
+  vim.keymap.set("c", "<sc-v>", "<C-R>+")
+end
