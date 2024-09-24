@@ -13,6 +13,7 @@ return {
         autocmds = {
           enableOnVimEnter = true,
           enableOnTabEnter = true,
+          skipEnteringNoNeckPainBuffer = true,
         },
 
         mappings = { enabled = false, },
