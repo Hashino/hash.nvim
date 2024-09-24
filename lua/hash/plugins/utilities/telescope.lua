@@ -37,9 +37,15 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
       },
       defaults = {
+        layout_strategy = "horizontal",
         mappings = {
           n = mappings,
           i = mappings,
+        },
+        layout_config = {
+          height = 0.9,
+          width = 0.75,
+          preview_width = 80,
         },
       },
       pickers = {
