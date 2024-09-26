@@ -19,12 +19,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local mappings = {
       ["<A-l>"] = require("telescope.actions").cycle_history_next,
       ["<A-h>"] = require("telescope.actions").cycle_history_prev,
+      ["<C-j>"] = require("telescope.actions").preview_scrolling_down,
+      ["<C-k>"] = require("telescope.actions").preview_scrolling_up,
       ["<Tab>"] = require("telescope.actions").move_selection_next,
       ["<S-Tab>"] = require("telescope.actions").move_selection_previous,
       ["<C- >"] = require("telescope.actions").toggle_selection,
       ["<C-a>"] = require("telescope.actions").git_staging_toggle,
-      ["<C-j>"] = require("telescope.actions").preview_scrolling_down,
-      ["<C-k>"] = require("telescope.actions").preview_scrolling_up,
+      ["<A-S-q>"] = require("telescope.actions").add_selected_to_qflist,
       ["<A-q>"] = require("telescope.actions").close,
     }
     require("telescope").setup({
@@ -37,12 +38,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
       },
       defaults = {
+        sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         mappings = {
           n = mappings,
           i = mappings,
         },
         layout_config = {
+          prompt_position = "top",
           height = 0.9,
           width = 0.75,
           preview_width = 80,
@@ -69,6 +72,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set("n", "<leader> ", builtin.commands, { desc = "[S]earch [C]ommands", })
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps", })
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles", })
+    vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers", })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope", })
     vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord", })
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep", })
