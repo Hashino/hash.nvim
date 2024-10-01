@@ -71,6 +71,13 @@ return {
             },
             view = "messages",
           },
+          {
+            filter = {
+              event = "msg_show",
+              kind = "confirm",
+            },
+            view = "confirm",
+          },
         },
       })
       vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>", { desc = "[N]otifications", })
