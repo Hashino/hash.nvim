@@ -19,6 +19,49 @@ return { -- Autocompletion
         },
       },
     },
+    {
+      "onsails/lspkind.nvim",
+      init = function()
+        -- setup() is also available as an alias
+        require("lspkind").init({
+          -- defines how annotations are shown default: symbol
+          -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+          mode = "symbol_text",
+
+          -- can be either 'default' (requires nerd-fonts font) or
+          -- 'codicons' for codicon preset (requires vscode-codicons font)
+          preset = "default",
+
+          symbol_map = {
+            Text = "󰉿",
+            Method = "󰆧",
+            Function = "󰊕",
+            Constructor = "",
+            Field = "󰜢",
+            Variable = "󰀫",
+            Class = "󰠱",
+            Interface = "",
+            Module = "",
+            Property = "󰜢",
+            Unit = "󰑭",
+            Value = "󰎠",
+            Enum = "",
+            Keyword = "󰌋",
+            Snippet = "",
+            Color = "󰏘",
+            File = "󰈙",
+            Reference = "󰈇",
+            Folder = "󰉋",
+            EnumMember = "",
+            Constant = "󰏿",
+            Struct = "󰙅",
+            Event = "",
+            Operator = "󰆕",
+            TypeParameter = "",
+          },
+        })
+      end,
+    },
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
@@ -27,15 +70,36 @@ return { -- Autocompletion
     -- See `:help cmp`
     local cmp = require("cmp")
     local luasnip = require("luasnip")
-    luasnip.config.setup({})
+    -- luasnip.config.setup({})
 
     cmp.setup({
       snippet = {
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+          -- luasnip.lsp_expand(args.body)
         end,
       },
       completion = { completeopt = "menu,menuone,noinsert", },
+      -- fancy icons
+      window = {
+        completion = {
+          winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+          col_offset = -3,
+          side_padding = 0,
+        },
+      },
+      formatting = {
+        fields = { "kind", "abbr", "menu", },
+        format = function(entry, vim_item)
+          local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50, })(entry,
+            vim_item)
+          local strings = vim.split(kind.kind, "%s", { trimempty = true, })
+          kind.kind = " " .. (strings[1] or "") .. " "
+          kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+          return kind
+        end,
+      },
 
       mapping = cmp.mapping.preset.insert({
 
@@ -47,14 +111,10 @@ return { -- Autocompletion
         -- <A-l> will move you to the right of each of the expansion locations.
         -- <A-h> is similar, except moving you backwards.
         ["<A-l>"] = cmp.mapping(function()
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          end
+          vim.snippet.jump(1)
         end, { "i", "s", }),
         ["<A-h>"] = cmp.mapping(function()
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          end
+          vim.snippet.jump(-1)
         end, { "i", "s", }),
       }),
       sources = {
