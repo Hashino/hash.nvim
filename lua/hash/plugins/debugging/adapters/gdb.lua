@@ -8,6 +8,7 @@ dap.adapters.lldb = {
 dap.configurations.cpp = {
   {
     name = "Launch",
+    -- TODO: switch to a portable debugger (IE: can be installed by Mason)
     type = "lldb",
     request = "launch",
     program = function()
