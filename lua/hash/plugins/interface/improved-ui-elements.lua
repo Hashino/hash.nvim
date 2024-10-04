@@ -67,16 +67,16 @@ return {
           {
             filter = {
               event = "msg_show",
-              min_height = 2,
+              kind = "confirm",
             },
-            view = "messages",
+            view = "confirm",
           },
           {
             filter = {
               event = "msg_show",
-              kind = "confirm",
+              min_height = 2,
             },
-            view = "confirm",
+            view = "messages",
           },
         },
       })
