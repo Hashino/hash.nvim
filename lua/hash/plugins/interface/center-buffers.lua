@@ -5,7 +5,7 @@ return {
       require("stay-centered").setup({
         skip_filetypes = {},
         enabled = true,
-        allow_scroll_move = true,
+        allow_scroll_move = false,
         disable_on_mouse = true,
       })
     end,
