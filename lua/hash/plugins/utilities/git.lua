@@ -25,7 +25,7 @@ return {
       require("gitblame").setup({
         enabled = true,
         message_when_not_committed = "",
-        message_template = "   <date> by [<author>] ⬪ <summary> ⬪ «<sha>»",
+        message_template = "  <date> by [<author>] ⬪ <summary> ⬪ «<sha>»",
         date_format = "%b %d, %Y at %H:%M",
         virtual_text_column = 1,
         highlight_group = "GitBlame",
