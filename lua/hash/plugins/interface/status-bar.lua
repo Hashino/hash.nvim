@@ -36,6 +36,14 @@ local macro_recording = function()
   end
 end
 
+local position = function()
+  local curr_line = vim.fn.line(".")
+  local curr_col = vim.fn.charcol(".")
+  local total_line = vim.fn.line("$")
+  local total_col = vim.fn.charcol("$") - 1
+  return string.format("[%3d/%-3d]:[%2d/%-2d]", curr_line, total_line, curr_col, total_col)
+end
+
 return { -- Simple status line in lua
   "nvim-lualine/lualine.nvim",
   lazy = false,
@@ -48,7 +56,7 @@ return { -- Simple status line in lua
       -- right side
       lualine_x = { { "filename", path = 1, }, },
       lualine_y = { clients_lsp, { "filetype", icon_only = true, }, },
-      lualine_z = { "location", },
+      lualine_z = { position, },
     }
 
     require("lualine").setup({
