@@ -33,30 +33,30 @@ return { -- Autocompletion
           preset = "default",
 
           symbol_map = {
-            Text = "󰉿",
-            Method = "󰆧",
-            Function = "󰊕",
-            Constructor = "",
-            Field = "󰜢",
-            Variable = "󰀫",
-            Class = "󰠱",
-            Interface = "",
-            Module = "",
-            Property = "󰜢",
-            Unit = "󰑭",
-            Value = "󰎠",
-            Enum = "",
-            Keyword = "󰌋",
-            Snippet = "",
-            Color = "󰏘",
-            File = "󰈙",
-            Reference = "󰈇",
-            Folder = "󰉋",
-            EnumMember = "",
-            Constant = "󰏿",
-            Struct = "󰙅",
-            Event = "",
-            Operator = "󰆕",
+            Text          = "󰉿",
+            Method        = "󰆧",
+            Function      = "󰊕",
+            Constructor   = "",
+            Field         = "󰜢",
+            Variable      = "󰀫",
+            Class         = "󰠱",
+            Interface     = "",
+            Module        = "",
+            Property      = "󰜢",
+            Unit          = "󰑭",
+            Value         = "󰎠",
+            Enum          = "",
+            Keyword       = "󰌋",
+            Snippet       = "",
+            Color         = "󰏘",
+            File          = "󰈙",
+            Reference     = "󰈇",
+            Folder        = "󰉋",
+            EnumMember    = "",
+            Constant      = "󰏿",
+            Struct        = "󰙅",
+            Event         = "",
+            Operator      = "󰆕",
             TypeParameter = "",
           },
         })
@@ -69,8 +69,6 @@ return { -- Autocompletion
   config = function()
     -- See `:help cmp`
     local cmp = require("cmp")
-    local luasnip = require("luasnip")
-    -- luasnip.config.setup({})
 
     cmp.setup({
       snippet = {
@@ -107,14 +105,9 @@ return { -- Autocompletion
         ["<Enter>"] = cmp.mapping.confirm({ select = true, }),
         ["<C-Space>"] = cmp.mapping.close(),
 
-        -- <A-l> will move you to the right of each of the expansion locations.
-        -- <A-h> is similar, except moving you backwards.
-        ["<A-l>"] = cmp.mapping(function()
-          vim.snippet.jump(1)
-        end, { "i", "s", }),
-        ["<A-h>"] = cmp.mapping(function()
-          vim.snippet.jump(-1)
-        end, { "i", "s", }),
+        -- <A-h/l> will move you to the next/previous expansion location.
+        ["<A-l>"] = cmp.mapping(function() vim.snippet.jump(1) end, { "i", "s", }),
+        ["<A-h>"] = cmp.mapping(function() vim.snippet.jump(-1) end, { "i", "s", }),
       }),
       sources = {
         { name = "nvim_lsp", },

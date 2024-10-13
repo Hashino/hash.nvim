@@ -13,40 +13,37 @@ return {
     local dap_ui = require("dapui")
     local dap_projects = require("nvim-dap-projects")
 
-    dap.listeners.before.attach.dapui_config = function()
-      dap_ui.open()
-    end
-    dap.listeners.before.launch.dapui_config = function()
-      dap_ui.open()
-    end
-    dap.listeners.before.event_terminated.dapui_config = function()
-      dap_ui.close()
-    end
+    dap.listeners.before.attach.dapui_config = function() dap_ui.open() end
+    dap.listeners.before.launch.dapui_config = function() dap_ui.open() end
+    dap.listeners.before.event_terminated.dapui_config = function() dap_ui.close() end
 
     -- editor icons
-    vim.fn.sign_define("DapStopped", { text = "", texthl = "String", })
-    vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "ErrorMsg", })
+    vim.fn.sign_define("DapStopped",             { text = "", texthl = "String", })
+    vim.fn.sign_define("DapBreakpoint",          { text = "", texthl = "ErrorMsg", })
     vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapLogPoint", { text = "", texthl = "Type", })
+    vim.fn.sign_define("DapBreakpointRejected",  { text = "", texthl = "ErrorMsg", })
+    vim.fn.sign_define("DapLogPoint",            { text = "", texthl = "Type", })
 
-    -- debugging keymaps
-    vim.keymap.set("n", "<F5>", function()
+
+    local function start_debugging()
       pcall(require("no-neck-pain").disable)
       dap_projects.search_project_config()
       dap.continue()
-    end, { desc = "[F5] Start/Continue running", })
+    end
 
-    vim.keymap.set("n", "<C-F5>", function()
+    local function stop_debugging()
       dap.close()
       dap_ui.close()
       require("no-neck-pain").enable()
-    end, { desc = "[Ctrl+F5] Stop debuging", })
+    end
 
-    vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "[F9] Toggle breakpoint", })
-    vim.keymap.set("n", "<F10>", dap.step_over, { desc = "[F10] Step over", })
-    vim.keymap.set("n", "<F11>", dap.step_into, { desc = "[F11] Step into", })
-    vim.keymap.set("n", "<F12>", dap.step_out, { desc = "[F12] Step out", })
+    -- debugging keymaps
+    vim.keymap.set("n", "<F5>",   start_debugging,        { desc = "[F5] Start/Continue debuging", })
+    vim.keymap.set("n", "<C-F5>", stop_debugging,         { desc = "[Ctrl+F5] Stop debuging", })
+    vim.keymap.set("n", "<F9>",   dap.toggle_breakpoint,  { desc = "[F9] Toggle breakpoint", })
+    vim.keymap.set("n", "<F10>",  dap.step_over,          { desc = "[F10] Step over", })
+    vim.keymap.set("n", "<F11>",  dap.step_into,          { desc = "[F11] Step into", })
+    vim.keymap.set("n", "<F12>",  dap.step_out,           { desc = "[F12] Step out", })
 
     -- plugin configs
     require("nvim-dap-virtual-text").setup({})
@@ -63,7 +60,8 @@ return {
         },
         {
           elements = {
-            { id = "console", size = 1, },
+            { id = "console", },
+            -- { id = "repl", },
           },
           position = "bottom",
           size = 15,

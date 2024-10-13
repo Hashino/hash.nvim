@@ -1,4 +1,27 @@
 return {
+  {
+    "b0o/incline.nvim",
+    config = function()
+      require("incline").setup {
+        window = {
+          margin = {
+            horizontal = 0,
+            vertical = 0,
+          },
+          placement = {
+            horizontal = "right",
+            vertical = "bottom",
+          },
+        },
+        render = function(props)
+          if props.buf ~= vim.api.nvim_get_current_buf() then
+            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+            return { " ", filename, " ", }
+          end
+        end,
+      }
+    end,
+  },
   { -- improve ui elements (float boxes)
     "stevearc/dressing.nvim",
     opts = {},

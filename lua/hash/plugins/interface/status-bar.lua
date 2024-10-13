@@ -63,7 +63,7 @@ return { -- Simple status line in lua
       options = {
         component_separators = "",
         section_separators = "",
-        disabled_filetypes = { statusline = { "alpha", "help", "trouble", "no-neck-pain", }, },
+        disabled_filetypes = { statusline = { "alpha", "trouble", "no-neck-pain", }, },
       },
       sections = lualine_sections,
       inactive_sections = lualine_sections,
