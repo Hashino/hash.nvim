@@ -37,10 +37,16 @@ return { -- File explorer "<leader>e" to toggle
         vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
       end,
 
+      hijack_cursor = true,
+      select_prompts = true,
+
       diagnostics = { enable = true, },
 
       sync_root_with_cwd = true,
-      actions = { change_dir = { global = true, }, },
+      actions = {
+        change_dir = { global = true, },
+        open_file = { window_picker = { enable = false, }, },
+      },
       filters = { git_ignored = false, },
       git = { enable = true, },
 

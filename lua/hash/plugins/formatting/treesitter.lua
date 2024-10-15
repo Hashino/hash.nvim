@@ -22,4 +22,15 @@ return {
       })
     end,
   },
+  {
+    "Yggdroot/hiPairs",
+    config = function()
+      vim.cmd [[
+        let g:hiPairs_hl_matchPair = { 'term'    : 'underline,bold',
+                    \                  'cterm'   : 'bold',
+                    \                  'gui'     : 'bold',
+                    \ }
+      ]]
+    end,
+  },
 }

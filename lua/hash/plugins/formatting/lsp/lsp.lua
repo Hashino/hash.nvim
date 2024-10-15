@@ -66,6 +66,7 @@ return { -- LSP Configuration & Plugins
 
               if client.server_capabilities["documentSymbolProvider"] then
                 require("nvim-navic").attach(client, bufnr)
+                require("barbecue.ui").update()
               end
             end,
           })

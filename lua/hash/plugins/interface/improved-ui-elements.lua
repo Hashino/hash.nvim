@@ -70,6 +70,7 @@ return {
         },
         messages = {
           view = "mini",
+          view_search = "mini",   -- view for search count messages. Set to `false` to disable
         },
         routes = {
           {
