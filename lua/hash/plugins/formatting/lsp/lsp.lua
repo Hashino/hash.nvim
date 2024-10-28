@@ -2,6 +2,7 @@ return { -- LSP Configuration & Plugins
   "neovim/nvim-lspconfig",
   config = function()
     local servers = { -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+      bashls = {},
       clangd = {},
       rust_analyzer = {},
       gopls = {},

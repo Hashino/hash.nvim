@@ -85,7 +85,7 @@ vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
 
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0
-vim.o.guifont = "UbuntuMono Nerd Font:h16"
+vim.o.guifont = "UbuntuMono Nerd Font:h18"
 
 vim.g.neovide_transparency = 0.9
 vim.g.neovide_floating_shadow = false
