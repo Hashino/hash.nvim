@@ -38,17 +38,19 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
       },
       defaults = {
-        sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
         mappings = {
           n = mappings,
           i = mappings,
         },
+        sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
         layout_config = {
           prompt_position = "top",
           height = 0.9,
-          width = 0.75,
-          preview_width = 80,
+          width = 0.8,
+          horizontal = {
+            preview_width = 60,
+          },
         },
       },
       pickers = {

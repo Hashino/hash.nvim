@@ -24,7 +24,15 @@ return {
   },
   { -- improve ui elements (float boxes)
     "stevearc/dressing.nvim",
-    opts = {},
+    opts = {
+      select = {
+        backend = { "nui", },
+        nui = {
+          min_width = 7,
+          min_height = 2,
+        },
+      },
+    },
   },
   {
     "folke/noice.nvim",
@@ -70,7 +78,7 @@ return {
         },
         messages = {
           view = "mini",
-          view_search = "mini",   -- view for search count messages. Set to `false` to disable
+          view_search = "mini", -- view for search count messages. Set to `false` to disable
         },
         routes = {
           {

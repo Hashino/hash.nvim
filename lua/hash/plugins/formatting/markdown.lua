@@ -1,29 +1,20 @@
 return {
-  "OXY2DEV/markview.nvim",
-  lazy = false, -- Recommended
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
   },
+  "OXY2DEV/markview.nvim",
+  lazy = false,
+  branch = "dev",
   config = function()
-    require("markview").setup({
+    local presets = require("markview.presets");
+
+    require("markview").setup {
       hybrid_modes = { "n", },
 
-      horizontal_rules = {
-        enable = true,
-
-        parts = {
-          {
-            type = "repeating",
-            text = "─",
-            hl = "Note",
-
-            repeat_amount = function()
-              return vim.o.columns
-            end,
-          },
-        },
-      },
-    })
+      checkboxes = presets.checkboxes.nerd,
+      headings = presets.headings.marker,
+      horizontal_rules = presets.horizontal_rules.thin,
+    }
   end,
 }

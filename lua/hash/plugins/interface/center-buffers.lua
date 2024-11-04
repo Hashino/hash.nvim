@@ -15,7 +15,7 @@ return {
     lazy = false,
     config = function()
       require("no-neck-pain").setup({
-        width = 120,
+        width = 100,
         buffers = { bo = { filetype = "no-neck-pain", }, },
 
         disableOnLastBuffer = false,
