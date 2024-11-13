@@ -9,7 +9,7 @@ return {
   config = function()
     local presets = require("markview.presets");
 
-    require("markview").setup {
+    require("markview.spec").setup {
       hybrid_modes = { "n", },
 
       checkboxes = presets.checkboxes.nerd,
