@@ -1,5 +1,5 @@
 return {
-  "rcarriga/nvim-dap-ui",
+  "hashino/nvim-dap-ui-405",
   dependencies = {
     "nvim-neotest/nvim-nio",
     "mfussenegger/nvim-dap",
@@ -12,38 +12,35 @@ return {
     local dap = require("dap")
     local dap_ui = require("dapui")
     local dap_projects = require("nvim-dap-projects")
+    local dap_virtual_text = require("nvim-dap-virtual-text")
 
-    dap.listeners.before.attach.dapui_config = function() dap_ui.open() end
-    dap.listeners.before.launch.dapui_config = function() dap_ui.open() end
-    dap.listeners.before.event_terminated.dapui_config = function() dap_ui.close() end
+    dap.listeners.before.attach.dapui_config = require("no-neck-pain").disable
+
+    dap.listeners.before.launch.dapui_config = function()
+      dap_projects.search_project_config()
+      dap_virtual_text.enable()
+      dap_ui.open()
+    end
+    dap.listeners.before.event_terminated.dapui_config = function()
+      require("no-neck-pain").enable()
+      dap_ui.close()
+      dap_virtual_text.disable()
+    end
 
     -- editor icons
-    vim.fn.sign_define("DapStopped",             { text = "", texthl = "String", })
-    vim.fn.sign_define("DapBreakpoint",          { text = "", texthl = "ErrorMsg", })
+    vim.fn.sign_define("DapStopped", { text = "", texthl = "String", })
+    vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "ErrorMsg", })
     vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapBreakpointRejected",  { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapLogPoint",            { text = "", texthl = "Type", })
-
-
-    local function start_debugging()
-      pcall(require("no-neck-pain").disable)
-      dap_projects.search_project_config()
-      dap.continue()
-    end
-
-    local function stop_debugging()
-      dap.close()
-      dap_ui.close()
-      require("no-neck-pain").enable()
-    end
+    vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "ErrorMsg", })
+    vim.fn.sign_define("DapLogPoint", { text = "", texthl = "Type", })
 
     -- debugging keymaps
-    vim.keymap.set("n", "<F5>",   start_debugging,        { desc = "[F5] Start/Continue debuging", })
-    vim.keymap.set("n", "<C-F5>", stop_debugging,         { desc = "[Ctrl+F5] Stop debuging", })
-    vim.keymap.set("n", "<F9>",   dap.toggle_breakpoint,  { desc = "[F9] Toggle breakpoint", })
-    vim.keymap.set("n", "<F10>",  dap.step_over,          { desc = "[F10] Step over", })
-    vim.keymap.set("n", "<F11>",  dap.step_into,          { desc = "[F11] Step into", })
-    vim.keymap.set("n", "<F12>",  dap.step_out,           { desc = "[F12] Step out", })
+    vim.keymap.set("n", "<F5>", dap.continue, { desc = "[F5] Start/Continue debuging", })
+    vim.keymap.set("n", "<C-F5>", dap.terminate, { desc = "[Ctrl+F5] Stop debuging", })
+    vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "[F9] Toggle breakpoint", })
+    vim.keymap.set("n", "<F10>", dap.step_over, { desc = "[F10] Step over", })
+    vim.keymap.set("n", "<F11>", dap.step_into, { desc = "[F11] Step into", })
+    vim.keymap.set("n", "<F12>", dap.step_out, { desc = "[F12] Step out", })
 
     -- plugin configs
     require("nvim-dap-virtual-text").setup({})
