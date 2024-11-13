@@ -21,6 +21,7 @@ return {
       dap_virtual_text.enable()
       dap_ui.open()
     end
+
     dap.listeners.before.event_terminated.dapui_config = function()
       require("no-neck-pain").enable()
       dap_ui.close()

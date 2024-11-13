@@ -58,8 +58,6 @@ return {
               title = "",
             },
           },
-          enabled = true,
-          view = "cmdline_popup",
         },
         views = {
           cmdline_popup = {

@@ -16,6 +16,7 @@ return {
           "markdown_inline",
           "vim",
           "vimdoc",
+          "latex",
         },
         highlight = { enable = true, },
         auto_install = true, -- Autoinstall languages that are not installed
