@@ -52,6 +52,15 @@ return { -- Fuzzy Finder (files, lsp, etc)
             preview_width = 60,
           },
         },
+        ripgrep_arguments = {
+          "rg",
+          "--hidden",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+        },
       },
       pickers = {
         git_status = {
@@ -74,7 +83,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set("n", "<leader> ", builtin.commands, { desc = "[S]earch [C]ommands", })
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps", })
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles", })
-    vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers", })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope", })
     vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord", })
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep", })
@@ -82,5 +90,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp", })
     vim.keymap.set("n", "<leader>sm", builtin.man_pages, { desc = "[S]earch [M]anuals", })
+
+    vim.keymap.set("n", "<leader>sb", function()
+      builtin.buffers({
+        layout_config = {
+          prompt_position = "top",
+          height = 0.7,
+          width = 0.5,
+          horizontal = {
+            preview_width = 0,
+          },
+        },
+      })
+    end, { desc = "[S]earch [B]uffers", })
   end,
 }

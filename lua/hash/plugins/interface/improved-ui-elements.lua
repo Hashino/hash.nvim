@@ -3,6 +3,10 @@ return {
     "b0o/incline.nvim",
     config = function()
       require("incline").setup {
+        hide = {
+          focused_win = true,
+          only_win = true,
+        },
         window = {
           margin = {
             horizontal = 0,
@@ -14,10 +18,8 @@ return {
           },
         },
         render = function(props)
-          if props.buf ~= vim.api.nvim_get_current_buf() then
-            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-            return { " ", filename, " ", }
-          end
+          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+          return { " ", filename, " ", }
         end,
       }
     end,

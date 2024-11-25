@@ -41,7 +41,7 @@ local position = function()
   local curr_col = vim.fn.charcol(".")
   local total_line = vim.fn.line("$")
   local total_col = vim.fn.charcol("$") - 1
-  return string.format("[%3d/%-3d]:[%2d/%-2d]", curr_line, total_line, curr_col, total_col)
+  return string.format("[%2d/%-2d]:[%2d/%-2d]", curr_line, total_line, curr_col, total_col)
 end
 
 return { -- Simple status line in lua
@@ -70,6 +70,7 @@ return { -- Simple status line in lua
 
       extensions = { "nvim-tree", "nvim-dap-ui", },
     })
+
     vim.api.nvim_create_autocmd("VimEnter", {
       callback = function()
         vim.opt.laststatus = 3

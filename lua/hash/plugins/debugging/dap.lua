@@ -17,7 +17,6 @@ return {
     dap.listeners.before.attach.dapui_config = require("no-neck-pain").disable
 
     dap.listeners.before.launch.dapui_config = function()
-      dap_projects.search_project_config()
       dap_virtual_text.enable()
       dap_ui.open()
     end
@@ -35,8 +34,13 @@ return {
     vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "ErrorMsg", })
     vim.fn.sign_define("DapLogPoint", { text = "", texthl = "Type", })
 
+    local function continue_debug()
+      dap_projects.search_project_config()
+      dap.continue()
+    end
+
     -- debugging keymaps
-    vim.keymap.set("n", "<F5>", dap.continue, { desc = "[F5] Start/Continue debuging", })
+    vim.keymap.set("n", "<F5>", continue_debug, { desc = "[F5] Start/Continue debuging", })
     vim.keymap.set("n", "<C-F5>", dap.terminate, { desc = "[Ctrl+F5] Stop debuging", })
     vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "[F9] Toggle breakpoint", })
     vim.keymap.set("n", "<F10>", dap.step_over, { desc = "[F10] Step over", })
@@ -50,8 +54,8 @@ return {
         {
           elements = {
             { id = "scopes",      size = 0.5, },
-            { id = "breakpoints", size = 0.25, },
-            { id = "watches",     size = 0.25, },
+            -- { id = "breakpoints", size = 0.25, },
+            { id = "watches",     size = 0.5, },
           },
           position = "left",
           size = 40,

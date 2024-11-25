@@ -12,7 +12,6 @@ return {
     require("markview.spec").setup {
       hybrid_modes = { "n", },
 
-      checkboxes = presets.checkboxes.nerd,
       headings = presets.headings.marker,
       horizontal_rules = presets.horizontal_rules.thin,
     }
