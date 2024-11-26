@@ -1,15 +1,20 @@
 local dap = require("dap")
-dap.adapters.lldb = {
-  type = "executable",
-  command = "/usr/bin/lldb-dap", -- adjust as needed, must be absolute path
-  name = "lldb",
+
+local codelldb = vim.fn.expand("$HOME/.local/share/nvim/mason/bin/codelldb")
+
+dap.adapters.codelldb = {
+  type = "server",
+  port = "${port}",
+  executable = {
+    command = codelldb,
+    args = { "--port", "${port}", },
+  },
 }
 
-dap.configurations.cpp = {
+dap.configurations.c = {
   {
     name = "Launch",
-    -- TODO: switch to a portable debugger (IE: can be installed by Mason)
-    type = "lldb",
+    type = "codelldb",
     request = "launch",
     program = function()
       return vim.fn.input({
@@ -21,8 +26,9 @@ dap.configurations.cpp = {
     cwd = "${workspaceFolder}",
     stopOnEntry = false,
     runInTerminal = true,
+    args = {},
   },
 }
 
-dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
+dap.configurations.cpp = dap.configurations.c
+dap.configurations.rust = dap.configurations.c

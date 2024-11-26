@@ -15,14 +15,15 @@ end
 -- gets the workspace git repository name and branch
 local function git_repo()
   if vim.fn.system("git remote") == "" then
-    return "[local repository]"
+    return ""
   end
 
-  local git_repo_name = vim.fn.system("basename $(git remote get-url origin) | tr -d '\n'")
+  -- local git_repo_name = vim.fn.system("basename $(git remote get-url origin) | tr -d '\n'")
   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
   if branch ~= "" then
-    return "[" .. git_repo_name .. "/" .. branch .. "]"
+    return "[" .. branch .. "]"
+    -- return "[" .. git_repo_name .. "/" .. branch .. "]"
   else
     return ""
   end

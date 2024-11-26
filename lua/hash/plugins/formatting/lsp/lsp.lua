@@ -19,8 +19,15 @@ return { -- LSP Configuration & Plugins
       },
     }
 
+    local mason_tools = vim.list_extend({
+      "codelldb",
+      "tree-sitter-cli",
+    }, vim.tbl_keys(servers))
+
     require("mason").setup() -- Install all servers before configuring them
-    require("mason-tool-installer").setup({ ensure_installed = vim.tbl_keys(servers or {}), })
+    require("mason-tool-installer").setup({
+      ensure_installed = mason_tools,
+    })
 
     require("mason-lspconfig").setup({
       handlers = {
