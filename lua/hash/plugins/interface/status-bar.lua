@@ -13,16 +13,17 @@ local clients_lsp = function()
 end
 
 -- gets the workspace git repository name and branch
-local function git_repo()
+local function git()
   if vim.fn.system("git remote") == "" then
     return ""
   end
 
   -- local git_repo_name = vim.fn.system("basename $(git remote get-url origin) | tr -d '\n'")
   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+  local is_dirty = vim.fn.system("git status -s --ignore-submodules=dirty 2> /dev/null")
 
   if branch ~= "" then
-    return "[" .. branch .. "]"
+    return "[" .. branch .. (is_dirty == '' and "" or "*") .. "]"
     -- return "[" .. git_repo_name .. "/" .. branch .. "]"
   else
     return ""
@@ -52,7 +53,7 @@ return { -- Simple status line in lua
   init = function()
     local lualine_sections = {
       lualine_a = { macro_recording, },
-      lualine_b = { git_repo, "diff", },
+      lualine_b = { git, "diff", },
       lualine_c = { "diagnostics", require("doing.api").status, },
       -- right side
       lualine_x = { { "filename", path = 1, }, },

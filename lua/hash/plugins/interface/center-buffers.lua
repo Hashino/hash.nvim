@@ -1,15 +1,15 @@
 return {
-  {
-    "arnamak/stay-centered.nvim",
-    config = function()
-      require("stay-centered").setup({
-        skip_filetypes = {},
-        enabled = true,
-        allow_scroll_move = false,
-        disable_on_mouse = true,
-      })
-    end,
-  },
+  -- {
+  --   "arnamak/stay-centered.nvim",
+  --   config = function()
+  --     require("stay-centered").setup({
+  --       skip_filetypes = {},
+  --       enabled = true,
+  --       allow_scroll_move = false,
+  --       disable_on_mouse = true,
+  --     })
+  --   end,
+  -- },
   {
     "shortcuts/no-neck-pain.nvim",
     lazy = false,

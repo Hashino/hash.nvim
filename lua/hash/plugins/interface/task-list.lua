@@ -1,6 +1,5 @@
 return { -- task list
-  "hashino/doing.nvim",
-  opts = {},
+  "Hashino/doing.nvim",
   config = function()
     require("doing").setup({
       message_timeout = 2000,
@@ -19,7 +18,9 @@ return { -- task list
 
     local api = require("doing.api")
 
-    vim.keymap.set("n", "<leader>de", api.edit, { desc = "[E]dit what tasks you`re [D]oing", })
-    vim.keymap.set("n", "<leader>dn", api.done, { desc = "[D]o[n]e with current task", })
+    vim.keymap.set("n", "<leader>de", api.edit,
+      { desc = "[E]dit what tasks you`re [D]oing", })
+    vim.keymap.set("n", "<leader>dn", api.done,
+      { desc = "[D]o[n]e with current task", })
   end,
 }
