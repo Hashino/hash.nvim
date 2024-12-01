@@ -12,6 +12,7 @@ return {
           "rust",
           "bash",
           "html",
+          "regex",
           "markdown",
           "markdown_inline",
           "vim",

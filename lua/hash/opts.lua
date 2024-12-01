@@ -83,6 +83,11 @@ vim.opt.textwidth = 80
 -- session options
 vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
 
+-- vim.opt.guicursor = "n-v-c-sm:block-blinkwait1000-blinkon1000-blinkoff1000," ..
+--    "i-ci-ve:ver25-iCursor-blinkwait1000-blinkon1000-blinkoff1000";
+vim.o.guicursor = "n-v-c-sm:block-blinkwait1000-blinkon1000-blinkoff1000," ..
+   "i-ci-ve:ver25-iCursor-blinkwait1000-blinkon1000-blinkoff1000";
+
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0
 vim.o.guifont = "UbuntuMono Nerd Font:h20"

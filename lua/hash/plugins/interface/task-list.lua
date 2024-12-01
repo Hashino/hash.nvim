@@ -5,9 +5,10 @@ return { -- task list
       message_timeout = 2000,
       doing_prefix = "Doing: ",
 
+      ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
+
       winbar = {
-        enabled = false,
-        ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
+         enabled = false,
       },
 
       store = {

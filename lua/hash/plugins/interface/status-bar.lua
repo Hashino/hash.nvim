@@ -20,11 +20,9 @@ local function git()
 
   -- local git_repo_name = vim.fn.system("basename $(git remote get-url origin) | tr -d '\n'")
   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
-  local is_dirty = vim.fn.system("git status -s --ignore-submodules=dirty 2> /dev/null")
 
   if branch ~= "" then
-    return "[" .. branch .. (is_dirty == '' and "" or "*") .. "]"
-    -- return "[" .. git_repo_name .. "/" .. branch .. "]"
+    return "[" .. branch .. "]"
   else
     return ""
   end
