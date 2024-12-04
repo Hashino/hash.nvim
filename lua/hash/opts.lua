@@ -90,7 +90,15 @@ vim.o.guicursor = "n-v-c-sm:block-blinkwait1000-blinkon1000-blinkoff1000," ..
 
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0
-vim.o.guifont = "UbuntuMono Nerd Font:h" .. ((20 - (os.getenv("UI_SCALING") - 32)) or 20)
+
+-- TODO: this is a mess
+local function get_font_size()
+  local ui_scaling = os.getenv("UI_SCALING")
+
+  return 20 - ((ui_scaling - 32) * 2)
+end
+
+vim.o.guifont = "UbuntuMono Nerd Font:h" .. get_font_size()
 
 vim.g.neovide_transparency = 0.9
 vim.g.neovide_floating_shadow = false
