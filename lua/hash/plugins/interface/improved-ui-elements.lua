@@ -113,7 +113,6 @@ return {
         },
       })
       vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>", { desc = "[N]otifications", })
-      vim.keymap.set("n", "<leader>n", "<cmd>Noice pick<CR>", { desc = "[N]otifications", })
     end,
   },
 }

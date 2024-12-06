@@ -41,7 +41,7 @@ local position = function()
   local curr_col = vim.fn.charcol(".")
   local total_line = vim.fn.line("$")
   local total_col = vim.fn.charcol("$") - 1
-  return string.format("[%2d/%-2d]:[%2d/%-2d]", curr_line, total_line, curr_col, total_col)
+  return string.format("%2d:%-2d┃%2d:%-2d", curr_line, total_line, curr_col, total_col)
 end
 
 return { -- Simple status line in lua
@@ -55,7 +55,7 @@ return { -- Simple status line in lua
       lualine_c = { "diagnostics", require("doing.api").status, },
       -- right side
       lualine_x = { { "filename", path = 1, }, },
-      lualine_y = { clients_lsp, { "filetype", icon_only = true, }, },
+      lualine_y = { --[[ clients_lsp, { "filetype", icon_only = true, }, ]] },
       lualine_z = { position, },
     }
 

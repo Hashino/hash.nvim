@@ -70,10 +70,21 @@ return { -- LSP Configuration & Plugins
               vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename,
                 { buffer = bufnr, desc = "LSP: [R]ename", })
 
+              -- needed for breadcrumbs
               if client.server_capabilities["documentSymbolProvider"] then
                 require("nvim-navic").attach(client, bufnr)
                 require("barbecue.ui").update()
               end
+
+              -- You will likely want to reduce updatetime which affects CursorHold
+              -- note: this setting is global and should be set only once
+              vim.o.updatetime = 250
+              vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", }, {
+                group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true, }),
+                callback = function()
+                  vim.diagnostic.open_float(nil, { focus = false, })
+                end,
+              })
             end,
           })
         end,
