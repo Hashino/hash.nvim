@@ -30,9 +30,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     }
     require("telescope").setup({
       extensions = {
-        -- ["ui-select"] = {
-        --   require("telescope.themes").get_dropdown(),
-        -- },
         persisted = {
           layout_config = { width = 0.5, height = 0.7, },
         },
@@ -90,7 +87,5 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp", })
     vim.keymap.set("n", "<leader>sm", builtin.man_pages, { desc = "[S]earch [M]anuals", })
-
-    vim.keymap.set("n", "/", builtin.current_buffer_fuzzy_find, { desc = "[S]earch [M]anuals", })
   end,
 }
