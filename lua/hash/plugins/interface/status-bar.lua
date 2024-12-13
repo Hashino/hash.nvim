@@ -158,7 +158,12 @@ return {
       local doing = {
         {
           provider = function()
-            return " " .. require("doing.api").status() .. " "
+            local curr_status = require("doing.api").status()
+            if not conditions.width_percent_below(#curr_status, 0.3) then
+              local max_len = vim.api.nvim_win_get_width(0) * 0.3
+              curr_status = curr_status:sub(0, max_len) .. "..."
+            end
+            return " " .. curr_status .. " "
           end,
           update = { "BufEnter", "User", pattern = "TaskModified", },
         },
@@ -170,23 +175,18 @@ return {
           self.filename = vim.api.nvim_buf_get_name(0)
         end,
         {
-          init = function(self)
-            self.filename = vim.api.nvim_buf_get_name(0)
-          end,
-
           provider = function(self)
-            -- first, trim the pattern relative to the current directory. For other
-            -- options, see :h filename-modifers
+            -- for other options, see :h filename-modifers
             local filename = vim.fn.fnamemodify(self.filename, ":.")
             if filename == "" then return " [No Name] " end
-            -- now, if the filename would occupy more than 1/4th of the available
-            -- space, we trim the file path to its initials
-            -- See Flexible Components section below for dynamic truncation
-            if not conditions.width_percent_below(#filename, 0.4) then
+            -- shortes if filename is bigger than proportion of width
+            if not conditions.width_percent_below(#filename, 0.3) then
               filename = vim.fn.pathshorten(filename)
             end
             return " " .. filename .. " "
           end,
+
+          update = { "BufEnter", "BufFilePost", "DirChanged", },
         },
         { provider = "%<", },
       }
@@ -195,32 +195,34 @@ return {
         condition = conditions.lsp_attached,
 
         provider = function()
-          local clients = vim.lsp.get_clients({ bufnr = 0, })
-          if next(clients) == nil then
-            return ""
+          local clients = {}
+          for _, client in pairs(vim.lsp.get_clients({ bufnr = 0, })) do
+            table.insert(clients, client.name)
           end
 
-          local c = {}
-          for _, client in pairs(clients) do
-            table.insert(c, client.name)
-          end
-          return " " .. table.concat(c, " | ") .. " "
+          return " " .. table.concat(clients, " | ") .. " "
         end,
+
         hl = function()
           return {
             fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
             bg = utils.get_highlight("illuminatedWord").bg,
           }
         end,
+
+        update = { "ModeChanged", "LspAttach", "LspDetach", },
       }
 
       local location = {
         provider = function()
           local curr_line = vim.fn.line(".")
           local curr_col = vim.fn.charcol(".")
+
           local total_line = vim.fn.line("$")
           local total_col = vim.fn.charcol("$") - 1
-          return string.format(" %2d:%-2d┃%2d:%-2d ", curr_line, total_line, curr_col, total_col)
+
+          return string.format(" %2d:%-2d ┃ %2d:%-2d ",
+            curr_line, total_line, curr_col, total_col)
         end,
         hl = function()
           return {
@@ -234,26 +236,28 @@ return {
         },
       }
 
-      local middle_fill = { provider = "%=", }
-
-      local status_bar = {
-        condition = function()
-          return not conditions.buffer_matches({
-            filetype = { "no-neck-pain", "alpha", "NvimTree", "trouble", },
-          })
-        end,
-        macro,
-        git_status,
-        diagnostics,
-        doing,
-        middle_fill,
-        file_name,
-        lsp,
-        location,
-      }
-
       require("heirline").setup({
-        statusline = status_bar,
+        statusline = {
+          condition = function()
+            return not conditions.buffer_matches({
+              filetype = {
+                "no-neck-pain",
+                "alpha",
+                "NvimTree",
+                "trouble",
+                "Telescope*",
+              },
+            })
+          end,
+          macro,
+          git_status,
+          diagnostics,
+          doing,
+          { provider = "%=", },
+          file_name,
+          lsp,
+          location,
+        },
       })
 
       vim.api.nvim_create_autocmd("VimEnter", {
