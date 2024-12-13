@@ -6,7 +6,24 @@ return {
     -- to make sure all required plugins and colorschemes are loaded before setup
     -- event = "UiEnter",
     config = function()
-      local colors = require("onenord.colors").load()
+      local conditions = require("heirline.conditions")
+      local utils = require("heirline.utils")
+
+      local colors = vim.tbl_extend("keep",
+        require("onenord.colors").load(),
+        {
+          bright_bg = utils.get_highlight("illuminatedWord").bg,
+          bright_fg = utils.get_highlight("illuminatedWord").fg,
+          diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+          diag_error = utils.get_highlight("DiagnosticError").fg,
+          diag_hint = utils.get_highlight("DiagnosticHint").fg,
+          diag_info = utils.get_highlight("DiagnosticInfo").fg,
+          git_del = utils.get_highlight("diffDeleted").fg,
+          git_add = utils.get_highlight("diffAdded").fg,
+          git_change = utils.get_highlight("diffChanged").fg,
+        })
+
+      require("heirline").load_colors(colors)
 
       local mode_colors = {
         n = "cyan",
@@ -24,12 +41,7 @@ return {
         t = "red",
       }
 
-      require("heirline").load_colors(colors)
-      local conditions = require("heirline.conditions")
-      local utils = require("heirline.utils")
-
       local macro = {
-
         condition = function()
           return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
         end,
@@ -47,6 +59,7 @@ return {
         end,
 
         update = {
+          "ModeChanged",
           "RecordingEnter",
           "RecordingLeave",
         },
@@ -62,7 +75,7 @@ return {
         end,
 
         hl = {
-          bg = utils.get_highlight("illuminatedWord").bg,
+          bg = "bright_bg",
         },
 
         {
@@ -124,7 +137,10 @@ return {
           self.hnt_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text
         end,
 
-        update = { "DiagnosticChanged", "BufEnter", },
+        update = {
+          "DiagnosticChanged",
+          "BufEnter",
+        },
 
         {
           provider = " ",
@@ -166,7 +182,11 @@ return {
             end
             return " " .. curr_status .. " "
           end,
-          update = { "BufEnter", "User", pattern = "TaskModified", },
+          update = {
+            "BufEnter",
+            "User",
+            pattern = "TaskModified",
+          },
         },
       }
 
@@ -187,7 +207,11 @@ return {
             return " " .. filename .. " "
           end,
 
-          update = { "BufEnter", "BufFilePost", "DirChanged", },
+          update = {
+            "BufEnter",
+            "BufFilePost",
+            "DirChanged",
+          },
         },
         { provider = "%<", },
       }
@@ -207,58 +231,61 @@ return {
         hl = function()
           return {
             fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
-            bg = utils.get_highlight("illuminatedWord").bg,
-          }
-        end,
-
-        update = { "ModeChanged", "LspAttach", "LspDetach", },
-      }
-
-      local location = {
-        provider = function()
-          local curr_line = vim.fn.line(".")
-          local curr_col = vim.fn.charcol(".")
-
-          local total_line = vim.fn.line("$")
-          local total_col = vim.fn.charcol("$") - 1
-
-          return string.format(" %2d:%-2d ┃ %2d:%-2d ",
-            curr_line, total_line, curr_col, total_col)
-        end,
-
-        hl = function()
-          return {
-            bg = mode_colors[vim.fn.mode(1):sub(1, 1)],
-            fg = colors.bg,
-            bold = true,
+            bg = "bright_bg",
           }
         end,
 
         update = {
-          "ModeChanged", "CursorMoved", "CursorMovedI", "CursorMovedC",
+          "ModeChanged",
+          "LspAttach",
+          "LspDetach",
         },
       }
 
-      local scrollbar = {
-        static = { sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻", }, },
+      local location = {
+        {
+          provider = function()
+            local curr_line = vim.fn.line(".")
+            local curr_col = vim.fn.charcol(".")
 
-        provider = function(self)
-          local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-          local lines = vim.api.nvim_buf_line_count(0)
-          local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
-          return string.rep(self.sbar[i], 2)
-        end,
+            local total_line = vim.fn.line("$")
+            local total_col = vim.fn.charcol("$") - 1
 
-        hl = function()
-          return {
-            fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
-            bg = colors.bg,
-            bold = true,
-          }
-        end,
+            return string.format(" %2d:%-2d ┃ %2d:%-2d ",
+              curr_line, total_line, curr_col, total_col)
+          end,
 
+          hl = function()
+            return {
+              bg = mode_colors[vim.fn.mode(1):sub(1, 1)],
+              fg = colors.bg,
+              bold = true,
+            }
+          end,
+        },
+        {
+          static = { sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻", }, },
+
+          provider = function(self)
+            local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+            local lines = vim.api.nvim_buf_line_count(0)
+            local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
+            return string.rep(self.sbar[i], 2)
+          end,
+
+          hl = function()
+            return {
+              fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
+              bg = colors.bg,
+              bold = true,
+            }
+          end,
+        },
         update = {
-          "ModeChanged", "CursorMoved", "CursorMovedI", "CursorMovedC",
+          "ModeChanged",
+          "CursorMoved",
+          "CursorMovedI",
+          "CursorMovedC",
         },
       }
 
@@ -283,27 +310,6 @@ return {
           file_name,
           lsp,
           location,
-          scrollbar,
-        },
-
-        colors = {
-          bright_bg = utils.get_highlight("Folded").bg,
-          bright_fg = utils.get_highlight("Folded").fg,
-          red = utils.get_highlight("DiagnosticError").fg,
-          dark_red = utils.get_highlight("DiffDelete").bg,
-          green = utils.get_highlight("String").fg,
-          blue = utils.get_highlight("Function").fg,
-          gray = utils.get_highlight("NonText").fg,
-          orange = utils.get_highlight("Constant").fg,
-          purple = utils.get_highlight("Statement").fg,
-          cyan = utils.get_highlight("Special").fg,
-          diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-          diag_error = utils.get_highlight("DiagnosticError").fg,
-          diag_hint = utils.get_highlight("DiagnosticHint").fg,
-          diag_info = utils.get_highlight("DiagnosticInfo").fg,
-          git_del = utils.get_highlight("diffDeleted").fg,
-          git_add = utils.get_highlight("diffAdded").fg,
-          git_change = utils.get_highlight("diffChanged").fg,
         },
       })
 
