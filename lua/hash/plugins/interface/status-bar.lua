@@ -113,14 +113,15 @@ return {
         condition = conditions.has_diagnostics,
 
         init = function(self)
-          self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR, })
-          self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN, })
-          self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT, })
-          self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO, })
-          self.error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text
-          self.warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text
-          self.info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text
-          self.hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text
+          self.errs = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR, })
+          self.wrns = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN, })
+          self.hnts = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT, })
+          self.infs = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO, })
+
+          self.err_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text
+          self.wrn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text
+          self.inf_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text
+          self.hnt_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text
         end,
 
         update = { "DiagnosticChanged", "BufEnter", },
@@ -131,25 +132,25 @@ return {
         {
           provider = function(self)
             -- 0 is just another output, we can decide to print it or not!
-            return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+            return self.errs > 0 and (self.err_icon .. self.errs .. " ")
           end,
           hl = { fg = "red", },
         },
         {
           provider = function(self)
-            return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+            return self.wrns > 0 and (self.wrn_icon .. self.wrns .. " ")
           end,
           hl = { fg = "orange", },
         },
         {
           provider = function(self)
-            return self.info > 0 and (self.info_icon .. self.info .. " ")
+            return self.infs > 0 and (self.inf_icon .. self.infs .. " ")
           end,
           hl = { fg = "green", },
         },
         {
           provider = function(self)
-            return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
+            return self.hnts > 0 and (self.hnt_icon .. self.hnts .. " ")
           end,
           hl = { fg = "purple", },
         },
@@ -224,6 +225,7 @@ return {
           return string.format(" %2d:%-2d ┃ %2d:%-2d ",
             curr_line, total_line, curr_col, total_col)
         end,
+
         hl = function()
           return {
             bg = mode_colors[vim.fn.mode(1):sub(1, 1)],
@@ -231,8 +233,32 @@ return {
             bold = true,
           }
         end,
+
         update = {
-          "ModeChanged", "CursorMoved",
+          "ModeChanged", "CursorMoved", "CursorMovedI", "CursorMovedC",
+        },
+      }
+
+      local scrollbar = {
+        static = { sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻", }, },
+
+        provider = function(self)
+          local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+          local lines = vim.api.nvim_buf_line_count(0)
+          local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
+          return string.rep(self.sbar[i], 2)
+        end,
+
+        hl = function()
+          return {
+            fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
+            bg = colors.bg,
+            bold = true,
+          }
+        end,
+
+        update = {
+          "ModeChanged", "CursorMoved", "CursorMovedI", "CursorMovedC",
         },
       }
 
@@ -257,6 +283,27 @@ return {
           file_name,
           lsp,
           location,
+          scrollbar,
+        },
+
+        colors = {
+          bright_bg = utils.get_highlight("Folded").bg,
+          bright_fg = utils.get_highlight("Folded").fg,
+          red = utils.get_highlight("DiagnosticError").fg,
+          dark_red = utils.get_highlight("DiffDelete").bg,
+          green = utils.get_highlight("String").fg,
+          blue = utils.get_highlight("Function").fg,
+          gray = utils.get_highlight("NonText").fg,
+          orange = utils.get_highlight("Constant").fg,
+          purple = utils.get_highlight("Statement").fg,
+          cyan = utils.get_highlight("Special").fg,
+          diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+          diag_error = utils.get_highlight("DiagnosticError").fg,
+          diag_hint = utils.get_highlight("DiagnosticHint").fg,
+          diag_info = utils.get_highlight("DiagnosticInfo").fg,
+          git_del = utils.get_highlight("diffDeleted").fg,
+          git_add = utils.get_highlight("diffAdded").fg,
+          git_change = utils.get_highlight("diffChanged").fg,
         },
       })
 
