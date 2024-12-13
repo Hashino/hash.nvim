@@ -19,7 +19,7 @@ return {
         },
         render = function(props)
           local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-          return { " ", filename, " ", }
+          return filename ~= vim.api.nvim_buf_get_name(0) and { " ", filename, " ", }
         end,
       }
     end,
