@@ -8,7 +8,7 @@ return { -- task list
       ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
 
       winbar = {
-         enabled = false,
+        enabled = false,
       },
 
       store = {
