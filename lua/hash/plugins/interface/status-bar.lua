@@ -7,20 +7,20 @@ return {
     -- event = "UiEnter",
     config = function()
       local conditions = require("heirline.conditions")
-      local utils = require("heirline.utils")
 
-      local colors = vim.tbl_extend("keep",
-        require("onenord.colors").load(),
+      local colors = require("onenord.colors").load()
+      colors = vim.tbl_extend("keep",
+        colors,
         {
-          bright_bg = utils.get_highlight("illuminatedWord").bg,
-          bright_fg = utils.get_highlight("illuminatedWord").fg,
-          diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-          diag_error = utils.get_highlight("DiagnosticError").fg,
-          diag_hint = utils.get_highlight("DiagnosticHint").fg,
-          diag_info = utils.get_highlight("DiagnosticInfo").fg,
-          git_del = utils.get_highlight("diffDeleted").fg,
-          git_add = utils.get_highlight("diffAdded").fg,
-          git_change = utils.get_highlight("diffChanged").fg,
+          bright_bg = colors.highlight,
+          bright_fg = colors.fg,
+          diag_error = colors.error,
+          diag_warn = colors.warn,
+          diag_hint = colors.hint,
+          diag_info = colors.info,
+          git_add = colors.diff_add,
+          git_change = colors.diff_change,
+          git_del = colors.diff_remove,
         })
 
       require("heirline").load_colors(colors)
@@ -142,33 +142,31 @@ return {
           "BufEnter",
         },
 
-        {
-          provider = " ",
-        },
+        { provider = " ", },
         {
           provider = function(self)
             -- 0 is just another output, we can decide to print it or not!
             return self.errs > 0 and (self.err_icon .. self.errs .. " ")
           end,
-          hl = { fg = "red", },
+          hl = { fg = "diag_error", },
         },
         {
           provider = function(self)
             return self.wrns > 0 and (self.wrn_icon .. self.wrns .. " ")
           end,
-          hl = { fg = "orange", },
+          hl = { fg = "diag_warn", },
         },
         {
           provider = function(self)
             return self.infs > 0 and (self.inf_icon .. self.infs .. " ")
           end,
-          hl = { fg = "green", },
+          hl = { fg = "diag_info", },
         },
         {
           provider = function(self)
             return self.hnts > 0 and (self.hnt_icon .. self.hnts .. " ")
           end,
-          hl = { fg = "purple", },
+          hl = { fg = "diag_hint", },
         },
       }
 
@@ -188,6 +186,18 @@ return {
         },
       }
 
+      local debugger_status = {
+        condition = function()
+          local session = require("dap").session()
+          return session ~= nil
+        end,
+
+        provider = function()
+          return require("dap").status()
+        end,
+        hl = "Debug",
+      }
+
       local file_name = {
         -- let's first set up some attributes needed by this component and its children
         init = function(self)
@@ -200,7 +210,17 @@ return {
             if filename == "" then return " [No Name] " end
             -- shortens if filename is bigger than proportion of width
             if not conditions.width_percent_below(#filename, 0.3) then
-              filename = vim.fn.pathshorten(filename)
+              local winwidth
+              if vim.o.laststatus == 3 then
+                winwidth = vim.o.columns
+              else
+                winwidth = vim.api.nvim_win_get_width(0)
+              end
+
+              local max_len = winwidth * 0.3
+
+              local ind, _ = filename:find("/", #filename - max_len + 2)
+              filename = "..." .. filename:sub(ind or 0, #filename)
             end
             return " " .. filename .. " "
           end,
@@ -261,53 +281,97 @@ return {
             }
           end,
         },
+      }
+
+      local nvimtree_statusbar = {
+        { provider = "%=", },
         {
-          static = { sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻", }, },
-
-          provider = function(self)
-            local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-            local lines = vim.api.nvim_buf_line_count(0)
-            local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
-            return string.rep(self.sbar[i], 2)
+          provider = function()
+            return vim.fn.getcwd(0):gsub(os.getenv("HOME") or "~", "~")
           end,
+        },
+        { provider = "%=", },
 
+        update = { "DirChanged", },
+      }
+
+      local dapui_statusbar = {
+        {
+          file_name,
           hl = function()
             return {
-              fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
-              bg = colors.bg,
+              bg = mode_colors[vim.fn.mode(1):sub(1, 1)],
+              fg = colors.bg,
               bold = true,
             }
           end,
         },
+        { provider = "%=", },
+        debugger_status,
+        { provider = "%=", },
+
         update = {
           "ModeChanged",
-          "CursorMoved",
-          "CursorMovedI",
-          "CursorMovedC",
+          "BufEnter",
         },
       }
 
       require("heirline").setup({
         statusline = {
-          condition = function()
-            return not conditions.buffer_matches({
-              filetype = {
-                "no-neck-pain",
-                "alpha",
-                "NvimTree",
-                "trouble",
-                "Telescope*",
-              },
-            })
-          end,
-          macro,
-          git_status,
-          diagnostics,
-          doing,
-          { provider = "%=", },
-          file_name,
-          lsp,
-          location,
+          { -- default status line
+            condition = function()
+              return not conditions.buffer_matches({
+                filetype = {
+                  "no-neck-pain",
+                  "alpha",
+                  "NvimTree",
+                  "trouble",
+                  "Telescope*",
+                  "toggleterm",
+                  "dapui*",
+                },
+              })
+            end,
+            macro,
+            git_status,
+            diagnostics,
+            doing,
+            { provider = "%=", },
+            debugger_status,
+            { provider = "%=", },
+            file_name,
+            lsp,
+            location,
+          },
+
+          { -- status line for alpha
+            condition = function()
+              return conditions.buffer_matches({
+                filetype = { "alpha", },
+              })
+            end,
+            { provider = "%=", },
+            doing,
+            { provider = "%=", },
+          },
+
+          { -- status line for nvimtree
+            condition = function()
+              return conditions.buffer_matches({
+                filetype = { "NvimTree", },
+              })
+            end,
+            nvimtree_statusbar,
+          },
+
+          { -- status line for dapui
+            condition = function()
+              return conditions.buffer_matches({
+                filetype = { "dapui*", },
+              })
+            end,
+            dapui_statusbar,
+          },
         },
       })
 
