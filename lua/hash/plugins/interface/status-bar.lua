@@ -117,32 +117,39 @@ return {
           self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN, })
           self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT, })
           self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO, })
+          self.error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text
+          self.warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text
+          self.info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text
+          self.hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text
         end,
 
         update = { "DiagnosticChanged", "BufEnter", },
 
         {
+          provider = " ",
+        },
+        {
           provider = function(self)
             -- 0 is just another output, we can decide to print it or not!
-            return self.errors > 0 and ("  " .. self.errors .. " ")
+            return self.errors > 0 and (self.error_icon .. self.errors .. " ")
           end,
           hl = { fg = "red", },
         },
         {
           provider = function(self)
-            return self.warnings > 0 and ("  " .. self.warnings .. " ")
+            return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
           end,
-          hl = { fg = "yellow", },
+          hl = { fg = "orange", },
         },
         {
           provider = function(self)
-            return self.info > 0 and ("  " .. self.info .. " ")
+            return self.info > 0 and (self.info_icon .. self.info .. " ")
           end,
           hl = { fg = "green", },
         },
         {
           provider = function(self)
-            return self.hints > 0 and ("  " .. self.hints .. " ")
+            return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
           end,
           hl = { fg = "purple", },
         },
