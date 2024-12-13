@@ -173,20 +173,18 @@ return {
       }
 
       local doing = {
-        {
-          provider = function()
-            local curr_status = require("doing.api").status()
-            if not conditions.width_percent_below(#curr_status, 0.3) then
-              local max_len = vim.api.nvim_win_get_width(0) * 0.3
-              curr_status = curr_status:sub(0, max_len) .. "..."
-            end
-            return " " .. curr_status .. " "
-          end,
-          update = {
-            "BufEnter",
-            "User",
-            pattern = "TaskModified",
-          },
+        provider = function()
+          local curr_status = require("doing.api").status()
+          if not conditions.width_percent_below(#curr_status, 0.3) then
+            local max_len = vim.api.nvim_win_get_width(0) * 0.3
+            curr_status = curr_status:sub(0, max_len) .. "..."
+          end
+          return " " .. curr_status .. " "
+        end,
+        update = {
+          "BufEnter",
+          "User",
+          pattern = "TaskModified",
         },
       }
 
@@ -200,7 +198,7 @@ return {
             -- for other options, see :h filename-modifers
             local filename = vim.fn.fnamemodify(self.filename, ":.")
             if filename == "" then return " [No Name] " end
-            -- shortes if filename is bigger than proportion of width
+            -- shortens if filename is bigger than proportion of width
             if not conditions.width_percent_below(#filename, 0.3) then
               filename = vim.fn.pathshorten(filename)
             end
