@@ -78,9 +78,7 @@ return {
           bg = "bright_bg",
         },
 
-        {
-          provider = " ",
-        },
+        { provider = " ", },
         { -- git branch name
           provider = function(self)
             return "[" .. self.status_dict.head .. "]"
@@ -117,9 +115,7 @@ return {
           end,
           hl = { fg = "dark_blue", },
         },
-        {
-          provider = " ",
-        },
+        { provider = " ", },
       }
 
       local diagnostics = {
