@@ -24,7 +24,8 @@ vim.keymap.set({ "i", "n", }, "<Up>", "", { desc = "", })
 vim.keymap.set("n", "<A-q>", "<Cmd>q<CR>", { desc = "quick quit", })
 
 -- edit variable value
-vim.keymap.set("n", "<leader>a", "0f=lC ", { desc = "assign new value to variable", })
+vim.keymap.set("n", "<leader>ma", "0f=lC ",
+  { desc = "[M]acro: [A]ssign new value to variable", })
 
 -- makes more sense to me that way
 vim.keymap.set("x", "p", "P", { desc = "paste without replacing clipboard", })

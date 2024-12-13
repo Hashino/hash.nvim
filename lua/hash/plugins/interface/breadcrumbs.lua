@@ -23,5 +23,7 @@ return {
         require("barbecue.ui").update()
       end,
     })
+    vim.keymap.set("n", "<leader>B", require("barbecue.ui").toggle,
+      { desc = "Toggle [B]readcrumbs", })
   end,
 }

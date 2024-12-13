@@ -70,10 +70,27 @@ return { -- LSP Configuration & Plugins
               vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename,
                 { buffer = bufnr, desc = "LSP: [R]ename", })
 
+              -- needed for breadcrumbs
               if client.server_capabilities["documentSymbolProvider"] then
                 require("nvim-navic").attach(client, bufnr)
                 require("barbecue.ui").update()
               end
+
+              -- show diagnostics in floating window
+              vim.api.nvim_create_autocmd("CursorHold", {
+                buffer = bufnr,
+                callback = function()
+                  local opts = {
+                    focusable = false,
+                    close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost", },
+                    border = "rounded",
+                    source = "always",
+                    prefix = " ",
+                    scope = "cursor",
+                  }
+                  vim.diagnostic.open_float(nil, opts)
+                end,
+              })
             end,
           })
         end,

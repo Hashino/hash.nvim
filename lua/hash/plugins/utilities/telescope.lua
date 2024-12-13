@@ -30,9 +30,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     }
     require("telescope").setup({
       extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown(),
-        },
         persisted = {
           layout_config = { width = 0.5, height = 0.7, },
         },
@@ -80,7 +77,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     -- See `:help telescope.builtin`
     local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader> ", builtin.commands, { desc = "[S]earch [C]ommands", })
+    vim.keymap.set("n", "<leader> ", builtin.commands, { desc = "Search[ ]Commands", })
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps", })
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles", })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope", })
@@ -90,18 +87,5 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp", })
     vim.keymap.set("n", "<leader>sm", builtin.man_pages, { desc = "[S]earch [M]anuals", })
-
-    vim.keymap.set("n", "<leader>sb", function()
-      builtin.buffers({
-        layout_config = {
-          prompt_position = "top",
-          height = 0.7,
-          width = 0.5,
-          horizontal = {
-            preview_width = 0,
-          },
-        },
-      })
-    end, { desc = "[S]earch [B]uffers", })
   end,
 }
