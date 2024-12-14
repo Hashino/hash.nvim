@@ -1,10 +1,13 @@
 return {
-  { -- Autocompletion
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+  {
+    "saghen/blink.cmp",
+    version = "v0.*",
+    -- !Important! Make sure you're using the latest release of LuaSnip
+    -- `main` does not work at the moment
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
+        version = "v2.*",
         build = (function()
           if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
             return
@@ -32,94 +35,94 @@ return {
         },
       },
       {
-        "onsails/lspkind.nvim",
-        init = function()
-          -- setup() is also available as an alias
-          require("lspkind").init({
-            preset = "default",
-
-            symbol_map = {
-              Text          = "󰉿",
-              Method        = "󰆧",
-              Function      = "󰊕",
-              Constructor   = "",
-              Field         = "󰜢",
-              Variable      = "󰀫",
-              Class         = "󰠱",
-              Interface     = "",
-              Module        = "",
-              Property      = "󰜢",
-              Unit          = "󰑭",
-              Value         = "󰎠",
-              Enum          = "",
-              Keyword       = "󰌋",
-              Snippet       = "",
-              Color         = "󰏘",
-              File          = "󰈙",
-              Reference     = "󰈇",
-              Folder        = "󰉋",
-              EnumMember    = "",
-              Constant      = "󰏿",
-              Struct        = "󰙅",
-              Event         = "",
-              Operator      = "󰆕",
-              TypeParameter = "",
-            },
-          })
-        end,
-      },
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
-    },
-    config = function()
-      local cmp = require("cmp")
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
-          end,
-        },
-        completion = { completeopt = "menu,menuone,noinsert", },
-        -- fancy icons
-        window = {
-          completion = {
-            col_offset = -3,
-            side_padding = 0,
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv", }, },
           },
         },
-        formatting = {
-          fields = { "kind", "abbr", "menu", },
-          format = function(entry, vim_item)
-            local kind = require("lspkind").cmp_format({
-              mode = "symbol_text",
-              maxwidth = 50,
-            })(entry, vim_item)
+      },
+    },
+    opts = {
+      snippets = {
+        expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+        active = function(filter)
+          if filter and filter.direction then
+            return require("luasnip").jumpable(filter.direction)
+          end
+          return require("luasnip").in_snippet()
+        end,
+        jump = function(direction) require("luasnip").jump(direction) end,
+      },
 
-            local strings = vim.split(kind.kind, "%s", { trimempty = true, })
-            kind.kind = " " .. (strings[1] or "") .. " "
-            kind.menu = "    (" .. (strings[2] or "") .. ")"
+      sources = {
+        default = { "lsp", "path", "luasnip", "buffer", "lazydev", },
+      },
 
-            return kind
-          end,
+      providers = {
+        -- dont show LuaLS require statements when lazydev has items
+        lsp = { fallback_for = { "lazydev", }, },
+        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", },
+      },
+
+      keymap = {
+        preset = "default",
+        ["<S-Tab>"] = { "select_prev", "fallback", },
+        ["<Tab>"] = { "select_next", "fallback", },
+
+        ["<A-l>"] = { "snippet_forward", "fallback", },
+        ["<A-h>"] = { "snippet_backward", "fallback", },
+
+        ["<CR>"] = { "accept", "fallback", },
+
+        -- show with a list of providers
+        ["<C-Enter>"] = { function(cmp) cmp.show({ providers = { "snippets", }, }) end, },
+        ["<C-Space>"] = { "hide", "fallback", },
+      },
+
+      completion = {
+        menu = {
+          draw = {
+            treesitter = { "lsp", },
+            columns = { { "kind_icon", }, { "label", "label_description", gap = 1, }, { "kind", }, },
+          },
         },
+      },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = "normal",
 
-        mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = cmp.mapping.select_next_item(),
-          ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-          ["<Enter>"] = cmp.mapping.confirm({ select = true, }),
-          ["<C-Space>"] = cmp.mapping.close(),
-
-          ["<A-l>"] = cmp.mapping(function() vim.snippet.jump(1) end, { "i", "s", }),
-          ["<A-h>"] = cmp.mapping(function() vim.snippet.jump(-1) end, { "i", "s", }),
-        }),
-        sources = {
-          { name = "nvim_lsp", },
-          { name = "luasnip", },
-          { name = "path", },
+        kind_icons = {
+          Text          = "󰉿",
+          Method        = "󰆧",
+          Function      = "󰊕",
+          Constructor   = "",
+          Field         = "󰜢",
+          Variable      = "󰀫",
+          Class         = "󰠱",
+          Interface     = "",
+          Module        = "",
+          Property      = "󰜢",
+          Unit          = "󰑭",
+          Value         = "󰎠",
+          Enum          = "",
+          Keyword       = "󰌋",
+          Snippet       = "",
+          Color         = "󰏘",
+          File          = "󰈙",
+          Reference     = "󰈇",
+          Folder        = "󰉋",
+          EnumMember    = "",
+          Constant      = "󰏿",
+          Struct        = "󰙅",
+          Event         = "",
+          Operator      = "󰆕",
+          TypeParameter = "",
         },
-      })
-    end,
+      },
+    },
   },
 }

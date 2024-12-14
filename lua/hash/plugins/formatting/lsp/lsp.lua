@@ -33,19 +33,14 @@ return { -- LSP Configuration & Plugins
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
-          local capabilities = vim.tbl_deep_extend("force",
-            {},
-            vim.tbl_deep_extend("force",
-              vim.lsp.protocol.make_client_capabilities(),
-              require("cmp_nvim_lsp").default_capabilities()
-            ),
-            server.capabilities or {}
-          )
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+
           local builtin = require("telescope.builtin")
+
           -- overrides only values explicitly passed by the server configuration above.
           require("lspconfig")[server_name].setup({
             settings = server.settings or {},
-            capabilities = capabilities,
+            capabilities = require("blink.cmp").get_lsp_capabilities(capabilities),
 
             on_attach = function(client, bufnr)
               vim.fn.sign_define("DiagnosticSignError",
