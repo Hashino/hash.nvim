@@ -1,7 +1,7 @@
 return {
   {
     "rebelot/heirline.nvim",
-    dependencies = { "rmehri01/onenord.nvim", },
+    dependencies = { "rmehri01/onenord.nvim", "lewis6991/gitsigns.nvim", },
     -- You can optionally lazy-load heirline on UiEnter
     -- to make sure all required plugins and colorschemes are loaded before setup
     -- event = "UiEnter",
@@ -70,8 +70,10 @@ return {
 
         init = function(self)
           self.status_dict = vim.b.gitsigns_status_dict
-          self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or
-             self.status_dict.changed ~= 0
+          self.has_changes = self.status_dict.added ~= 0
+             or self.status_dict.removed ~= 0
+             or self.status_dict.changed ~= 0
+          self.is_dirty = vim.fn.system("git status -s --ignore-submodules=dirty 2> /dev/null")
         end,
 
         hl = {
@@ -81,7 +83,11 @@ return {
         { provider = " ", },
         { -- git branch name
           provider = function(self)
-            return "[" .. self.status_dict.head .. "]"
+            if self.is_dirty ~= "" then
+              return "[" .. self.status_dict.head .. "*]"
+            else
+              return "[" .. self.status_dict.head .. "]"
+            end
           end,
 
           hl = function()
@@ -92,6 +98,7 @@ return {
 
           update = {
             "ModeChanged",
+            "InsertLeave",
           },
         },
         {
@@ -325,7 +332,7 @@ return {
                   "Telescope*",
                   "toggleterm",
                   "dapui*",
-                  "doing_tasks"
+                  "doing_tasks",
                 },
               })
             end,

@@ -12,7 +12,6 @@ return { -- task list
       },
 
       store = {
-        auto_create_file = false,
         file_name = ".tasks",
       },
     })

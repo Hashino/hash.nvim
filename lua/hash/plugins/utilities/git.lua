@@ -1,15 +1,7 @@
 return {
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     "lewis6991/gitsigns.nvim",
-    opts = {
-      -- signs = {
-      --   add = { text = "+", },
-      --   change = { text = "~", },
-      --   delete = { text = "_", },
-      --   topdelete = { text = "‾", },
-      --   changedelete = { text = "≁", },
-      -- },
-    },
+    config = true,
     init = function()
       local gitsigns = require("gitsigns")
       vim.keymap.set("n", "<leader>gS", gitsigns.toggle_signs,
@@ -44,7 +36,7 @@ return {
   },
   {
     "tpope/vim-fugitive",
-    config = function()
+    init = function()
       vim.keymap.set("n", "<leader>gs", require("telescope.builtin").git_status,
         { desc = "[G]it [S]tatus", })
       vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>",
