@@ -325,6 +325,7 @@ return {
                   "Telescope*",
                   "toggleterm",
                   "dapui*",
+                  "doing_tasks"
                 },
               })
             end,
