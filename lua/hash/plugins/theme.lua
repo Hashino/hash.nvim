@@ -1,4 +1,34 @@
-return {           -- Theme
+local Theme = {}
+
+Theme.kinds = {
+  Text          = "󰉿",
+  Method        = "󰆧",
+  Function      = "󰊕",
+  Constructor   = "",
+  Field         = "󰜢",
+  Variable      = "󰀫",
+  Class         = "󰠱",
+  Interface     = "",
+  Module        = "",
+  Property      = "󰜢",
+  Unit          = "󰑭",
+  Value         = "󰎠",
+  Enum          = "",
+  Keyword       = "󰌋",
+  Snippet       = "",
+  Color         = "󰏘",
+  File          = "󰈙",
+  Reference     = "󰈇",
+  Folder        = "󰉋",
+  EnumMember    = "",
+  Constant      = "󰏿",
+  Struct        = "󰙅",
+  Event         = "",
+  Operator      = "󰆕",
+  TypeParameter = "",
+}
+
+Theme.plugin = {   -- Theme
   "rmehri01/onenord.nvim",
   priority = 1000, -- Make sure to load this before all the other start plugins.
   init = function()
@@ -24,7 +54,9 @@ return {           -- Theme
       light_purple = "#B48EAD",
       none         = "NONE",
     }
-    require("onenord").setup({ custom_colors = colors, })
+    require("onenord").setup({ custom_colors = colors, borders = false, })
     vim.cmd.colorscheme("onenord") -- Load the colorscheme here.
   end,
 }
+
+return Theme

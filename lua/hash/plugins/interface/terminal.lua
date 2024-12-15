@@ -9,7 +9,6 @@ return { -- Persistent togglabe terminal "<A-t>" to toggle
       direction = "float",
       float_opts = {
         border = "single",
-        title_pos = "center",
       },
     })
   end,

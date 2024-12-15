@@ -14,7 +14,7 @@ require("init_lazy")    -- bootstrap package manager
 
 require("lazy").setup({
   spec = {
-    require("hash.plugins.theme"),
+    require("hash.plugins.theme").plugin,
 
     { import = "hash.plugins.interface", },
 
