@@ -39,7 +39,6 @@ return {
         ft = "lua", -- only load on lua files
         opts = {
           library = {
-            -- See the configuration section for more details
             -- Load luvit types when the `vim.uv` word is found
             { path = "${3rd}/luv/library", words = { "vim%.uv", }, },
           },
@@ -72,7 +71,6 @@ return {
       },
 
       providers = {
-        -- dont show LuaLS require statements when lazydev has items
         lsp = { fallback_for = { "lazydev", }, },
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", },
         ripgrep = { module = "blink-ripgrep", },
@@ -101,8 +99,12 @@ return {
               { "kind_icon", },
               { "label",     "label_description", gap = 1, },
               { "kind", },
+              { "source_name" }
             },
           },
+        },
+        list = {
+          selection = "manual",
         },
       },
       appearance = {
