@@ -76,7 +76,6 @@ return {
         self.has_changes = self.status_dict.added ~= 0
            or self.status_dict.removed ~= 0
            or self.status_dict.changed ~= 0
-        self.is_dirty = vim.fn.system("git status -s --ignore-submodules=dirty 2> /dev/null")
       end,
 
       hl = {
@@ -86,11 +85,7 @@ return {
       { provider = " ", },
       { -- git branch name
         provider = function(self)
-          if self.is_dirty ~= "" then
-            return "[" .. self.status_dict.head .. "*]"
-          else
-            return "[" .. self.status_dict.head .. "]"
-          end
+          return "[" .. self.status_dict.head .. "]"
         end,
 
         hl = function()
@@ -244,11 +239,8 @@ return {
       condition = conditions.lsp_attached,
 
       provider = function()
-        local icon = require(
-          "nvim-web-devicons").get_icon(vim.fn.expand("%s"),
-          vim.bo.filetype
-        )
-        return " " .. icon .. "  "
+        local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype)
+        return " " .. (icon or vim.bo.filetype) .. "  "
       end,
 
       hl = function()
@@ -266,25 +258,20 @@ return {
     }
 
     local location = {
-      {
-        provider = function()
-          local curr_line = vim.fn.line(".")
-          local curr_col = vim.fn.charcol(".")
+      provider = function()
+        return " %2l:%-2L ┃ %2c:" .. vim.fn.col("$") - 1 .. " "
+      end,
 
-          local total_line = vim.fn.line("$")
-          local total_col = vim.fn.charcol("$") - 1
-
-          return string.format(" %2d:%-2d ┃ %2d:%-2d ",
-            curr_line, total_line, curr_col, total_col)
-        end,
-
-        hl = function()
-          return {
-            bg = mode_colors[vim.fn.mode(1):sub(1, 1)],
-            fg = colors.bg,
-            bold = true,
-          }
-        end,
+      hl = function()
+        return {
+          bg = mode_colors[vim.fn.mode(1):sub(1, 1)],
+          fg = colors.bg,
+          bold = true,
+        }
+      end,
+      update = {
+        "ModeChanged",
+        "CursorMoved",
       },
     }
 

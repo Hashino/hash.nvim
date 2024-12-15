@@ -19,8 +19,12 @@ return {
           "vimdoc",
           "latex",
         },
-        highlight = { enable = true, },
-        auto_install = true,            -- Autoinstall languages that are not installed
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+
+        auto_install = true, -- Autoinstall languages that are not installed
 
         disable = function(_, buf)
           local max_filesize = 100 * 1024 -- 100 KB
