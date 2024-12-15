@@ -331,8 +331,6 @@ return {
           diagnostics,
           doing,
           { provider = "%=", },
-          debugger_status,
-          { provider = "%=", },
           file_name,
           lsp,
           location,
