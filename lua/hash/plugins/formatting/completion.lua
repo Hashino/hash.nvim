@@ -45,6 +45,7 @@ return {
           },
         },
       },
+      "mikavilpas/blink-ripgrep.nvim",
     },
     opts = {
       snippets = {
@@ -59,13 +60,22 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "luasnip", "buffer", "lazydev", },
+        default = {
+          "lsp",
+          "path",
+          "snippets",
+          "buffer",
+          "luasnip",
+          "ripgrep",
+          "lazydev",
+        },
       },
 
       providers = {
         -- dont show LuaLS require statements when lazydev has items
         lsp = { fallback_for = { "lazydev", }, },
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", },
+        ripgrep = { module = "blink-ripgrep", },
       },
 
       keymap = {
@@ -87,7 +97,11 @@ return {
         menu = {
           draw = {
             treesitter = { "lsp", },
-            columns = { { "kind_icon", }, { "label", "label_description", gap = 1, }, { "kind", }, },
+            columns = {
+              { "kind_icon", },
+              { "label",     "label_description", gap = 1, },
+              { "kind", },
+            },
           },
         },
       },
