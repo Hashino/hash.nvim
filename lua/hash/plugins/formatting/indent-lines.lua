@@ -9,6 +9,7 @@ return {
       })
 
       local colors = require("onenord.colors").load()
+
       vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
       vim.api.nvim_set_hl(0, "IndentLine", { fg = colors.selection, })
     end,

@@ -30,6 +30,7 @@ return {
         virtual_text_column = 1,
         highlight_group = "GitBlame",
       })
+
       vim.keymap.set("n", "<leader>gB", require("gitblame").toggle,
         { desc = "[G]it [B]lame", })
     end,

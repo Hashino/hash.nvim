@@ -72,7 +72,7 @@ vim.opt.hlsearch = true
 -- Hides cmd bar
 vim.o.cmdheight = 0
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- formatting
 vim.opt.tabstop = 2
