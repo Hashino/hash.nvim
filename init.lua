@@ -20,8 +20,6 @@ require("lazy").setup({
 
     { import = "hash.plugins.formatting", },
 
-    { import = "hash.plugins.formatting.lsp", },
-
     { import = "hash.plugins.utilities", },
 
     { import = "hash.plugins.debugging", },

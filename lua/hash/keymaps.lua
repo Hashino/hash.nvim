@@ -1,5 +1,3 @@
--- NOTE: specific plugin keymaps defined inside plugin config
-
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- for quick navigation between windows

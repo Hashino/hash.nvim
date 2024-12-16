@@ -1,21 +1,30 @@
 return {
-  "OXY2DEV/markview.nvim",
-  lazy = false,
-  -- branch = "dev",
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    -- branch = "dev",
 
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      local presets = require("markview.presets");
+
+      require("markview").setup {
+        hybrid_modes = { "n", },
+
+        checkboxes = presets.checkboxes.nerd,
+        headings = presets.headings.marker,
+        horizontal_rules = presets.horizontal_rules.thin,
+      }
+    end,
   },
-  config = function()
-    local presets = require("markview.presets");
-
-    require("markview").setup {
-      hybrid_modes = { "n", },
-
-      checkboxes = presets.checkboxes.nerd,
-      headings = presets.headings.marker,
-      horizontal_rules = presets.horizontal_rules.thin,
-    }
-  end,
+  {
+    "OXY2DEV/helpview.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
 }
