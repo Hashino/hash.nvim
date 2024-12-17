@@ -308,61 +308,78 @@ return {
       },
     }
 
+    vim.g.status_bar_enabled = true
+
+    vim.keymap.set("n", "<leader>S", function()
+      vim.g.status_bar_enabled = not vim.g.status_bar_enabled
+      if vim.g.status_bar_enabled then
+        vim.opt.laststatus = 3
+      else
+        vim.opt.laststatus = 0
+      end
+    end, { desc = "Toggle [S]tatusbar", })
+
     require("heirline").setup({
       statusline = {
-        { -- default status line
+        {
           condition = function()
-            return not conditions.buffer_matches({
-              filetype = {
-                "no-neck-pain",
-                "alpha",
-                "NvimTree",
-                "buffer_manager",
-                "trouble",
-                "Telescope*",
-                "toggleterm",
-                "dapui*",
-                "doing_tasks",
-              },
-            })
+            return vim.g.status_bar_enabled
           end,
-          macro,
-          git,
-          diagnostics,
-          doing,
-          { provider = "%=", },
-          file_name,
-          lsp,
-          location,
-        },
 
-        { -- status line for alpha
-          condition = function()
-            return conditions.buffer_matches({
-              filetype = { "alpha", },
-            })
-          end,
-          { provider = "%=", },
-          doing,
-          { provider = "%=", },
-        },
+          { -- default status line
+            condition = function()
+              return not conditions.buffer_matches({
+                filetype = {
+                  "no-neck-pain",
+                  "alpha",
+                  "NvimTree",
+                  "buffer_manager",
+                  "trouble",
+                  "Telescope*",
+                  "toggleterm",
+                  "dapui*",
+                  "doing_tasks",
+                },
+              })
+            end,
+            macro,
+            git,
+            diagnostics,
+            doing,
+            { provider = "%=", },
+            file_name,
+            lsp,
+            location,
+          },
 
-        { -- status line for nvimtree
-          condition = function()
-            return conditions.buffer_matches({
-              filetype = { "NvimTree", },
-            })
-          end,
-          nvimtree_statusbar,
-        },
+          { -- status line for alpha
+            condition = function()
+              return conditions.buffer_matches({
+                filetype = { "alpha", },
+              })
+            end,
+            { provider = "%=", },
+            doing,
+            { provider = "%=", },
+          },
 
-        { -- status line for dapui
-          condition = function()
-            return conditions.buffer_matches({
-              filetype = { "dapui*", },
-            })
-          end,
-          dapui_statusbar,
+          { -- status line for nvimtree
+            condition = function()
+              return conditions.buffer_matches({
+                filetype = { "NvimTree", },
+              })
+            end,
+            nvimtree_statusbar,
+          },
+
+          { -- status line for dapui
+            condition = function()
+              return conditions.buffer_matches({
+                filetype = { "dapui*", },
+              })
+            end,
+            dapui_statusbar,
+          },
         },
       },
     })
