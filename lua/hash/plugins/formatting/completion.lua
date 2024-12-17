@@ -78,17 +78,15 @@ return {
 
       keymap = {
         preset = "default",
-        ["<S-Tab>"] = { "select_prev", "fallback", },
         ["<Tab>"] = { "select_next", "fallback", },
+        ["<S-Tab>"] = { "select_prev", "fallback", },
 
         ["<A-l>"] = { "snippet_forward", "fallback", },
         ["<A-h>"] = { "snippet_backward", "fallback", },
 
         ["<CR>"] = { "accept", "fallback", },
 
-        -- show with a list of providers
-        ["<C-Enter>"] = { function(cmp) cmp.show({ providers = { "snippets", }, }) end, },
-        ["<C-Space>"] = { "hide", "fallback", },
+        ["<C-Enter>"] = { "show" },
       },
 
       completion = {
@@ -97,9 +95,9 @@ return {
             treesitter = { "lsp", },
             columns = {
               { "kind_icon", },
-              { "label",     "label_description", gap = 1, },
+              { "label",      "label_description", gap = 1, },
               { "kind", },
-              { "source_name" }
+              { "source_name", },
             },
           },
         },

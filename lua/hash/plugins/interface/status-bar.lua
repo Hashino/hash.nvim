@@ -339,6 +339,7 @@ return {
                   "toggleterm",
                   "dapui*",
                   "doing_tasks",
+                  "lazy",
                 },
               })
             end,

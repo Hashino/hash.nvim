@@ -6,14 +6,8 @@ return {
     },
     config = function()
       require("buffer_manager").setup({
-        select_menu_item_commands = {
-          v = { key = "<C-v>", command = "vsplit", },
-          h = { key = "<C-h>", command = "split", },
-        },
-        focus_alternate_buffer = false,
         short_file_names = "all",
         short_term_names = true,
-        loop_nav = false,
         order_buffers = "lastused",
       })
 
