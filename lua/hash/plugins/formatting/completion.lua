@@ -86,7 +86,7 @@ return {
 
         ["<CR>"] = { "accept", "fallback", },
 
-        ["<C-Enter>"] = { "show" },
+        ["<C-Enter>"] = { "show", },
       },
 
       completion = {
@@ -95,14 +95,14 @@ return {
             treesitter = { "lsp", },
             columns = {
               { "kind_icon", },
-              { "label",      "label_description", gap = 1, },
+              { "label",       "label_description", gap = 1, },
               { "kind", },
               { "source_name", },
             },
           },
         },
-        list = {
-          selection = "manual",
+        trigger = {
+          show_on_insert_on_trigger_character = false,
         },
       },
       appearance = {
