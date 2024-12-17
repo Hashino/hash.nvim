@@ -28,17 +28,27 @@ return { -- Fuzzy Finder (files, lsp, etc)
       ["<A-S-q>"] = require("telescope.actions").add_selected_to_qflist,
       ["<A-q>"] = require("telescope.actions").close,
     }
+
     require("telescope").setup({
       extensions = {
         persisted = {
           layout_config = { width = 0.5, height = 0.7, },
         },
+
+        fzf = {
+          fuzzy = true,                   -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        },
       },
+
       defaults = {
         mappings = {
           n = mappings,
           i = mappings,
         },
+
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         layout_config = {
@@ -49,6 +59,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
             preview_width = 60,
           },
         },
+
         ripgrep_arguments = {
           "rg",
           "--hidden",
@@ -59,6 +70,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           "--smart-case",
         },
       },
+
       pickers = {
         git_status = {
           mappings = {
@@ -71,6 +83,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
       },
     })
+
     -- Enable Telescope extensions if they are installed
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
