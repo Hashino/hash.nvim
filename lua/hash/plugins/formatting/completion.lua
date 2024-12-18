@@ -44,7 +44,7 @@ return {
           },
         },
       },
-      "mikavilpas/blink-ripgrep.nvim",
+      -- "mikavilpas/blink-ripgrep.nvim",
     },
     opts = {
       snippets = {
@@ -65,15 +65,15 @@ return {
           "snippets",
           "buffer",
           "luasnip",
-          "ripgrep",
           "lazydev",
+          -- "ripgrep",
         },
       },
 
       providers = {
         lsp = { fallback_for = { "lazydev", }, },
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", },
-        ripgrep = { module = "blink-ripgrep", },
+        -- ripgrep = { module = "blink-ripgrep", },
       },
 
       keymap = {
