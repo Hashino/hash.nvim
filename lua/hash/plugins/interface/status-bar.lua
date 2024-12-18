@@ -259,7 +259,7 @@ return {
 
     local location = {
       provider = function()
-        return " %2l:%-2L ┃ %2c:" .. vim.fn.col("$") - 1 .. " "
+        return " %2l:%-2L ┃ %2c:" .. string.format("%-2d", vim.fn.col("$") - 1) .. " "
       end,
 
       hl = function()
