@@ -25,6 +25,7 @@ return {
           require("luasnip.loaders.from_lua").load({ include = { "c", }, })
           require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "cpp", }, })
         end,
+
         dependencies = {
           {
             "rafamadriz/friendly-snippets",
@@ -39,78 +40,105 @@ return {
         ft = "lua", -- only load on lua files
         opts = {
           library = {
-            -- Load luvit types when the `vim.uv` word is found
             { path = "${3rd}/luv/library", words = { "vim%.uv", }, },
           },
         },
       },
       -- "mikavilpas/blink-ripgrep.nvim",
     },
-    opts = {
-      snippets = {
-        expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
-        active = function(filter)
-          if filter and filter.direction then
-            return require("luasnip").jumpable(filter.direction)
-          end
-          return require("luasnip").in_snippet()
-        end,
-        jump = function(direction) require("luasnip").jump(direction) end,
-      },
 
-      sources = {
-        default = {
-          "lsp",
-          "path",
-          "snippets",
-          "buffer",
-          "luasnip",
-          "lazydev",
-          -- "ripgrep",
+    config = function()
+      require("blink.cmp").setup({
+        snippets = {
+          expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+          active = function(filter)
+            if filter and filter.direction then
+              return require("luasnip").jumpable(filter.direction)
+            end
+            return require("luasnip").in_snippet()
+          end,
+          jump = function(direction) require("luasnip").jump(direction) end,
         },
-      },
 
-      providers = {
-        lsp = { fallback_for = { "lazydev", }, },
-        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", },
-        -- ripgrep = { module = "blink-ripgrep", },
-      },
-
-      keymap = {
-        preset = "default",
-        ["<Tab>"] = { "select_next", "fallback", },
-        ["<S-Tab>"] = { "select_prev", "fallback", },
-
-        ["<A-l>"] = { "snippet_forward", "fallback", },
-        ["<A-h>"] = { "snippet_backward", "fallback", },
-
-        ["<CR>"] = { "accept", "fallback", },
-
-        ["<C-Enter>"] = { "show", },
-      },
-
-      completion = {
-        menu = {
-          draw = {
-            treesitter = { "lsp", },
-            columns = {
-              { "kind_icon", },
-              { "label",       "label_description", gap = 1, },
-              { "kind", },
-              { "source_name", },
+        sources = {
+          default = {
+            "lazydev",
+            "lsp",
+            "path",
+            "snippets",
+            "buffer",
+            "luasnip",
+            -- "ripgrep",
+          },
+          providers = {
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              -- make lazydev completions top priority (see `:h blink.cmp`)
+              score_offset = 100,
             },
           },
         },
-        trigger = {
-          show_on_insert_on_trigger_character = false,
-        },
-      },
-      appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = "normal",
 
-        kind_icons = require("hash.plugins.theme").kinds,
-      },
-    },
+        keymap = {
+          preset = "none",
+          ["<Tab>"] = { "select_next", "fallback", },
+          ["<S-Tab>"] = { "select_prev", "fallback", },
+
+          ["<A-l>"] = { "snippet_forward", "fallback", },
+          ["<A-h>"] = { "snippet_backward", "fallback", },
+
+          ["<Enter>"] = { "accept", "fallback", },
+
+          ["<C- >"] = { "show", "hide", },
+        },
+
+        completion = {
+          menu = {
+            draw = {
+              treesitter = { "lsp", },
+              columns = {
+                { "kind_icon", },
+                { "label",       "label_description", gap = 1, },
+                { "kind", },
+                { "source_name", },
+              },
+            },
+          },
+          trigger = {
+            show_on_insert_on_trigger_character = false,
+          },
+        },
+
+        appearance = {
+          use_nvim_cmp_as_default = true,
+          nerd_font_variant = "normal",
+
+          kind_icons = require("hash.plugins.theme").kinds,
+        },
+      })
+    end,
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        panel = { enabled = false, },
+
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          hide_during_completion = true,
+          debounce = 75,
+          keymap = {
+            accept = "<C-Enter>",
+            next = "<C-n>",
+            prev = "<C-p>",
+          },
+        },
+      })
+    end,
   },
 }
