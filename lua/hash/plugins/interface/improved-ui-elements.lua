@@ -17,7 +17,7 @@ return {
     dependencies = {
       "MunifTanjim/nui.nvim",
       {
-       "rcarriga/nvim-notify",
+        "rcarriga/nvim-notify",
         config = function()
           vim.notify = require("notify")
           require("notify").setup({
@@ -34,8 +34,15 @@ return {
             cmdline = {
               title = "",
             },
+            search_down = {
+              title = "",
+            },
+            search_up = {
+              title = "",
+            },
           },
         },
+
         views = {
           cmdline_popup = {
             position = {
@@ -48,17 +55,13 @@ return {
             },
           },
         },
+
         messages = {
           view = "mini",
           view_search = "mini", -- view for search count messages. Set to `false` to disable
         },
+
         routes = {
-          {
-            filter = {
-              find = "󰆓 Autosaved",
-            },
-            view = "mini",
-          },
           {
             filter = {
               any = {
@@ -93,13 +96,14 @@ return {
               event = "msg_show",
               any = {
                 { kind = "bufwrite", },
-                { find = "fewer lines" },
+                { find = "fewer lines", },
               },
             },
             skip = true,
           },
         },
       })
+
       vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>", { desc = "[N]otifications", })
     end,
   },

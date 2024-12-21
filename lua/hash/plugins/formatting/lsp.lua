@@ -40,7 +40,7 @@ return { -- LSP Configuration & Plugins
             settings = server.settings or {},
             capabilities = require("blink.cmp").get_lsp_capabilities(capabilities),
 
-            on_attach = function(client, bufnr)
+            on_attach = function(_, bufnr)
               vim.fn.sign_define("DiagnosticSignError",
                 { text = "", texthl = "DiagnosticSignError", })
               vim.fn.sign_define("DiagnosticSignWarn",
@@ -58,16 +58,11 @@ return { -- LSP Configuration & Plugins
                 { buffer = bufnr, desc = "LSP: [G]oto [R]eferences", })
               vim.keymap.set("n", "gI", builtin.lsp_implementations,
                 { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation", })
+
               vim.keymap.set("n", "<leader>f", vim.lsp.buf.format,
                 { buffer = bufnr, desc = "LSP: [F]ormat buffer", })
               vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename,
                 { buffer = bufnr, desc = "LSP: [R]ename", })
-
-              -- needed for breadcrumbs
-              if client.server_capabilities["documentSymbolProvider"] then
-                require("nvim-navic").attach(client, bufnr)
-                require("barbecue.ui").update()
-              end
 
               -- show diagnostics in floating window
               vim.api.nvim_create_autocmd("CursorHold", {
