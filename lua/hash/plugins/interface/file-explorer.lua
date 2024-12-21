@@ -12,7 +12,7 @@ return { -- File explorer "<leader>e" to toggle
     require("nvim-tree").setup({
 
       vim.keymap.set("n", "<leader>e", api.tree.toggle,
-        { desc = "File [E]xplorer", }),
+        { desc = "Open [E]xplorer", }),
 
       -- mappings inside nvim-tree
       on_attach = function(bufnr)

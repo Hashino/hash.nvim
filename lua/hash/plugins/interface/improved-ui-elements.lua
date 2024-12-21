@@ -105,7 +105,8 @@ return {
         },
       })
 
-      vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>", { desc = "[N]otifications", })
+      vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>",
+      { desc = "Open [N]otifications", })
     end,
   },
 }

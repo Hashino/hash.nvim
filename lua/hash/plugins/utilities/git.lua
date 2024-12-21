@@ -5,7 +5,7 @@ return {
     init = function()
       local gitsigns = require("gitsigns")
       vim.keymap.set("n", "<leader>gS", gitsigns.toggle_signs,
-        { desc = "[G]it [S]igns", })
+        { desc = "Toggle [G]it [S]igns", })
       -- disables on startup
       gitsigns.toggle_signs()
     end,
@@ -32,7 +32,7 @@ return {
       })
 
       vim.keymap.set("n", "<leader>gB", require("gitblame").toggle,
-        { desc = "[G]it [B]lame", })
+        { desc = "Toggle [G]it [B]lame", })
     end,
   },
   {

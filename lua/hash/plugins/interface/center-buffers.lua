@@ -30,7 +30,7 @@ return {
         mappings = { enabled = false, },
       })
       vim.keymap.set("n", "<leader>c", require("no-neck-pain").toggle,
-        { desc = "[C]enter Buffers", }
+        { desc = "Toggle [C]enter", }
       )
     end,
   },
