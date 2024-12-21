@@ -4,9 +4,6 @@ return { -- Useful plugin to show you pending keybinds.
   dependencies = { "nvim-tree/nvim-web-devicons", },
 
   config = function()
-    local icons = require("nvim-web-devicons")
-    local colors = require("onenord.colors").load()
-
     require("which-key").setup({
       sort = { "local", "group", "desc", },
       preset = "modern",
@@ -17,9 +14,9 @@ return { -- Useful plugin to show you pending keybinds.
         { "<leader>s", group = "[S]earch", icon = { icon = "", color = "grey", }, },
         { "<leader>t", group = "[T]rouble", icon = { icon = "󱖫", color = "yellow", }, },
 
-        { "<leader>L", icon = icons.get_icon("ui"), },
-        { "<leader>N", icon = icons.get_icon("ui"), },
-        { "<leader>e", icon = icons.get_icon("ui"), },
+        { "<leader>L", icon = "", },
+        { "<leader>N", icon = "󰯋", },
+        { "<leader>e", icon = "", },
       },
     })
   end,
