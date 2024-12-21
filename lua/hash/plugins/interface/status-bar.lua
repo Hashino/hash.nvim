@@ -5,9 +5,7 @@ return {
     "lewis6991/gitsigns.nvim",
     "nvim-tree/nvim-web-devicons",
   },
-  -- You can optionally lazy-load heirline on UiEnter
-  -- to make sure all required plugins and colorschemes are loaded before setup
-  -- event = "UiEnter",
+
   config = function()
     local conditions = require("heirline.conditions")
 

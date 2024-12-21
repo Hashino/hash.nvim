@@ -88,9 +88,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
 
-    -- See `:help telescope.builtin`
     local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader> ", builtin.commands, { desc = "Search[ ]Commands", })
+    vim.keymap.set("n", "<leader>sc", builtin.commands, { desc = "[S]earch [C]ommands", })
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps", })
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles", })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope", })

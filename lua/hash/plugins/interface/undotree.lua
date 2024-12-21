@@ -5,6 +5,6 @@ return {
     require("undotree").setup({
       float_diff = false,
     })
-    vim.keymap.set("n", "<leader>u", require("undotree").toggle, { desc = "[U]ndo Tree", })
+    vim.keymap.set("n", "<leader>u", require("undotree").toggle, { desc = "Toggle [U]ndo Tree", })
   end,
 }

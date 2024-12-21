@@ -38,18 +38,30 @@ return {
   {
     "tpope/vim-fugitive",
     init = function()
+      local function git_cmd(cmd)
+        return "<cmd>Git " .. cmd .. "<CR>"
+      end
+
       vim.keymap.set("n", "<leader>gs", require("telescope.builtin").git_status,
         { desc = "[G]it [S]tatus", })
-      vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>",
+
+      vim.keymap.set("n", "<leader>gc", git_cmd("commit"),
         { desc = "[G]it [C]ommit", })
-      vim.keymap.set("n", "<leader>gC", "<cmd>Git commit --amend<CR>",
+
+      vim.keymap.set("n", "<leader>gC", git_cmd("commit --amend"),
         { desc = "[G]it ammend [C]ommit", })
-      vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>",
+
+      vim.keymap.set("n", "<leader>gp", git_cmd("push"),
         { desc = "[G]it [P]ush", })
-      vim.keymap.set("n", "<leader>gP", "<cmd>Git push --force<CR>",
+
+      vim.keymap.set("n", "<leader>gP", git_cmd("push --force"),
         { desc = "[G]it force [P]ush", })
-      vim.keymap.set("n", "<leader>gl", "<cmd>Git log<CR>",
+
+      vim.keymap.set("n", "<leader>gl", git_cmd("log"),
         { desc = "[G]it [L]og", })
+
+      vim.keymap.set("n", "<leader>gA", git_cmd("add ."),
+        { desc = "[G]it [A]dd all", })
     end,
   },
   {

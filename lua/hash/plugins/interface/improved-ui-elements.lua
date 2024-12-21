@@ -96,6 +96,7 @@ return {
               event = "msg_show",
               any = {
                 { kind = "bufwrite", },
+                { kind = "echo", },
                 { find = "fewer lines", },
               },
             },
