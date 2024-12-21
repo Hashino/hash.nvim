@@ -95,9 +95,11 @@ return {
             filter = {
               event = "msg_show",
               any = {
-                { kind = "bufwrite", },
                 { kind = "echo", },
+                { kind = "bufwrite", },
                 { find = "fewer lines", },
+                { find = "after #", },
+                { find = "before #", },
               },
             },
             skip = true,
@@ -106,7 +108,7 @@ return {
       })
 
       vim.keymap.set("n", "<leader>N", "<cmd>Noice all<CR>",
-      { desc = "Open [N]otifications", })
+        { desc = "Open [N]otifications", })
     end,
   },
 }
