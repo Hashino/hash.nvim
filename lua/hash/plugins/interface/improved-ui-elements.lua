@@ -74,6 +74,7 @@ return {
           {
             filter = {
               event = "lsp",
+              kind = "progress",
             },
             view = "mini",
           },
