@@ -44,7 +44,7 @@ return {
           },
         },
       },
-      -- "mikavilpas/blink-ripgrep.nvim",
+      "mikavilpas/blink-ripgrep.nvim",
     },
 
     config = function()
@@ -64,18 +64,27 @@ return {
           default = {
             "lazydev",
             "lsp",
+            "ripgrep",
             "path",
             "snippets",
             "buffer",
             "luasnip",
-            -- "ripgrep",
           },
+
           providers = {
             lazydev = {
               name = "LazyDev",
               module = "lazydev.integrations.blink",
-              -- make lazydev completions top priority (see `:h blink.cmp`)
               score_offset = 100,
+            },
+
+            ripgrep = {
+              name = "RipGrep",
+              module = "blink-ripgrep",
+              score_offset = -2,
+              opts = {
+                search_casing = "--smart-case",
+              },
             },
           },
         },
