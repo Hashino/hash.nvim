@@ -1,10 +1,11 @@
 return {
   "hashino/nvim-dap-ui-405",
   dependencies = {
-    "nvim-neotest/nvim-nio",
     "mfussenegger/nvim-dap",
-    "ldelossa/nvim-dap-projects",      -- dap config per project
-    "theHamsta/nvim-dap-virtual-text", -- displays variable value while debugging
+    "nvim-neotest/nvim-nio",
+    "ldelossa/nvim-dap-projects",                -- dap config per project
+    "theHamsta/nvim-dap-virtual-text",           -- displays variable value while debugging
+    "WhoIsSethDaniel/mason-tool-installer.nvim", -- for codelldb
   },
   config = function()
     require("hash.plugins.debugging.adapters.gdb")
@@ -53,9 +54,9 @@ return {
       layouts = {
         {
           elements = {
-            { id = "scopes",      size = 0.5, },
+            { id = "scopes",  size = 0.5, },
             -- { id = "breakpoints", size = 0.25, },
-            { id = "watches",     size = 0.5, },
+            { id = "watches", size = 0.5, },
           },
           position = "left",
           size = 40,

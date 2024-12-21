@@ -25,9 +25,7 @@ return { -- LSP Configuration & Plugins
     }, vim.tbl_keys(servers))
 
     require("mason").setup() -- Install all servers before configuring them
-    require("mason-tool-installer").setup({
-      ensure_installed = mason_tools,
-    })
+    require("mason-tool-installer").setup({ ensure_installed = mason_tools, })
 
     require("mason-lspconfig").setup({
       handlers = {
