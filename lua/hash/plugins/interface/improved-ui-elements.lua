@@ -46,9 +46,6 @@ return {
               width = 80,
               height = "auto",
             },
-            win_options = {
-              winhighlight = { Normal = "Normal", FloatBorder = "NoiceCmdlinePopupBorder", },
-            },
           },
         },
         messages = {
@@ -69,7 +66,13 @@ return {
                 { find = "Ignoring swapfile", },
               },
             },
-            skip = true,
+            view = "mini",
+          },
+          {
+            filter = {
+              event = "lsp",
+            },
+            view = "mini",
           },
           {
             filter = {
@@ -84,6 +87,16 @@ return {
               min_height = 2,
             },
             view = "messages",
+          },
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { kind = "bufwrite", },
+                { find = "fewer lines" },
+              },
+            },
+            skip = true,
           },
         },
       })
