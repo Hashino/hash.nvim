@@ -20,6 +20,7 @@ return {
           "vimdoc",
           "latex",
         },
+
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -38,7 +39,7 @@ return {
       })
     end,
   },
-  {
+  { -- I don't like how it highlights "incomplete" pairs
     "Yggdroot/hiPairs",
     config = function()
       vim.cmd [[ let g:hiPairs_hl_matchPair = {
