@@ -35,6 +35,7 @@ return {
           },
         },
       },
+
       {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -44,6 +45,7 @@ return {
           },
         },
       },
+
       "mikavilpas/blink-ripgrep.nvim",
     },
 
@@ -77,6 +79,8 @@ return {
             "buffer",
             "luasnip",
           },
+
+          min_keyword_length = 1,
 
           providers = {
             lazydev = {
@@ -129,7 +133,6 @@ return {
         appearance = {
           use_nvim_cmp_as_default = true,
           nerd_font_variant = "normal",
-
           kind_icons = require("hash.plugins.theme").kinds,
         },
       })
