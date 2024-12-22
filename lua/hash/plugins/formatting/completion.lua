@@ -1,9 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    version = "v0.*",
-    -- !Important! Make sure you're using the latest release of LuaSnip
-    -- `main` does not work at the moment
+    version = "*",
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
@@ -19,8 +17,8 @@ return {
 
           -- in a lua file: search lua-, then c-, then all-snippets.
           ls.filetype_extend("lua", { "c", })
-          -- in a cpp file: search c-snippets, then all-snippets only (no cpp-snippets!!).
-          ls.filetype_set("cpp", { "c", })
+          -- in a cpp file: search c-snippets, then all-snippets only
+          ls.filetype_set("cpp", { "c", }) -- (no cpp-snippets)
 
           require("luasnip.loaders.from_lua").load({ include = { "c", }, })
           require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "cpp", }, })
@@ -58,15 +56,21 @@ return {
              and vim.b.completion ~= false
         end,
 
-        snippets = {
-          expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
-          active = function(filter)
-            if filter and filter.direction then
-              return require("luasnip").jumpable(filter.direction)
-            end
-            return require("luasnip").in_snippet()
-          end,
-          jump = function(direction) require("luasnip").jump(direction) end,
+        completion = {
+          menu = {
+            draw = {
+              columns = {
+                { "kind_icon", },
+                { "label",       "label_description", },
+                { "kind", },
+                { "source_name", },
+              },
+            },
+          },
+
+          documentation = {
+            auto_show = true,
+          },
         },
 
         sources = {
@@ -92,7 +96,9 @@ return {
               name = "RipGrep",
               module = "blink-ripgrep",
               score_offset = -2,
+              max_items = 3,
               opts = {
+                prefix_min_len = 4,
                 search_casing = "--smart-case",
               },
             },
@@ -114,21 +120,15 @@ return {
           ["<C-d>"] = { "show_documentation", "hide_documentation", },
         },
 
-        completion = {
-          menu = {
-            draw = {
-              columns = {
-                { "kind_icon", },
-                { "label",       "label_description" },
-                { "kind", },
-                { "source_name", },
-              },
-            },
-          },
-
-          documentation = {
-            auto_show = true,
-          },
+        snippets = {
+          expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+          active = function(filter)
+            if filter and filter.direction then
+              return require("luasnip").jumpable(filter.direction)
+            end
+            return require("luasnip").in_snippet()
+          end,
+          jump = function(direction) require("luasnip").jump(direction) end,
         },
 
         appearance = {
