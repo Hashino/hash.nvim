@@ -49,6 +49,13 @@ return {
 
     config = function()
       require("blink.cmp").setup({
+        enabled = function()
+          return not vim.tbl_contains({ "markdown", }, vim.bo.filetype)
+             and vim.bo.buftype ~= "nofile"
+             and vim.bo.buftype ~= "prompt"
+             and vim.b.completion ~= false
+        end,
+
         snippets = {
           expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
           active = function(filter)
