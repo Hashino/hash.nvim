@@ -52,7 +52,7 @@ return {
     config = function()
       require("blink.cmp").setup({
         enabled = function()
-          return not vim.tbl_contains({ "markdown", }, vim.bo.filetype)
+          return not vim.tbl_contains({}, vim.bo.filetype)
              and vim.bo.buftype ~= "nofile"
              and vim.bo.buftype ~= "prompt"
              and vim.b.completion ~= false
@@ -70,17 +70,16 @@ return {
         },
 
         sources = {
+          min_keyword_length = 1,
+
           default = {
             "lazydev",
             "lsp",
             "ripgrep",
             "path",
             "snippets",
-            "buffer",
             "luasnip",
           },
-
-          min_keyword_length = 1,
 
           providers = {
             lazydev = {
@@ -111,22 +110,24 @@ return {
           ["<Enter>"] = { "accept", "fallback", },
 
           ["<C- >"] = { "show", "hide", },
+
+          ["<C-d>"] = { "show_documentation", "hide_documentation", },
         },
 
         completion = {
           menu = {
             draw = {
-              treesitter = { "lsp", },
               columns = {
                 { "kind_icon", },
-                { "label",       "label_description", gap = 1, },
+                { "label",       "label_description" },
                 { "kind", },
                 { "source_name", },
               },
             },
           },
-          trigger = {
-            show_on_insert_on_trigger_character = false,
+
+          documentation = {
+            auto_show = true,
           },
         },
 

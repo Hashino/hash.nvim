@@ -33,7 +33,8 @@ end
 
 vim.g.get_sessions = function()
   local session_files = io.popen(
-    "ls -pa --sort=time " .. require("persisted.config").save_dir .. " | grep -v /"
+    "ls -pa --sort=time " ..
+    require("persisted.config").save_dir .. " | grep -v /"
   ):lines()
 
   local sessions = {}
@@ -41,7 +42,8 @@ vim.g.get_sessions = function()
   for s in session_files do
     local full_path = s:gsub("%%", "/"):gsub("%.vim", "")
     local short_path = full_path:gsub(vim.fn.expand("$HOME"), "~")
-    table.insert(sessions, { short_path = short_path, full_path = full_path, name = s, })
+    table.insert(sessions,
+      { short_path = short_path, full_path = full_path, name = s, })
   end
 
   return sessions
@@ -92,7 +94,8 @@ end
 local function clear_sessions()
   for _, s in pairs(vim.g.get_sessions()) do
     if vim.fn.isdirectory(s.full_path) == 0 then
-      require("persisted").delete({ session = require("persisted.config").save_dir .. s.name, })
+      require("persisted").delete({ session = require("persisted.config")
+      .save_dir .. s.name, })
       vim.notify("deleted session: " .. s.short_path)
     end
   end

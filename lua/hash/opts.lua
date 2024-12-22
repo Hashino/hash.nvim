@@ -93,7 +93,7 @@ vim.g.neovide_cursor_animation_length = 0
 local function get_font_size()
   local ui_scaling = os.getenv("UI_SCALING") or 32
 
-  return 20 - ((ui_scaling - 32) * 2)
+  return 22 - ((ui_scaling - 32) * 2)
 end
 
 vim.o.guifont = "UbuntuMono Nerd Font:h" .. get_font_size()

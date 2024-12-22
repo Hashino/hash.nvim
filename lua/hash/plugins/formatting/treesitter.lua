@@ -2,7 +2,7 @@ return {
   { -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim", },
     config = function()
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require("nvim-treesitter.install").prefer_git = true

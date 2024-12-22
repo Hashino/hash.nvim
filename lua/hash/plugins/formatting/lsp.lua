@@ -38,7 +38,8 @@ return { -- LSP Configuration & Plugins
           -- overrides only values explicitly passed by the server configuration above.
           require("lspconfig")[server_name].setup({
             settings = server.settings or {},
-            capabilities = require("blink.cmp").get_lsp_capabilities(capabilities),
+            capabilities = require("blink.cmp")
+               .get_lsp_capabilities(capabilities),
 
             on_attach = function(_, bufnr)
               vim.fn.sign_define("DiagnosticSignError",
@@ -70,7 +71,12 @@ return { -- LSP Configuration & Plugins
                 callback = function()
                   local opts = {
                     focusable = false,
-                    close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost", },
+                    close_events = {
+                      "BufLeave",
+                      "CursorMoved",
+                      "InsertEnter",
+                      "FocusLost",
+                    },
                     border = "rounded",
                     source = "always",
                     prefix = " ",
@@ -93,7 +99,8 @@ return { -- LSP Configuration & Plugins
     { -- preview of lsp actions
       "aznhe21/actions-preview.nvim",
       config = function()
-        vim.keymap.set({ "v", "n", }, "<leader>q", require("actions-preview").code_actions,
+        vim.keymap.set({ "v", "n", }, "<leader>q",
+          require("actions-preview").code_actions,
           { desc = "Open [Q]uick Code Actions", })
       end,
     },

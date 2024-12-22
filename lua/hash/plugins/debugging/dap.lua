@@ -29,11 +29,20 @@ return {
     end
 
     -- editor icons
-    vim.fn.sign_define("DapStopped", { text = "", texthl = "String", })
-    vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "ErrorMsg", })
-    vim.fn.sign_define("DapLogPoint", { text = "", texthl = "Type", })
+    vim.fn.sign_define("DapStopped",
+      { text = "", texthl = "String", })
+
+    vim.fn.sign_define("DapBreakpoint",
+      { text = "", texthl = "ErrorMsg", })
+
+    vim.fn.sign_define("DapBreakpointCondition",
+      { text = "", texthl = "ErrorMsg", })
+
+    vim.fn.sign_define("DapBreakpointRejected",
+      { text = "", texthl = "ErrorMsg", })
+
+    vim.fn.sign_define("DapLogPoint",
+      { text = "", texthl = "Type", })
 
     local function continue_debug()
       dap_projects.search_project_config()
@@ -41,12 +50,23 @@ return {
     end
 
     -- debugging keymaps
-    vim.keymap.set("n", "<F5>", continue_debug, { desc = "[F5] Start/Continue debuging", })
-    vim.keymap.set("n", "<C-F5>", dap.terminate, { desc = "[Ctrl+F5] Stop debuging", })
-    vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "[F9] Toggle breakpoint", })
-    vim.keymap.set("n", "<F10>", dap.step_over, { desc = "[F10] Step over", })
-    vim.keymap.set("n", "<F11>", dap.step_into, { desc = "[F11] Step into", })
-    vim.keymap.set("n", "<F12>", dap.step_out, { desc = "[F12] Step out", })
+    vim.keymap.set("n", "<F5>", continue_debug,
+      { desc = "[F5] (debugging) Start/Continue", })
+
+    vim.keymap.set("n", "<C-F5>", dap.terminate,
+      { desc = "[Ctrl+F5] (debugging) Stop", })
+
+    vim.keymap.set("n", "<F9>", dap.toggle_breakpoint,
+      { desc = "[F9] (debugging) Toggle breakpoint", })
+
+    vim.keymap.set("n", "<F10>", dap.step_over,
+      { desc = "[F10] (debugging) Step over", })
+
+    vim.keymap.set("n", "<F11>", dap.step_into,
+      { desc = "[F11] (debugging) Step into", })
+
+    vim.keymap.set("n", "<F12>", dap.step_out,
+      { desc = "[F12] (debugging) Step out", })
 
     -- plugin configs
     require("nvim-dap-virtual-text").setup({})

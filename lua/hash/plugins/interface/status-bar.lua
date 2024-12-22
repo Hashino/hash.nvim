@@ -125,10 +125,14 @@ return {
       condition = conditions.has_diagnostics,
 
       init = function(self)
-        self.errs = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR, })
-        self.wrns = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN, })
-        self.hnts = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT, })
-        self.infs = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO, })
+        self.errs = #vim.diagnostic.get(0,
+          { severity = vim.diagnostic.severity.ERROR, })
+        self.wrns = #vim.diagnostic.get(0,
+          { severity = vim.diagnostic.severity.WARN, })
+        self.hnts = #vim.diagnostic.get(0,
+          { severity = vim.diagnostic.severity.HINT, })
+        self.infs = #vim.diagnostic.get(0,
+          { severity = vim.diagnostic.severity.INFO, })
 
         self.err_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text
         self.wrn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text
@@ -237,7 +241,8 @@ return {
       condition = conditions.lsp_attached,
 
       provider = function()
-        local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype)
+        local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.bo
+        .filetype)
         return " " .. (icon or vim.bo.filetype) .. "  "
       end,
 
@@ -257,7 +262,8 @@ return {
 
     local location = {
       provider = function()
-        return " %2l:%-2L ┃ %2c:" .. string.format("%-2d", vim.fn.col("$") - 1) .. " "
+        return " %2l:%-2L ┃ %2c:" ..
+        string.format("%-2d", vim.fn.col("$") - 1) .. " "
       end,
 
       hl = function()

@@ -29,13 +29,16 @@ return { -- File explorer "<leader>e" to toggle
         -- default mappings
         api.config.mappings.default_on_attach(bufnr)
         -- custom mappings
-        vim.keymap.set("n", "<Enter>", api.tree.change_root_to_node, opts("Change Directory"))
-        vim.keymap.set("n", "<BS>", api.tree.change_root_to_parent, opts("Up a Directory"))
-        vim.keymap.set("n", "<Left>", api.node.navigate.parent_close, opts("Close Directory"))
-        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
-        vim.keymap.set("n", "<Right>", api.node.open.edit, opts("Open"))
-        vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
-        vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+        vim.keymap.set("n", "<Enter>",
+          api.tree.change_root_to_node, opts("Change Directory"))
+        vim.keymap.set("n", "<BS>",
+          api.tree.change_root_to_parent, opts("Up a Directory"))
+        vim.keymap.set("n", "h",
+          api.node.navigate.parent_close, opts("Close Directory"))
+        vim.keymap.set("n", "l",
+          api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "?",
+          api.tree.toggle_help, opts("Help"))
       end,
 
       hijack_cursor = true,
@@ -44,10 +47,12 @@ return { -- File explorer "<leader>e" to toggle
       diagnostics = { enable = true, },
 
       sync_root_with_cwd = true,
+
       actions = {
         change_dir = { global = true, },
         open_file = { window_picker = { enable = false, }, },
       },
+
       filters = { git_ignored = false, },
       git = { enable = true, },
 
@@ -62,7 +67,8 @@ return { -- File explorer "<leader>e" to toggle
             local window_w_int = math.floor(window_w)
             local window_h_int = math.floor(window_h)
             local center_x = (screen_w - window_w) / 2
-            local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+            local center_y = ((vim.opt.lines:get() - window_h) / 2) -
+               vim.opt.cmdheight:get()
             return {
               border = "rounded",
               relative = "editor",
