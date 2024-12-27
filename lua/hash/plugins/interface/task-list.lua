@@ -1,9 +1,11 @@
 return { -- task list
   "Hashino/doing.nvim",
+  branch = "next",
   config = function()
     require("doing").setup({
       message_timeout = 2000,
       doing_prefix = "Doing: ",
+      show_remaining = true,
 
       ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
 
@@ -11,16 +13,32 @@ return { -- task list
         enabled = false,
       },
 
+      edit_win_config = {
+        width = 60,
+        height = 15,
+      },
+
       store = {
         file_name = ".tasks",
       },
     })
 
-    local api = require("doing.api")
+    local doing = require("doing")
 
-    vim.keymap.set("n", "<leader>de", api.edit,
-      { desc = "[E]dit what tasks you`re [D]oing", })
-    vim.keymap.set("n", "<leader>dn", api.done,
-      { desc = "[D]o[n]e with current task", })
+    vim.keymap.set("n", "<leader>da", doing.add,
+      { desc = "[D]oing: [A]dd", })
+
+    vim.keymap.set("n", "<leader>de", doing.edit,
+      { desc = "[D]oing: [E]dit", })
+
+    vim.keymap.set("n", "<leader>dn", doing.done,
+      { desc = "[D]oing: Do[n]e", })
+
+    vim.keymap.set("n", "<leader>dt", doing.toggle,
+      { desc = "[D]oing: [T]oggle", })
+
+    vim.keymap.set("n", "<leader>ds", function()
+      vim.notify(doing.status(true))
+    end, { desc = "[D]oing: [S]tatus", })
   end,
 }

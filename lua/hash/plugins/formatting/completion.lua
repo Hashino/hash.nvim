@@ -71,6 +71,10 @@ return {
           documentation = {
             auto_show = true,
           },
+
+          trigger = {
+            show_on_trigger_character = true,
+          },
         },
 
         sources = {
@@ -81,7 +85,6 @@ return {
             "lsp",
             "ripgrep",
             "path",
-            "snippets",
             "luasnip",
           },
 
@@ -106,14 +109,13 @@ return {
         },
 
         keymap = {
-          preset = "none",
-          ["<Tab>"] = { "select_next", "fallback", },
-          ["<S-Tab>"] = { "select_prev", "fallback", },
-
-          ["<A-l>"] = { "snippet_forward", "fallback", },
-          ["<A-h>"] = { "snippet_backward", "fallback", },
+          ["<Tab>"] = { "select_next", "snippet_forward", "fallback", },
+          ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback", },
 
           ["<Enter>"] = { "accept", "fallback", },
+
+          ["<A-l>"] = {  "snippet_forward", "fallback", },
+          ["<A-h>"] = {  "snippet_backward", "fallback", },
 
           ["<C- >"] = { "show", "hide", },
 
@@ -148,10 +150,7 @@ return {
         panel = { enabled = false, },
 
         suggestion = {
-          enabled = true,
           auto_trigger = true,
-          hide_during_completion = true,
-          debounce = 75,
           keymap = {
             accept = "<C-Enter>",
             next = "<C-n>",

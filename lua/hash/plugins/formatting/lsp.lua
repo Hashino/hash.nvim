@@ -32,14 +32,22 @@ return { -- LSP Configuration & Plugins
         function(server_name)
           local server = servers[server_name] or {}
           local capabilities = vim.lsp.protocol.make_client_capabilities()
+          vim.tbl_extend("force", capabilities, {
+            textDocument = {
+              completion = {
+                completionItem = {
+                  snippetSupport = false,
+                },
+              },
+            },
+          })
 
-          local builtin = require("telescope.builtin")
 
           -- overrides only values explicitly passed by the server configuration above.
           require("lspconfig")[server_name].setup({
             settings = server.settings or {},
-            capabilities = require("blink.cmp")
-               .get_lsp_capabilities(capabilities),
+            capabilities = vim.tbl_deep_extend("force", require("blink.cmp")
+              .get_lsp_capabilities(capabilities), capabilities),
 
             on_attach = function(_, bufnr)
               vim.fn.sign_define("DiagnosticSignError",
@@ -50,6 +58,8 @@ return { -- LSP Configuration & Plugins
                 { text = "", texthl = "DiagnosticSignInfo", })
               vim.fn.sign_define("DiagnosticSignHint",
                 { text = "", texthl = "DiagnosticSignHint", })
+
+              local builtin = require("telescope.builtin")
 
               vim.keymap.set("n", "gd", builtin.lsp_definitions,
                 { buffer = bufnr, desc = "LSP: [G]oto [D]efinition", })

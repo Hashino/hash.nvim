@@ -4,6 +4,7 @@ return {
     "rmehri01/onenord.nvim",
     "lewis6991/gitsigns.nvim",
     "nvim-tree/nvim-web-devicons",
+    "Hashino/doing.nvim",
   },
 
   config = function()
@@ -175,7 +176,7 @@ return {
 
     local doing = {
       provider = function()
-        local curr_status = require("doing.api").status()
+        local curr_status = require("doing").status()
         if not conditions.width_percent_below(#curr_status, 0.3) then
           local max_len = vim.api.nvim_win_get_width(0) * 0.3
           curr_status = curr_status:sub(0, max_len) .. "..."
@@ -242,7 +243,7 @@ return {
 
       provider = function()
         local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.bo
-        .filetype)
+          .filetype)
         return " " .. (icon or vim.bo.filetype) .. "  "
       end,
 
@@ -263,7 +264,7 @@ return {
     local location = {
       provider = function()
         return " %2l:%-2L ┃ %2c:" ..
-        string.format("%-2d", vim.fn.col("$") - 1) .. " "
+           string.format("%-2d", vim.fn.col("$") - 1) .. " "
       end,
 
       hl = function()
