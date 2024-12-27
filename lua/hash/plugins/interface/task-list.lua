@@ -1,6 +1,6 @@
 return { -- task list
   "Hashino/doing.nvim",
-  branch = "next",
+  branch = "main",
   config = function()
     require("doing").setup({
       message_timeout = 2000,

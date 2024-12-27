@@ -1,3 +1,8 @@
+local dir_separator = "/"
+if (vim.loop or vim.uv).os_uname().sysname:find("Windows") then
+  dir_separator = "\\"
+end
+
 -- helper function to simplify section declaration
 local function section(type, val, hl, spacing)
   return { type = type, val = val, opts = { position = "center", hl = hl, spacing = spacing, }, }
@@ -31,29 +36,65 @@ local function button(keybind, txt, action, keybind_opts)
   }
 end
 
-vim.g.get_sessions = function()
-  local session_files = io.popen(
-    "ls -pa --sort=time " ..
-    require("persisted.config").save_dir .. " | grep -v /"
-  ):lines()
-
+local get_sessions = function()
   local sessions = {}
 
-  for s in session_files do
-    local full_path = s:gsub("%%", "/"):gsub("%.vim", "")
-    local short_path = full_path:gsub(vim.fn.expand("$HOME"), "~")
-    table.insert(sessions,
-      { short_path = short_path, full_path = full_path, name = s, })
+  -- Open the directory and read its contents
+  local handle, _ = vim.loop.fs_opendir(require("persisted.config").save_dir)
+
+  if handle then
+    repeat
+      local entry = handle:readdir()
+
+      if not entry then
+        return sessions
+      end
+
+      entry = entry[1]
+
+      if entry.type == "file" then
+        local full_path = entry.name:gsub("%%", dir_separator):gsub("%.vim", "")
+        local short_path = full_path:gsub(vim.fn.expand("$HOME"), "~")
+
+        -- HACK: persisted doesn't save the path properly in windows.
+        -- this is needed to fix that
+        if vim.loop.os_uname().sysname:find("Windows") then
+          full_path = full_path:sub(1, 1) .. ":" .. full_path:sub(2, -1)
+        end
+
+        table.insert(sessions, {
+          short_path = short_path,
+          full_path = full_path,
+          name = entry.name,
+        })
+      end
+    until entry == nil
   end
 
-  return sessions
+  return sessions or {}
+end
+
+local function search_sessions()
+  vim.cmd("Telescope persisted")
+end
+
+local function clear_sessions()
+  for _, s in pairs(get_sessions()) do
+    if vim.fn.isdirectory(s.full_path) == 0 then
+      require("persisted").delete({
+        session = require("persisted.config")
+           .save_dir .. s.name,
+      })
+      vim.notify("deleted session: " .. s.name)
+    end
+  end
 end
 
 -- gets buttons for previous sessions from persisted
 local function sessions_section()
   local sections = {}
 
-  for i, s in ipairs(vim.g.get_sessions()) do
+  for i, s in ipairs(get_sessions()) do
     local shortcut = tostring(i)
 
     if i == 10 then
@@ -87,20 +128,6 @@ local function new_file()
   vim.cmd("ene")
 end
 
-local function search_sessions()
-  vim.cmd("Telescope persisted")
-end
-
-local function clear_sessions()
-  for _, s in pairs(vim.g.get_sessions()) do
-    if vim.fn.isdirectory(s.full_path) == 0 then
-      require("persisted").delete({ session = require("persisted.config")
-      .save_dir .. s.name, })
-      vim.notify("deleted session: " .. s.short_path)
-    end
-  end
-end
-
 return {
   "goolord/alpha-nvim",
   dependencies = {
@@ -130,6 +157,7 @@ return {
         section("padding", 1),
         button("n", "  New File", new_file),
         button("s", "󰩉  Search Sessions", search_sessions),
+        button("­", "󰌌  See Plugin Keymaps", function() end),
         section("padding", 2),
       },
       opts = {
