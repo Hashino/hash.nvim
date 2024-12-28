@@ -1,5 +1,8 @@
 # hash.nvim
 
+
+![print](https://raw.githubusercontent.com/Hashino/hash.nvim/main/print.png)
+
 ## Installation
 
 ### Remove old neovim configs
