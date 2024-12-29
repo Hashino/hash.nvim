@@ -15,18 +15,18 @@ return {
     local dap_projects = require("nvim-dap-projects")
     local dap_virtual_text = require("nvim-dap-virtual-text")
 
-    dap.listeners.before.attach.dapui_config = require("no-neck-pain").disable
-
-    dap.listeners.before.launch.dapui_config = function()
+    local open_dapui = function()
       dap_virtual_text.enable()
       dap_ui.open()
     end
 
-    dap.listeners.before.event_terminated.dapui_config = function()
-      require("no-neck-pain").enable()
-      dap_ui.close()
+    local close_dapui = function()
       dap_virtual_text.disable()
+      dap_ui.close()
     end
+
+    dap.listeners.before.launch.dapui_config = open_dapui
+    dap.listeners.before.event_terminated.dapui_config = close_dapui
 
     -- editor icons
     vim.fn.sign_define("DapStopped",
@@ -53,7 +53,10 @@ return {
     vim.keymap.set("n", "<F5>", continue_debug,
       { desc = "[F5] (debugging) Start/Continue", })
 
-    vim.keymap.set("n", "<C-F5>", dap.terminate,
+    vim.keymap.set("n", "<C-F5>", function()
+        pcall(dap.terminate)
+        dap_ui.close()
+      end,
       { desc = "[Ctrl+F5] (debugging) Stop", })
 
     vim.keymap.set("n", "<F9>", dap.toggle_breakpoint,
