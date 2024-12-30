@@ -4,7 +4,7 @@ return { -- task list
   config = function()
     require("doing").setup({
       message_timeout = 2000,
-      doing_prefix = "Doing: ",
+      doing_prefix = "",
       show_remaining = true,
 
       ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
@@ -38,7 +38,8 @@ return { -- task list
       { desc = "[D]oing: [T]oggle", })
 
     vim.keymap.set("n", "<leader>ds", function()
-      vim.notify(doing.status(true))
+      vim.notify(doing.status(true), vim.log.levels.INFO,
+        { title = "Doing:", icon = "", })
     end, { desc = "[D]oing: [S]tatus", })
   end,
 }
