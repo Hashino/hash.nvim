@@ -1,13 +1,33 @@
 return {
   "rcarriga/nvim-dap-ui",
+
   dependencies = {
     "mfussenegger/nvim-dap",
     "nvim-neotest/nvim-nio",
-    "ldelossa/nvim-dap-projects",                -- dap config per project
-    "theHamsta/nvim-dap-virtual-text",           -- displays variable value while debugging
+    "theHamsta/nvim-dap-virtual-text",           -- displays values while debugging
     "WhoIsSethDaniel/mason-tool-installer.nvim", -- for codelldb
+
+    -- add .nvim/nvim-dap.lua file to project rooot to override
+    -- adapter and configurations
+    "ldelossa/nvim-dap-projects",
   },
+
   config = function()
+    vim.fn.sign_define("DapStopped",
+      { text = "", texthl = "String", })
+
+    vim.fn.sign_define("DapBreakpoint",
+      { text = "", texthl = "ErrorMsg", })
+
+    vim.fn.sign_define("DapBreakpointCondition",
+      { text = "", texthl = "ErrorMsg", })
+
+    vim.fn.sign_define("DapBreakpointRejected",
+      { text = "", texthl = "ErrorMsg", })
+
+    vim.fn.sign_define("DapLogPoint",
+      { text = "", texthl = "Type", })
+
     require("hash.plugins.debugging.adapters.gdb")
 
     local dap = require("dap")
@@ -25,38 +45,30 @@ return {
       dap_ui.close()
     end
 
-    dap.listeners.before.launch.dapui_config = open_dapui
-    dap.listeners.before.event_terminated.dapui_config = close_dapui
-
-    -- editor icons
-    vim.fn.sign_define("DapStopped",
-      { text = "", texthl = "String", })
-
-    vim.fn.sign_define("DapBreakpoint",
-      { text = "", texthl = "ErrorMsg", })
-
-    vim.fn.sign_define("DapBreakpointCondition",
-      { text = "", texthl = "ErrorMsg", })
-
-    vim.fn.sign_define("DapBreakpointRejected",
-      { text = "", texthl = "ErrorMsg", })
-
-    vim.fn.sign_define("DapLogPoint",
-      { text = "", texthl = "Type", })
-
     local function continue_debug()
-      dap_projects.search_project_config()
+      local status = dap.status()
+      if status == "" or status == "All threads stopped" then
+        dap_projects.search_project_config()
+      end
+
       dap.continue()
     end
 
-    -- debugging keymaps
+    local function stop_debugging()
+      pcall(dap.terminate)
+      -- when the debugger crashes, it doesn't call the event_terminated listener
+      -- so we need to manually close the dapui
+      close_dapui()
+    end
+
+    dap.listeners.before.event_initialized.dapui_config = open_dapui
+    dap.listeners.before.event_terminated.dapui_config = close_dapui
+    dap.listeners.before.event_exited.dapui_config = close_dapui
+
     vim.keymap.set("n", "<F5>", continue_debug,
       { desc = "[F5] (debugging) Start/Continue", })
 
-    vim.keymap.set("n", "<C-F5>", function()
-        pcall(dap.terminate)
-        dap_ui.close()
-      end,
+    vim.keymap.set("n", "<C-F5>", stop_debugging,
       { desc = "[Ctrl+F5] (debugging) Stop", })
 
     vim.keymap.set("n", "<F9>", dap.toggle_breakpoint,
@@ -71,14 +83,12 @@ return {
     vim.keymap.set("n", "<F12>", dap.step_out,
       { desc = "[F12] (debugging) Step out", })
 
-    -- plugin configs
     require("nvim-dap-virtual-text").setup({})
     require("dapui").setup({
       layouts = {
         {
           elements = {
             { id = "scopes",  size = 0.5, },
-            -- { id = "breakpoints", size = 0.25, },
             { id = "watches", size = 0.5, },
           },
           position = "left",
@@ -87,7 +97,6 @@ return {
         {
           elements = {
             { id = "console", },
-            -- { id = "repl", },
           },
           position = "bottom",
           size = 15,
