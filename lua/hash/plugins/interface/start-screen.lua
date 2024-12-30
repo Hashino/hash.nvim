@@ -39,55 +39,28 @@ end
 local get_sessions = function()
   local sessions = {}
 
-  -- Open the directory and read its contents
-  local handle, _ = vim.loop.fs_opendir(require("persisted.config").save_dir)
+  for _, session in pairs(require("persisted").list()) do
+    local pattern = dir_separator .. "[^" .. dir_separator .. "]*$"
 
-  if handle then
-    repeat
-      local entry = handle:readdir()
+    local full_path = session:sub(session:find(pattern) + 1 or 1, -1)
+       :gsub("%%", dir_separator):gsub("%.vim", "")
 
-      if not entry then
-        return sessions
-      end
+    local short_path = full_path:gsub(vim.fn.expand("$HOME"), "~")
 
-      entry = entry[1]
-
-      if entry.type == "file" then
-        local full_path = entry.name:gsub("%%", dir_separator):gsub("%.vim", "")
-        local short_path = full_path:gsub(vim.fn.expand("$HOME"), "~")
-
-        -- HACK: persisted doesn't save the path properly in windows.
-        -- this is needed to fix that
-        if vim.loop.os_uname().sysname:find("Windows") then
-          full_path = full_path:sub(1, 1) .. ":" .. full_path:sub(2, -1)
-        end
-
-        table.insert(sessions, {
-          short_path = short_path,
-          full_path = full_path,
-          name = entry.name,
-        })
-      end
-    until entry == nil
+    if vim.fn.isdirectory(full_path) ~= 0 then
+      table.insert(sessions, {
+        full_path = full_path,
+        short_path = short_path,
+        session_file = session,
+      })
+    end
   end
 
-  return sessions or {}
+  return sessions
 end
 
 local function search_sessions()
   vim.cmd("Telescope persisted")
-end
-
-local function clear_sessions()
-  for _, s in pairs(get_sessions()) do
-    if vim.fn.isdirectory(s.full_path) == 0 then
-      require("persisted").delete({
-        session = require("persisted.config")
-           .save_dir .. s.name,
-      })
-      vim.notify("deleted session: " .. s.name)
-    end
-  end
 end
 
 -- gets buttons for previous sessions from persisted
@@ -133,10 +106,9 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "nvim-lua/plenary.nvim",
+    "olimorris/persisted.nvim",
   },
   config = function()
-    -- deletes old sessions
-    clear_sessions()
     require("alpha").setup({
       layout = {
         section("padding", 7),
