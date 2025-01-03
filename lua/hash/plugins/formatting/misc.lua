@@ -1,5 +1,4 @@
 return {
-
   { -- indent lines for context
     "nvimdev/indentmini.nvim",
     dependencies = { "rmehri01/onenord.nvim", },
@@ -43,7 +42,11 @@ return {
     end,
   },
 
-  { -- auto pairs
-    "cohama/lexima.vim",
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
   },
 }

@@ -71,15 +71,9 @@ return {
           documentation = {
             auto_show = true,
           },
-
-          trigger = {
-            show_on_trigger_character = true,
-          },
         },
 
         sources = {
-          min_keyword_length = 1,
-
           default = {
             "lazydev",
             "lsp",
@@ -114,8 +108,8 @@ return {
 
           ["<Enter>"] = { "accept", "fallback", },
 
-          ["<A-l>"] = {  "snippet_forward", "fallback", },
-          ["<A-h>"] = {  "snippet_backward", "fallback", },
+          ["<A-l>"] = { "snippet_forward", "fallback", },
+          ["<A-h>"] = { "snippet_backward", "fallback", },
 
           ["<C- >"] = { "show", "hide", },
 
