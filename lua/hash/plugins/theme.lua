@@ -54,6 +54,7 @@ Theme.plugin = {   -- Theme
       light_purple = "#B48EAD",
       none         = "NONE",
     }
+
     require("onenord").setup({ custom_colors = colors, borders = false, })
     vim.cmd.colorscheme("onenord") -- Load the colorscheme here.
   end,

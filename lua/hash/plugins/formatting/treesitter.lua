@@ -2,11 +2,12 @@ return {
   { -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+
     dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim", },
 
     config = function()
-      -- Prefer git instead of curl in order to improve connectivity in some environments
       require("nvim-treesitter.install").prefer_git = true
+
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "lua",
@@ -40,14 +41,12 @@ return {
       })
     end,
   },
-  { -- I don't like how it highlights "incomplete" pairs
+
+  { -- TODO: find/make equivalent in lua
     "Yggdroot/hiPairs",
     config = function()
-      vim.cmd [[ let g:hiPairs_hl_matchPair = {
-                \    'term'    : 'underline,bold',
-                \    'cterm'   : 'bold',
-                \    'gui'     : 'bold',
-                \ } ]]
+      vim.g.hiPairs_hl_matchPair = { term = "bold", gui = "bold", }
+      vim.g.hiPairs_hl_unmatchPair = { term = "NONE", gui = "NONE", }
     end,
   },
 }

@@ -2,12 +2,12 @@ return {
   { -- indent lines for context
     "nvimdev/indentmini.nvim",
     dependencies = { "rmehri01/onenord.nvim", },
-    config       = function()
+
+    config = function()
       require("indentmini").setup({
         char = "┆",
         exclude = { "yaml", },
       })
-
       local colors = require("onenord.colors").load()
 
       vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
