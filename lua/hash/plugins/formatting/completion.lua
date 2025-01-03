@@ -135,6 +135,7 @@ return {
       })
     end,
   },
+
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -152,6 +153,15 @@ return {
           },
         },
       })
+    end,
+    init = function()
+      vim.keymap.set("n", "<leader>C", function()
+        if require("copilot.client").buf_is_attached(0) then
+          require("copilot.command").disable()
+        else
+          require("copilot.command").enable()
+        end
+      end, { desc = "Toggle [C]opilot", })
     end,
   },
 }

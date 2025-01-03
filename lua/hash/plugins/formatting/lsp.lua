@@ -75,6 +75,9 @@ return { -- LSP Configuration & Plugins
               vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename,
                 { buffer = bufnr, desc = "LSP: [R]ename", })
 
+              vim.keymap.set({ "v", "n", }, "<leader>q", vim.lsp.buf.code_action,
+                { buffer = bufnr, desc = "LSP: [Q]uick Actions", })
+
               -- show diagnostics in floating window
               vim.api.nvim_create_autocmd("CursorHold", {
                 buffer = bufnr,
@@ -106,9 +109,7 @@ return { -- LSP Configuration & Plugins
     { -- preview of lsp actions
       "aznhe21/actions-preview.nvim",
       config = function()
-        vim.keymap.set({ "v", "n", }, "<leader>q",
-          require("actions-preview").code_actions,
-          { desc = "Open [Q]uick Code Actions", })
+        vim.lsp.buf.code_action = require("actions-preview").code_actions
       end,
     },
   },
