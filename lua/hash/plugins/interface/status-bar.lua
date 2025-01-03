@@ -1,7 +1,6 @@
 return {
   "rebelot/heirline.nvim",
   dependencies = {
-    "rmehri01/onenord.nvim",
     "lewis6991/gitsigns.nvim",
     "nvim-tree/nvim-web-devicons",
     "Hashino/doing.nvim",
@@ -10,7 +9,7 @@ return {
   config = function()
     local conditions = require("heirline.conditions")
 
-    local colors = require("onenord.colors").load()
+    local colors = require("hash.plugins.theme").colors
     colors = vim.tbl_extend("keep",
       colors,
       {

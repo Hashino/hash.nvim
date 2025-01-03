@@ -12,11 +12,11 @@ return {
   },
   {
     "f-person/git-blame.nvim",
-    dependencies = { "rmehri01/onenord.nvim", },
     config = function()
       -- sets highlight for the virtual text
-      local colors = require("onenord.colors").load()
-      require("onenord.util").highlight("GitBlame", {
+      local colors = require("hash.plugins.theme").colors
+
+      require("hash.plugins.theme").highlight("GitBlame", {
         fg    = colors.gray,
         bg    = "#353B49",
         style = "italic",

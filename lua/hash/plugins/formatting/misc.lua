@@ -1,14 +1,13 @@
 return {
   { -- indent lines for context
     "nvimdev/indentmini.nvim",
-    dependencies = { "rmehri01/onenord.nvim", },
 
     config = function()
       require("indentmini").setup({
         char = "┆",
         exclude = { "yaml", },
       })
-      local colors = require("onenord.colors").load()
+      local colors = require("hash.plugins.theme").colors
 
       vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
       vim.api.nvim_set_hl(0, "IndentLine", { fg = colors.selection, })
@@ -34,6 +33,7 @@ return {
 
   { -- show colors in code
     "norcalli/nvim-colorizer.lua",
+    lazy = false,
     config = function()
       require("colorizer").setup({
         "*",
