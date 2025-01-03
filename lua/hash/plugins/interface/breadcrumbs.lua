@@ -11,7 +11,7 @@ return {
       show_basename = false,
       show_dirname = false,
 
-      kinds = require("hash.plugins.theme").kinds,
+      kinds = require("hash.theme").kinds,
     })
 
     vim.api.nvim_create_autocmd({

@@ -9,7 +9,7 @@ return {
   config = function()
     local conditions = require("heirline.conditions")
 
-    local colors = require("hash.plugins.theme").colors
+    local colors = require("hash.theme").colors
     colors = vim.tbl_extend("keep",
       colors,
       {

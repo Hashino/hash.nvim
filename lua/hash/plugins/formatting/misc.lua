@@ -7,7 +7,7 @@ return {
         char = "┆",
         exclude = { "yaml", },
       })
-      local colors = require("hash.plugins.theme").colors
+      local colors = require("hash.theme").colors
 
       vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
       vim.api.nvim_set_hl(0, "IndentLine", { fg = colors.selection, })

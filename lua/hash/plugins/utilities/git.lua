@@ -14,11 +14,11 @@ return {
     "f-person/git-blame.nvim",
     config = function()
       -- sets highlight for the virtual text
-      local colors = require("hash.plugins.theme").colors
+      local colors = require("hash.theme").colors
 
-      require("hash.plugins.theme").highlight("GitBlame", {
+      require("hash.theme").highlight("GitBlame", {
         fg    = colors.gray,
-        bg    = "#353B49",
+        bg    = colors.active,
         style = "italic",
       })
 
