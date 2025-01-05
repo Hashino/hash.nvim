@@ -4,7 +4,7 @@ return { -- task list
   config = function()
     require("doing").setup({
       message_timeout = 2000,
-      doing_prefix = "",
+      doing_prefix = "Doing: ",
       show_remaining = true,
 
       ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
