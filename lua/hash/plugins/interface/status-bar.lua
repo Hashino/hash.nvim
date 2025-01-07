@@ -220,7 +220,8 @@ return {
 
       update = {
         "BufEnter",
-        "User", pattern = "TaskModified",
+        "User",
+        pattern = "TaskModified",
       },
     }
 
@@ -255,7 +256,12 @@ return {
               winwidth = vim.api.nvim_win_get_width(0)
             end
 
-            local max_len = (winwidth * 0.3) - 3
+            local max_len
+            if conditions.is_active() then
+              max_len = (winwidth * 0.3) - 3
+            else
+              max_len = winwidth
+            end
 
             local ind, _ = filename:find("/", #filename - max_len + 2)
             filename = "..." .. filename:sub(ind or 0, #filename)
@@ -265,6 +271,7 @@ return {
 
         update = {
           "BufEnter",
+          "BufLeave",
           "BufFilePost",
           "DirChanged",
         },
@@ -383,17 +390,42 @@ return {
                 buftype = {
                   "nofile",
                 },
-              })
+              }) and conditions.is_active()
             end,
             macro,
             git,
             diagnostics,
             { provider = "%=", },
             doing,
-            { provider = "%=", },
+            { provider = "%", },
             file_name,
             lsp,
             location,
+          },
+
+          { -- default status line (unfocused)
+            condition = function()
+              return not conditions.buffer_matches({
+                filetype = {
+                  "no-neck-pain",
+                  "alpha",
+                  "NvimTree",
+                  "buffer_manager",
+                  "trouble",
+                  "Telescope*",
+                  "toggleterm",
+                  "dapui*",
+                  "doing_tasks",
+                  "lazy",
+                },
+                buftype = {
+                  "nofile",
+                },
+              }) and not conditions.is_active()
+            end,
+            { provider = "%=", },
+            file_name,
+            { provider = "%=", },
           },
 
           { -- status line for alpha
