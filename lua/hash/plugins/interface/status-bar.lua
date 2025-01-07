@@ -174,18 +174,53 @@ return {
     }
 
     local doing = {
-      provider = function()
-        local curr_status = require("doing").status()
-        if not conditions.width_percent_below(#curr_status, 0.3) then
-          local max_len = vim.api.nvim_win_get_width(0) * 0.3
-          curr_status = curr_status:sub(0, max_len) .. "..."
-        end
-        return " " .. curr_status .. " "
-      end,
+
+      {
+        init = function(self)
+          self.status = require("doing").status()
+        end,
+
+        condition = function()
+          return require("doing").status() ~= ""
+        end,
+
+        {
+          provider = function(self)
+            if not conditions.width_percent_below(#self.status, 0.3) then
+              local max_len = vim.api.nvim_win_get_width(0) * 0.3
+              self.status = self.status:sub(0, max_len) .. "..."
+            end
+            return "󰁕 " .. self.status
+          end,
+
+          hl = {
+            bold = true,
+          },
+        },
+
+        {
+          init = function(self)
+            self.count = require("doing").tasks_left() - 1
+          end,
+
+          condition = function()
+            return require("doing").tasks_left() > 1
+          end,
+
+          provider = function(self)
+            return " +" .. tostring(self.count) .. " more"
+          end,
+
+          hl = {
+            fg = colors.gray,
+            italic = true,
+          },
+        },
+      },
+
       update = {
         "BufEnter",
-        "User",
-        pattern = "TaskModified",
+        "User", pattern = "TaskModified",
       },
     }
 
@@ -220,7 +255,7 @@ return {
               winwidth = vim.api.nvim_win_get_width(0)
             end
 
-            local max_len = winwidth * 0.3
+            local max_len = (winwidth * 0.3) - 3
 
             local ind, _ = filename:find("/", #filename - max_len + 2)
             filename = "..." .. filename:sub(ind or 0, #filename)
@@ -345,11 +380,15 @@ return {
                   "doing_tasks",
                   "lazy",
                 },
+                buftype = {
+                  "nofile",
+                },
               })
             end,
             macro,
             git,
             diagnostics,
+            { provider = "%=", },
             doing,
             { provider = "%=", },
             file_name,
