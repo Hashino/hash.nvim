@@ -31,14 +31,11 @@ return {
     opts = {},
   },
 
-  { -- show colors in code
-    "norcalli/nvim-colorizer.lua",
-    lazy = false,
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
     config = function()
-      require("colorizer").setup({
-        "*",
-        html = { names = false, },
-      })
+      require("colorizer").setup()
     end,
   },
 
