@@ -42,8 +42,6 @@ return { -- LSP Configuration & Plugins
             },
           })
 
-
-          -- overrides only values explicitly passed by the server configuration above.
           require("lspconfig")[server_name].setup({
             settings = server.settings or {},
             capabilities = vim.tbl_deep_extend("force", require("blink.cmp")
@@ -81,19 +79,7 @@ return { -- LSP Configuration & Plugins
               -- show diagnostics in floating window
               vim.api.nvim_create_autocmd("CursorHold", {
                 buffer = bufnr,
-                callback = function()
-                  vim.diagnostic.open_float(nil, {
-                    focusable = false,
-                    close_events = {
-                      "BufLeave",
-                      "CursorMoved",
-                      "InsertEnter",
-                      "FocusLost",
-                    },
-                    border = "single",
-                    prefix = "",
-                  })
-                end,
+                callback = require("tiny-inline-diagnostic").enable,
               })
             end,
           })
@@ -110,6 +96,15 @@ return { -- LSP Configuration & Plugins
       "aznhe21/actions-preview.nvim",
       config = function()
         vim.lsp.buf.code_action = require("actions-preview").code_actions
+      end,
+    },
+    {
+      "rachartier/tiny-inline-diagnostic.nvim",
+      event = "LspAttach",
+      config = function()
+        require("tiny-inline-diagnostic").setup({ preset = "minimal", })
+        require("tiny-inline-diagnostic").disable()
+        vim.diagnostic.config({ virtual_text = false, })
       end,
     },
   },
