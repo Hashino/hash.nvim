@@ -64,15 +64,6 @@ return {
         routes = {
           {
             filter = {
-              any = {
-                { find = "Found a swap file", },
-                { find = "Ignoring swapfile", },
-              },
-            },
-            view = "mini",
-          },
-          {
-            filter = {
               event = "lsp",
               kind = "progress",
             },
@@ -101,6 +92,9 @@ return {
                 { find = "fewer lines", },
                 { find = "after #", },
                 { find = "before #", },
+                { find = "No lines in buffer", },
+                { find = "Found a swap file", },
+                { find = "Ignoring swapfile", },
               },
             },
             skip = true,
