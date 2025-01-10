@@ -14,32 +14,13 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      {
-        "rcarriga/nvim-notify",
-        config = function()
-          vim.notify = require("notify")
-          require("notify").setup({
-            render = "wrapped-compact",
-            stages = "static",
-          })
-        end,
-      },
-    },
     config = function()
       require("noice").setup({
         cmdline = {
           format = {
-            cmdline = {
-              title = "",
-            },
-            search_down = {
-              title = "",
-            },
-            search_up = {
-              title = "",
-            },
+            cmdline = { title = "", },
+            search_down = { title = "", },
+            search_up = { title = "", },
           },
         },
 
@@ -106,5 +87,19 @@ return {
         require("noice").cmd("history")
       end, { desc = "Open [N]otifications", })
     end,
+
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      {
+        "rcarriga/nvim-notify",
+        config = function()
+          vim.notify = require("notify")
+          require("notify").setup({
+            render = "wrapped-compact",
+            stages = "static",
+          })
+        end,
+      },
+    },
   },
 }
