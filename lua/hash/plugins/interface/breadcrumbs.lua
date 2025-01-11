@@ -1,33 +1,74 @@
 return {
-  "utilyre/barbecue.nvim",
-  name = "barbecue",
-  event = "LspAttach",
-  dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons", },
-  config = function()
-    vim.opt.updatetime = 200
-    require("barbecue").setup({
-      create_autocmd = false,
-      attach_navic = true,
-      show_basename = false,
-      show_dirname = false,
+  {
+    "Bekaboo/dropbar.nvim",
+    config = function()
+      vim.g.dropbar_enabled = false
 
-      kinds = require("hash.theme").kinds,
-    })
+      require("dropbar").setup({
+        bar = {
+          enable = function(buf, win, _)
+            if
+               not vim.g.dropbar_enabled
+               or not vim.api.nvim_buf_is_valid(buf)
+               or not vim.api.nvim_win_is_valid(win)
+               or vim.fn.win_gettype(win) ~= ""
+               or vim.wo[win].winbar ~= ""
+               or vim.bo[buf].ft == "help"
+            then
+              return false
+            end
 
-    vim.api.nvim_create_autocmd({
-      "WinResized",
-      "BufWinEnter",
-      "CursorHold",
-      "InsertLeave",
-    }, {
-      group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-      callback = function()
-        require("barbecue.ui").update()
-      end,
-    })
+            local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
+            if stat and stat.size > 1024 * 1024 then
+              return false
+            end
 
-    require("barbecue.ui").toggle() -- disabled by default
-    vim.keymap.set("n", "<leader>B", require("barbecue.ui").toggle,
-      { desc = "Toggle [B]readcrumbs", })
-  end,
+            return vim.bo[buf].ft == "markdown"
+               or pcall(vim.treesitter.get_parser, buf)
+               or not vim.tbl_isempty(vim.lsp.get_clients({
+                 bufnr = buf,
+                 method = "textDocument/documentSymbol",
+               }))
+          end,
+
+          sources = function(buf, _)
+            local sources = require("dropbar.sources")
+            local utils = require("dropbar.utils")
+            if vim.bo[buf].ft == "markdown" then
+              return { sources.markdown, }
+            end
+            if vim.bo[buf].buftype == "terminal" then
+              return { sources.terminal, }
+            end
+            return {
+              utils.source.fallback({
+                sources.lsp,
+                sources.treesitter,
+              }),
+            }
+          end,
+        },
+
+        icons = {
+          kinds = {
+            symbols = require("hash.theme").kinds,
+          },
+          ui = {
+            bar = {
+              separator = " ",
+              extends = "…",
+            },
+          },
+        },
+      })
+
+      vim.keymap.set("n", "<Leader>B", function()
+        vim.g.dropbar_enabled = not vim.g.dropbar_enabled
+        if not vim.g.dropbar_enabled then
+          vim.o.winbar = ""
+        end
+        vim.cmd [[ edit ]]
+      end, { desc = "Toggle [B]readcrumbs", })
+    end,
+  },
 }
