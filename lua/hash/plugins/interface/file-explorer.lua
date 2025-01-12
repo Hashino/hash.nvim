@@ -28,6 +28,7 @@ return { -- File explorer "<leader>e" to toggle
 
         -- default mappings
         api.config.mappings.default_on_attach(bufnr)
+
         -- custom mappings
         vim.keymap.set("n", "<Enter>",
           api.tree.change_root_to_node, opts("Change Directory"))
@@ -62,13 +63,17 @@ return { -- File explorer "<leader>e" to toggle
           open_win_config = function()
             local screen_w = vim.opt.columns:get()
             local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+
             local window_w = screen_w * WIDTH_RATIO
             local window_h = screen_h * HEIGHT_RATIO
+
             local window_w_int = math.floor(window_w)
             local window_h_int = math.floor(window_h)
+
             local center_x = (screen_w - window_w) / 2
             local center_y = ((vim.opt.lines:get() - window_h) / 2) -
                vim.opt.cmdheight:get()
+
             return {
               border = "rounded",
               relative = "editor",
@@ -79,6 +84,7 @@ return { -- File explorer "<leader>e" to toggle
             }
           end,
         },
+
         width = function()
           return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
         end,
@@ -87,13 +93,16 @@ return { -- File explorer "<leader>e" to toggle
       renderer = {
         root_folder_label = false,
         highlight_git = true,
+
         icons = {
           show = {
             git = true,
           },
+
           glyphs = {
             default = "󰈚",
             symlink = "",
+
             folder = {
               default = "",
               empty = "",
@@ -104,6 +113,7 @@ return { -- File explorer "<leader>e" to toggle
               arrow_open = "",
               arrow_closed = "",
             },
+
             git = {
               unstaged = "",
               staged = "",
