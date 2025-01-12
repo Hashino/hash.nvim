@@ -1,27 +1,14 @@
-return { -- task list
+return {
   "Hashino/doing.nvim",
-  branch = "main",
   config = function()
     require("doing").setup({
-      message_timeout = 2000,
       doing_prefix = "",
       show_remaining = false,
       show_messages = false,
 
       ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
 
-      winbar = {
-        enabled = false,
-      },
-
-      edit_win_config = {
-        width = 60,
-        height = 15,
-      },
-
-      store = {
-        file_name = ".tasks",
-      },
+      winbar = { enabled = false, },
     })
 
     local doing = require("doing")
@@ -37,10 +24,5 @@ return { -- task list
 
     vim.keymap.set("n", "<leader>dt", doing.toggle,
       { desc = "[D]oing: [T]oggle", })
-
-    vim.keymap.set("n", "<leader>ds", function()
-      vim.notify(doing.status(true), vim.log.levels.INFO,
-        { title = "Doing:", icon = "", })
-    end, { desc = "[D]oing: [S]tatus", })
   end,
 }

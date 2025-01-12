@@ -132,9 +132,7 @@ return {
         button("­", "󰌌  See Plugin Keymaps", function() end),
         section("padding", 2),
       },
-      opts = {
-        margin = 5,
-      },
+      opts = { margin = 5, },
     })
   end,
 }
