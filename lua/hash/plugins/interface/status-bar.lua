@@ -174,7 +174,6 @@ return {
     }
 
     local doing = {
-
       {
         condition = function()
           return require("doing").status() ~= ""
