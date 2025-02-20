@@ -179,17 +179,20 @@ return {
           return require("doing").status() ~= ""
         end,
         {
-          provider = function()
-            local status = require("doing").status()
-            if not conditions.width_percent_below(#status, 0.3) then
-              local max_len = vim.api.nvim_win_get_width(0) * 0.3
-              status = status:sub(0, max_len) .. "..."
-            end
-            return "󰁕 " .. status
-          end,
+          {
+            provider = "󰁕 ",
+          },
+          {
+            provider = function()
+              local status = require("doing").status()
+              if not conditions.width_percent_below(#status, 0.3) then
+                local max_len = vim.api.nvim_win_get_width(0) * 0.3
+                status = status:sub(0, max_len) .. "..."
+              end
+              return status
+            end,
 
-          hl = {
-            bold = true,
+            hl = { bold = true, },
           },
         },
 

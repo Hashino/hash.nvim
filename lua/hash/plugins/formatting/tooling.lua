@@ -92,13 +92,15 @@ return { -- LSP Configuration & Plugins
     { "williamboman/mason.nvim", config = true, },
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+
     { -- preview of lsp actions
       "aznhe21/actions-preview.nvim",
       config = function()
         vim.lsp.buf.code_action = require("actions-preview").code_actions
       end,
     },
-    {
+
+    { -- show inline diagnostics
       "rachartier/tiny-inline-diagnostic.nvim",
       event = "LspAttach",
       config = function()
