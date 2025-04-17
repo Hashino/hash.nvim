@@ -6,7 +6,7 @@ return {
       show_remaining = false,
       show_messages = false,
 
-      ignored_buffers = { "NvimTree", "trouble", "no-neck-pain", },
+      ignored_buffers = {  "trouble", "no-neck-pain", ".tasks" },
 
       winbar = { enabled = false, },
     })

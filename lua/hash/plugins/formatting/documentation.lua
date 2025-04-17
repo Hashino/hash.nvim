@@ -12,11 +12,11 @@ return {
       local presets = require("markview.presets");
 
       require("markview").setup {
-        hybrid_modes = { "n", },
+        -- hybrid_modes = { "n", },
 
-        checkboxes = presets.checkboxes.nerd,
-        headings = presets.headings.marker,
-        horizontal_rules = presets.horizontal_rules.thin,
+        -- checkboxes = presets.checkboxes.nerd,
+        -- headings = presets.headings.marker,
+        -- horizontal_rules = presets.horizontal_rules.thin,
       }
     end,
   },

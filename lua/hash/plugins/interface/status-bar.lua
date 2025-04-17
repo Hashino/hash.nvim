@@ -1,5 +1,5 @@
 return {
-  "rebelot/heirline.nvim",
+  "metalinspired/heirline.nvim",
   dependencies = {
     "lewis6991/gitsigns.nvim",
     "nvim-tree/nvim-web-devicons",
@@ -217,11 +217,17 @@ return {
       },
 
       update = {
-        "BufEnter",
+        -- "BufEnter",
         "User",
         pattern = "TaskModified",
       },
     }
+
+    vim.api.nvim_create_autocmd({ "BufEnter", }, {
+      callback = function()
+        vim.api.nvim_exec_autocmds("User", { pattern = "TaskModified", })
+      end,
+    })
 
     local debugger_status = {
       condition = function()
@@ -354,14 +360,14 @@ return {
 
     vim.g.status_bar_enabled = true
 
-    vim.keymap.set("n", "<leader>S", function()
-      vim.g.status_bar_enabled = not vim.g.status_bar_enabled
-      if vim.g.status_bar_enabled then
-        vim.opt.laststatus = 3
-      else
-        vim.opt.laststatus = 0
-      end
-    end, { desc = "Toggle [S]tatusbar", })
+    -- vim.keymap.set("n", "<leader>S", function()
+    --   vim.g.status_bar_enabled = not vim.g.status_bar_enabled
+    --   if vim.g.status_bar_enabled then
+    --     vim.opt.laststatus = 3
+    --   else
+    --     vim.opt.laststatus = 0
+    --   end
+    -- end, { desc = "Toggle [S]tatusbar", })
 
     require("heirline").setup({
       statusline = {

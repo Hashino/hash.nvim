@@ -1,7 +1,7 @@
 return { -- Fuzzy Finder (files, lsp, etc)
   "nvim-telescope/telescope.nvim",
   event = "VimEnter",
-  branch = "0.1.x",
+  -- branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -54,7 +54,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         layout_config = {
           prompt_position = "top",
           height = 0.9,
-          width = 0.8,
+          width = 0.9,
           horizontal = {
             preview_width = 60,
           },

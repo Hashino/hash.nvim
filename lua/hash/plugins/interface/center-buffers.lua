@@ -1,7 +1,10 @@
 return {
   {
     "shortcuts/no-neck-pain.nvim",
-    lazy = false,
+    lazy = true,
+    keys = {
+      { "<leader>c", function() require("no-neck-pain").toggle() end, desc = "Toggle [C]enter", },
+    },
     config = function()
       require("no-neck-pain").setup({
         width = 96,
@@ -22,9 +25,6 @@ return {
 
         mappings = { enabled = false, },
       })
-      vim.keymap.set("n", "<leader>c", require("no-neck-pain").toggle,
-        { desc = "Toggle [C]enter", }
-      )
     end,
   },
 }
