@@ -134,10 +134,15 @@ return {
         self.infs = #vim.diagnostic.get(0,
           { severity = vim.diagnostic.severity.INFO, })
 
-        self.err_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text
-        self.wrn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text
-        self.inf_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text
-        self.hnt_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text
+        -- retrieve the current diagnostic configuration
+        local config = vim.diagnostic.config()
+
+        if config and config.signs.text then
+          self.err_icon = config.signs.text[vim.diagnostic.severity.ERROR]
+          self.wrn_icon = config.signs.text[vim.diagnostic.severity.WARN]
+          self.inf_icon = config.signs.text[vim.diagnostic.severity.INFO]
+          self.hnt_icon = config.signs.text[vim.diagnostic.severity.HINT]
+        end
       end,
 
       update = {
@@ -178,6 +183,7 @@ return {
         condition = function()
           return require("doing").status() ~= ""
         end,
+
         {
           {
             provider = "󰁕 ",

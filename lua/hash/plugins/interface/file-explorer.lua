@@ -6,7 +6,7 @@ return { -- File explorer "<leader>e" to toggle
     local api = require("nvim-tree.api")
 
     -- ratios of the floating window
-    local HEIGHT_RATIO = 0.85
+    local HEIGHT_RATIO = 0.8
     local WIDTH_RATIO = 0.5
 
     require("nvim-tree").setup({

@@ -72,7 +72,7 @@ vim.opt.hlsearch = true
 -- Hides cmd bar
 vim.o.cmdheight = 0
 
-vim.o.messagesopt = "wait:500,history:1000"
+vim.o.messagesopt = "wait:2000,history:1000"
 
 vim.opt.wrap = true
 
@@ -84,9 +84,6 @@ vim.opt.textwidth = 80
 
 -- session options
 vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
-
--- vim.o.guicursor = "n-v-c-sm:block-blinkwait700-blinkon1000-blinkoff300," ..
---    "i-ci-ve:ver25-iCursor-blinkwait700-blinkon1000-blinkoff300";
 
 -- Neovide stuff
 vim.g.neovide_cursor_animation_length = 0
@@ -105,3 +102,14 @@ vim.g.neovide_floating_shadow = false
 
 vim.g.neovide_floating_blur_amount_x = 0.0
 vim.g.neovide_floating_blur_amount_y = 0.0
+
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+    },
+  },
+})

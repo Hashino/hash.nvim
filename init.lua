@@ -23,10 +23,9 @@ require("lazy").setup({
     { import = "hash.plugins.utilities", },
 
     { import = "hash.plugins.debugging", },
-
-    "Hashino/bored.nvim",
   },
   change_detection = { notify = false, },
+  rocks = { enabled = false, }
 })
 
 -- require("bored")
