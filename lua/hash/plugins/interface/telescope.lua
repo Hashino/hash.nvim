@@ -14,6 +14,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       end,
     },
     { "nvim-telescope/telescope-ui-select.nvim", },
+    "olimorris/persisted.nvim",
   },
   config = function()
     local mappings = {
@@ -108,5 +109,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
       { desc = "[S]earch [H]elp", })
     vim.keymap.set("n", "<leader>sm", builtin.man_pages,
       { desc = "[S]earch [M]anuals", })
+
+    vim.keymap.set("n", "<leader>sS", "<CMD>Telescope persisted<CR>",
+      { desc = "[S]earch [S]essions", })
   end,
 }

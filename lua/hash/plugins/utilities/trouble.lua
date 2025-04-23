@@ -18,10 +18,6 @@ return {
       api.toggle({ mode = "diagnostics", win = win_opts, })
     end, { desc = "[T]rouble: [W]orkspace Diagnostics", })
 
-    vim.keymap.set("n", "<leader>td", function()
-      api.toggle({ mode = "diagnostics", filter = { buf = 0, }, win = win_opts, })
-    end, { desc = "[T]rouble: [D]ocument Diagnostics", })
-
     vim.keymap.set("n", "<leader>tn", function()
       api.toggle({ mode = "todo", win = win_opts, })
     end, { desc = "[T]rouble: [N]otes", })

@@ -9,5 +9,4 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>",
-  { desc = "Open [L]azy UI", })
+vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Open [L]azy UI", })

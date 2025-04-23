@@ -77,6 +77,10 @@ return {
       require("octo").setup({
         enable_builtin = true,
         default_to_projects_v2 = true,
+
+        suppress_missing_scope = {
+          projects_v2 = true,
+        },
       })
 
       vim.keymap.set("n", "<leader>gi", function()

@@ -8,17 +8,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
-    config = function()
-      local presets = require("markview.presets");
-
-      require("markview").setup {
-        -- hybrid_modes = { "n", },
-
-        -- checkboxes = presets.checkboxes.nerd,
-        -- headings = presets.headings.marker,
-        -- horizontal_rules = presets.horizontal_rules.thin,
-      }
-    end,
+    opts = {},
   },
   {
     "OXY2DEV/helpview.nvim",

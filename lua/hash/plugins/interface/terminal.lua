@@ -7,7 +7,7 @@ return { -- Persistent togglabe terminal "<A-t>" to toggle
       open_mapping = [[<A-t>]],
       size = 30,
       direction = "float",
-      float_opts = { border = "single", },
+      float_opts = { border = "rounded", },
     })
   end,
 }
