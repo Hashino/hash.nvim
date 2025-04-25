@@ -97,7 +97,7 @@ end
 
 vim.o.guifont = "UbuntuMono Nerd Font:h" .. get_font_size()
 
-vim.g.neovide_transparency = 0.9
+vim.g.neovide_opacity = 0.9
 vim.g.neovide_floating_shadow = false
 
 vim.g.neovide_floating_blur_amount_x = 0.0

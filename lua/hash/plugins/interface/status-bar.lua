@@ -223,7 +223,6 @@ return {
       },
 
       update = {
-        -- "BufEnter",
         "User",
         pattern = "TaskModified",
       },
@@ -234,6 +233,17 @@ return {
         vim.api.nvim_exec_autocmds("User", { pattern = "TaskModified", })
       end,
     })
+
+    local speed = {
+      provider = function()
+        return require("speed").current()
+      end,
+
+      update = {
+        "User",
+        pattern = "SpeedUpdate",
+      },
+    }
 
     local debugger_status = {
       condition = function()
@@ -407,6 +417,8 @@ return {
             diagnostics,
             { provider = "%=", },
             doing,
+            { provider = "%=", },
+            speed,
             { provider = "%=", },
             file_name,
             lsp,
