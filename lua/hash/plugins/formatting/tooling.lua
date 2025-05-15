@@ -80,14 +80,32 @@ return { -- LSP Configuration & Plugins
   end,
 
   dependencies = {
-    { "williamboman/mason.nvim", config = true, },
-    "williamboman/mason-lspconfig.nvim",
+    {
+      "williamboman/mason.nvim",
+      config = true,
+      version = "v1.*",
+    },
+
+    {
+      "williamboman/mason-lspconfig.nvim",
+      version = "v1.*",
+    },
+
     "WhoIsSethDaniel/mason-tool-installer.nvim",
 
     { -- preview of lsp actions
       "aznhe21/actions-preview.nvim",
       config = function()
         vim.lsp.buf.code_action = require("actions-preview").code_actions
+      end,
+    },
+
+    {
+      "MysticalDevil/inlay-hints.nvim",
+      event = "LspAttach",
+      dependencies = { "neovim/nvim-lspconfig", },
+      config = function()
+        require("inlay-hints").setup()
       end,
     },
 
