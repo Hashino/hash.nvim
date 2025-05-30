@@ -125,24 +125,22 @@ return {
       condition = conditions.has_diagnostics,
 
       init = function(self)
-        self.errs = #vim.diagnostic.get(0,
-          { severity = vim.diagnostic.severity.ERROR, })
-        self.wrns = #vim.diagnostic.get(0,
-          { severity = vim.diagnostic.severity.WARN, })
-        self.hnts = #vim.diagnostic.get(0,
-          { severity = vim.diagnostic.severity.HINT, })
-        self.infs = #vim.diagnostic.get(0,
-          { severity = vim.diagnostic.severity.INFO, })
+        local erro = vim.diagnostic.severity.ERROR
+        local warn = vim.diagnostic.severity.WARN
+        local hint = vim.diagnostic.severity.HINT
+        local info = vim.diagnostic.severity.INFO
 
-        -- retrieve the current diagnostic configuration
-        local config = vim.diagnostic.config()
+        self.errs = #vim.diagnostic.get(0, { severity = erro, })
+        self.wrns = #vim.diagnostic.get(0, { severity = warn, })
+        self.hnts = #vim.diagnostic.get(0, { severity = hint, })
+        self.infs = #vim.diagnostic.get(0, { severity = info, })
 
-        if config and config.signs.text then
-          self.err_icon = config.signs.text[vim.diagnostic.severity.ERROR]
-          self.wrn_icon = config.signs.text[vim.diagnostic.severity.WARN]
-          self.inf_icon = config.signs.text[vim.diagnostic.severity.INFO]
-          self.hnt_icon = config.signs.text[vim.diagnostic.severity.HINT]
-        end
+        local signs = vim.diagnostic.config().signs.text
+
+        self.err_icon = (signs)[erro] or " "
+        self.wrn_icon = (signs)[warn] or " "
+        self.inf_icon = (signs)[info] or " "
+        self.hnt_icon = (signs)[hint] or " "
       end,
 
       update = {
@@ -192,7 +190,9 @@ return {
             provider = function()
               local status = require("doing").status()
               if not conditions.width_percent_below(#status, 0.3) then
-                local max_len = vim.api.nvim_win_get_width(0) * 0.3
+                local max_len = (vim.o.laststatus == 3 and vim.o.columns or vim.api.nvim_win_get_width(0)) *
+                   0.25
+
                 status = status:sub(0, max_len) .. "..."
               end
               return status
@@ -234,17 +234,6 @@ return {
       end,
     })
 
-    local speed = {
-      provider = function()
-        return require("speed").current()
-      end,
-
-      update = {
-        "User",
-        pattern = "SpeedUpdate",
-      },
-    }
-
     local debugger_status = {
       condition = function()
         local session = require("dap").session()
@@ -269,19 +258,8 @@ return {
           if filename == "" then return " [No Name] " end
           -- shortens if filename is bigger than proportion of width
           if not conditions.width_percent_below(#filename, 0.25) then
-            local winwidth
-            if vim.o.laststatus == 3 then
-              winwidth = vim.o.columns
-            else
-              winwidth = vim.api.nvim_win_get_width(0)
-            end
-
-            local max_len
-            if conditions.is_active() then
-              max_len = (winwidth * 0.25) - 3
-            else
-              max_len = winwidth
-            end
+            local max_len = (vim.o.laststatus == 3 and vim.o.columns or vim.api.nvim_win_get_width(0))
+            max_len = (max_len * 0.25) - 3
 
             local ind, _ = filename:find("/", #filename - max_len + 2)
             filename = "..." .. filename:sub(ind or 0, #filename)
@@ -417,8 +395,6 @@ return {
             diagnostics,
             { provider = "%=", },
             doing,
-            { provider = "%=", },
-            speed,
             { provider = "%=", },
             file_name,
             lsp,
