@@ -6,9 +6,11 @@ return { -- LSP Configuration & Plugins
       clangd = {},
       rust_analyzer = {},
       gopls = {},
+      pylsp = {},
       lua_ls = {
         settings = {
           Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            hint = { enable = true, },
             telemetry = { enable = false, },
             diagnostics = {
               globals = { "vim", },
@@ -48,26 +50,21 @@ return { -- LSP Configuration & Plugins
               .get_lsp_capabilities(capabilities), capabilities),
 
             on_attach = function(_, bufnr)
-              local builtin = require("telescope.builtin")
+              vim.lsp.inlay_hint.enable(false) -- disable inlay hints by default
 
-              vim.keymap.set("n", "gd", builtin.lsp_definitions,
+              vim.keymap.set("n", "gd", vim.lsp.buf.definition,
                 { buffer = bufnr, desc = "LSP: [G]oto [D]efinition", })
-              vim.keymap.set("n", "gD", vim.lsp.buf.declaration,
-                { buffer = bufnr, desc = "LSP: [G]oto [D]eclaration", })
-              vim.keymap.set("n", "gR", builtin.lsp_references,
-                { buffer = bufnr, desc = "LSP: [G]oto [R]eferences", })
-              vim.keymap.set("n", "gI", builtin.lsp_implementations,
-                { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation", })
 
               vim.keymap.set("n", "<leader>f", vim.lsp.buf.format,
-                { buffer = bufnr, desc = "LSP: [F]ormat buffer", })
-              vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename,
-                { buffer = bufnr, desc = "LSP: [R]ename", })
+                { buffer = bufnr, desc = "LSP: [F]ormat Document", })
 
-              vim.keymap.set({ "v", "n", }, "<leader>q", vim.lsp.buf.code_action,
-                { buffer = bufnr, desc = "LSP: [Q]uick Actions", })
+              vim.api.nvim_create_autocmd("InsertLeave", {
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format({ bufnr = bufnr, })
+                end,
+              })
 
-              -- show diagnostics in floating window
               vim.api.nvim_create_autocmd("CursorHold", {
                 buffer = bufnr,
                 callback = require("tiny-inline-diagnostic").enable,
@@ -106,6 +103,10 @@ return { -- LSP Configuration & Plugins
       dependencies = { "neovim/nvim-lspconfig", },
       config = function()
         require("inlay-hints").setup()
+
+        vim.keymap.set("n", "<leader>I", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end, { desc = "Toggle [I]nlay Hints", })
       end,
     },
 
