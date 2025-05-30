@@ -12,17 +12,6 @@ return {
           end
           return "make install_jsregexp"
         end)(),
-        config = function()
-          local ls = require("luasnip")
-
-          -- in a lua file: search lua-, then c-, then all-snippets.
-          ls.filetype_extend("lua", { "c", })
-          -- in a cpp file: search c-snippets, then all-snippets only
-          ls.filetype_set("cpp", { "c", }) -- (no cpp-snippets)
-
-          require("luasnip.loaders.from_lua").load({ include = { "c", }, })
-          require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "cpp", }, })
-        end,
 
         dependencies = {
           {
@@ -79,9 +68,9 @@ return {
           default = {
             "lazydev",
             "lsp",
-            "ripgrep",
-            "path",
             "snippets",
+            "path",
+            "ripgrep",
           },
 
           providers = {
@@ -105,8 +94,8 @@ return {
         },
 
         keymap = {
-          ["<Tab>"] = { "select_next", "snippet_forward", "fallback", },
-          ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback", },
+          ["<Tab>"] = { "select_next", "fallback", },
+          ["<S-Tab>"] = { "select_prev", "fallback", },
 
           ["<Enter>"] = { "accept", "fallback", },
 

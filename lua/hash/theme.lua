@@ -25,7 +25,7 @@ Theme.kinds = {
   Struct        = "󰙅 ",
   Event         = " ",
   Operator      = "󰆕 ",
-  TypeParameter = "" ,
+  TypeParameter = "",
 }
 
 Theme.colors = {}
@@ -35,9 +35,9 @@ Theme.highlight = function(group, colors)
   require("onenord.util").highlight(group, colors)
 end
 
-Theme.plugin = {     -- Theme
+Theme.plugin = {   -- Theme
   "rmehri01/onenord.nvim",
-  priority = 1000,   -- Make sure to load this before all the other start plugins.
+  priority = 1000, -- Make sure to load this before all the other start plugins.
   init = function()
     local colors = {
       fg           = "#C8D0E0",
@@ -63,7 +63,7 @@ Theme.plugin = {     -- Theme
     }
 
     require("onenord").setup({ custom_colors = colors, borders = false, })
-    vim.cmd.colorscheme("onenord")   -- Load the colorscheme here.
+    vim.cmd.colorscheme("onenord") -- Load the colorscheme here.
 
     Theme.colors = require("onenord.colors").load()
   end,

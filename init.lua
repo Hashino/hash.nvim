@@ -7,25 +7,23 @@
 -- |_| |_|\__,_|___/_| |_(_)_| |_|\_/ |_|_| |_| |_|
 --
 
-require("hash.opts") -- neovim options
+require("hash.opts")    -- neovim options
 require("hash.keymaps") -- global keymaps.
 
-require("init_lazy") -- bootstrap package manager
+require("init_lazy")    -- bootstrap package manager
 
 require("lazy").setup({
   spec = {
     require("hash.theme").plugin,
 
-    { import = "hash.plugins.interface" },
+    { import = "hash.plugins.interface", },
 
-    { import = "hash.plugins.formatting" },
+    { import = "hash.plugins.formatting", },
 
-    { import = "hash.plugins.utilities" },
+    { import = "hash.plugins.utilities", },
 
-    { import = "hash.plugins.debugging" },
+    { import = "hash.plugins.debugging", },
   },
-  change_detection = { notify = false },
-  rocks = { enabled = false },
+  change_detection = { notify = false, },
+  rocks = { enabled = false, },
 })
-
--- require("bored")

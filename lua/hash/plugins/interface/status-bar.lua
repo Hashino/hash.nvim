@@ -10,19 +10,6 @@ return {
     local conditions = require("heirline.conditions")
 
     local colors = require("hash.theme").colors
-    colors = vim.tbl_extend("keep",
-      colors,
-      {
-        bright_bg = colors.highlight,
-        bright_fg = colors.fg,
-        diag_error = colors.error,
-        diag_warn = colors.warn,
-        diag_hint = colors.hint,
-        diag_info = colors.info,
-        git_add = colors.diff_add,
-        git_change = colors.diff_change,
-        git_del = colors.diff_remove,
-      })
 
     require("heirline").load_colors(colors)
 
@@ -77,7 +64,7 @@ return {
       end,
 
       hl = {
-        bg = "bright_bg",
+        bg = "highlight",
       },
 
       { provider = " ", },
@@ -102,21 +89,21 @@ return {
           local count = self.status_dict.added or 0
           return count > 0 and (" +" .. count)
         end,
-        hl = { fg = "green", },
+        hl = { fg = "diff_add", },
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
           return count > 0 and (" -" .. count)
         end,
-        hl = { fg = "red", },
+        hl = { fg = "diff_remove", },
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
           return count > 0 and (" ~" .. count)
         end,
-        hl = { fg = "dark_blue", },
+        hl = { fg = "diff_change", },
       },
       { provider = " ", },
     }
@@ -154,25 +141,25 @@ return {
           -- 0 is just another output, we can decide to print it or not!
           return self.errs > 0 and (self.err_icon .. self.errs .. " ")
         end,
-        hl = { fg = "diag_error", },
+        hl = { fg = "error", },
       },
       {
         provider = function(self)
           return self.wrns > 0 and (self.wrn_icon .. self.wrns .. " ")
         end,
-        hl = { fg = "diag_warn", },
+        hl = { fg = "warn", },
       },
       {
         provider = function(self)
           return self.infs > 0 and (self.inf_icon .. self.infs .. " ")
         end,
-        hl = { fg = "diag_info", },
+        hl = { fg = "info", },
       },
       {
         provider = function(self)
           return self.hnts > 0 and (self.hnt_icon .. self.hnts .. " ")
         end,
-        hl = { fg = "diag_hint", },
+        hl = { fg = "hint", },
       },
     }
 
@@ -289,7 +276,7 @@ return {
       hl = function()
         return {
           fg = mode_colors[vim.fn.mode(1):sub(1, 1)],
-          bg = "bright_bg",
+          bg = "highlight",
         }
       end,
 

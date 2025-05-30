@@ -28,7 +28,7 @@ return {
           additional_vim_regex_highlighting = false,
         },
 
-        auto_install = true, -- Autoinstall languages that are not installed
+        auto_install = true, -- Autoinstall languages that are not installed yet
 
         disable = function(_, buf)
           local max_filesize = 100 * 1024 -- 100 KB
