@@ -7,6 +7,7 @@ return { -- LSP Configuration & Plugins
       rust_analyzer = {},
       gopls = {},
       pylsp = {},
+      csharp_ls = {},
       lua_ls = {
         settings = {
           Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings

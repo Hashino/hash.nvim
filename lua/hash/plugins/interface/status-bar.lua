@@ -244,9 +244,9 @@ return {
           local filename = vim.fn.fnamemodify(self.filename, ":.")
           if filename == "" then return " [No Name] " end
           -- shortens if filename is bigger than proportion of width
-          if not conditions.width_percent_below(#filename, 0.25) then
+          if not conditions.width_percent_below(#filename, 0.3) then
             local max_len = (vim.o.laststatus == 3 and vim.o.columns or vim.api.nvim_win_get_width(0))
-            max_len = (max_len * 0.25) - 3
+            max_len = (max_len * 0.3) - 3
 
             local ind, _ = filename:find("/", #filename - max_len + 2)
             filename = "..." .. filename:sub(ind or 0, #filename)
