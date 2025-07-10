@@ -24,10 +24,5 @@ return {
 
     vim.keymap.set("n", "<leader>dt", doing.toggle,
       { desc = "[D]oing: [T]oggle", })
-
-    vim.keymap.set("n", "<leader>ds", function()
-      vim.notify(doing.status(true), vim.log.levels.INFO,
-        { title = "doing:", icon = " ", })
-    end, { desc = "[D]oing: [S]tatus", })
   end,
 }
