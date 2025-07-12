@@ -72,8 +72,6 @@ vim.opt.hlsearch = true
 -- Hides cmd bar
 vim.o.cmdheight = 0
 
-vim.o.messagesopt = "wait:2000,history:1000"
-
 vim.opt.wrap = true
 
 -- formatting

@@ -1,12 +1,11 @@
 return {
   {
-    "Hashino/buffer_manager.nvim-40",
+    "j-morano/buffer_manager.nvim",
     dependecies = {
       "nvim-lua/plenary.nvim",
     },
     config = function()
       require("buffer_manager").setup({
-        short_file_names = "all",
         short_term_names = true,
         order_buffers = "lastused",
       })
