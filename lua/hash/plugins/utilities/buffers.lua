@@ -5,12 +5,6 @@ return {
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      require("buffer_manager").setup({
-        short_term_names = true,
-        order_buffers = "lastused",
-      })
-
-      -- Navigate buffers by index
       local keys = "123456789"
       for i = 1, #keys do
         local key = keys:sub(i, i)
