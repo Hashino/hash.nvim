@@ -80,26 +80,11 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.textwidth = 80
 
+-- status bar
+vim.opt.laststatus = 3
+
 -- session options
 vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
-
--- Neovide stuff
-vim.g.neovide_cursor_animation_length = 0
-
--- TODO: this is a mess
-local function get_font_size()
-  local ui_scaling = os.getenv("UI_SCALING") or 32
-
-  return 22 - ((ui_scaling - 32) * 2)
-end
-
-vim.o.guifont = "UbuntuMono Nerd Font:h" .. get_font_size()
-
-vim.g.neovide_opacity = 0.9
-vim.g.neovide_floating_shadow = false
-
-vim.g.neovide_floating_blur_amount_x = 0.0
-vim.g.neovide_floating_blur_amount_y = 0.0
 
 vim.diagnostic.config({
   signs = {
@@ -111,3 +96,26 @@ vim.diagnostic.config({
     },
   },
 })
+
+-- neovide stuff
+if vim.g.neovide then
+  vim.opt.linespace = -1
+
+  -- TODO: this is a mess
+  local function get_font_size()
+    local ui_scaling = os.getenv("UI_SCALING") or 32
+
+    return 22 - ((ui_scaling - 32) * 2)
+  end
+
+  vim.o.guifont = "UbuntuMono Nerd Font:h" .. get_font_size()
+
+  vim.g.neovide_cursor_animation_length = 0
+
+  vim.g.neovide_opacity = 0.9
+
+  vim.g.neovide_floating_shadow = false
+
+  vim.g.neovide_floating_blur_amount_x = 0.0
+  vim.g.neovide_floating_blur_amount_y = 0.0
+end

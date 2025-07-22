@@ -7,10 +7,11 @@
 -- |_| |_|\__,_|___/_| |_(_)_| |_|\_/ |_|_| |_| |_|
 --
 
-require("hash.opts")    -- neovim options
-require("hash.keymaps") -- global keymaps.
+require("hash.opts")     -- neovim options
+require("hash.autocmds") -- autocommands
+require("hash.keymaps")  -- global keymaps.
 
-require("init_lazy")    -- bootstrap package manager
+require("init_lazy")     -- bootstrap package manager
 
 require("lazy").setup({
   spec = {
