@@ -5,17 +5,16 @@ return {
       "nvim-lua/plenary.nvim",
     },
     config = function()
+      require("buffer_manager").setup {
+        order_buffers = "lastused",
+      }
       local keys = "123456789"
+
       for i = 1, #keys do
-        local key = keys:sub(i, i)
+        local key = string.sub(keys, i, i)
         vim.keymap.set("n", string.format("<A-%s>", key), function()
-            require("buffer_manager.ui").nav_file(i)
-          end,
-          {
-            desc = "switch to " .. i .. "th buffer in history",
-            noremap = true,
-          }
-        )
+          require("buffer_manager.ui").nav_file(i)
+        end, { noremap = true, })
       end
     end,
   },
