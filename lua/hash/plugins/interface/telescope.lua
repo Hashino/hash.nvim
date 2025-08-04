@@ -1,7 +1,6 @@
 return { -- Fuzzy Finder (files, lsp, etc)
   "nvim-telescope/telescope.nvim",
   event = "VimEnter",
-  -- branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -15,6 +14,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     },
     { "nvim-telescope/telescope-ui-select.nvim", },
     "olimorris/persisted.nvim",
+    "nvim-telescope/telescope-symbols.nvim",
   },
   config = function()
     local mappings = {
@@ -90,12 +90,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require("telescope").load_extension, "ui-select")
 
     local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>sc", builtin.commands,
-      { desc = "[S]earch [C]ommands", })
+
     vim.keymap.set("n", "<leader>sf", builtin.find_files,
       { desc = "[S]earch [F]iles", })
-    vim.keymap.set("n", "<leader>sb", builtin.buffers,
-      { desc = "[S]earch [B]uffers", })
     vim.keymap.set("n", "<leader>ss", builtin.builtin,
       { desc = "[S]earch [S]elect Telescope", })
     vim.keymap.set("n", "<leader>sw", builtin.grep_string,
