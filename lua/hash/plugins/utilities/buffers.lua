@@ -8,10 +8,15 @@ return {
       require("buffer_manager").setup {
         order_buffers = "lastused",
       }
+
+      vim.api.nvim_create_user_command("BufferManager", function()
+        require("buffer_manager.ui").toggle_quick_menu()
+      end, { desc = "Open Buffer Manager Quick Menu", })
+
       local keys = "123456789"
 
       for i = 1, #keys do
-        local key = string.sub(keys, i, i)
+        local key = keys:sub(i, i)
         vim.keymap.set("n", string.format("<A-%s>", key), function()
           require("buffer_manager.ui").nav_file(i)
         end, { noremap = true, })
