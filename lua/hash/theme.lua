@@ -62,7 +62,7 @@ Theme.plugin = {   -- Theme
       none         = "NONE",
     }
 
-    require("onenord").setup({ custom_colors = colors, borders = false, })
+    require("onenord").setup({ custom_colors = colors, })
     vim.cmd.colorscheme("onenord") -- Load the colorscheme here.
 
     Theme.colors = require("onenord.colors").load()
