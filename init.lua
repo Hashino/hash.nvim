@@ -11,7 +11,10 @@ require("hash.opts")     -- neovim options
 require("hash.autocmds") -- autocommands
 require("hash.keymaps")  -- global keymaps.
 
-require("init_lazy")     -- bootstrap package manager
+vim.pack.add({ "https://github.com/folke/lazy.nvim", })
+
+vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>",
+  { desc = "Open [L]azy UI", })
 
 require("lazy").setup({
   spec = {
