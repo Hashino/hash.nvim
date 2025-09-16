@@ -87,7 +87,11 @@ return {
               max_items = 3,
               opts = {
                 prefix_min_len = 4,
-                search_casing = "--smart-case",
+                backend = {
+                  ripgrep = {
+                    search_casing = "--smart-case",
+                  },
+                },
               },
             },
           },
