@@ -2,12 +2,11 @@ return { -- LSP Configuration & Plugins
   "neovim/nvim-lspconfig",
   config = function()
     local servers = { -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+      copilot = {},
       bashls = {},
       clangd = {},
       rust_analyzer = {},
       gopls = {},
-      -- pylyzer = {},
-      -- csharp_ls = {},
       lua_ls = {
         settings = {
           Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
@@ -35,6 +34,8 @@ return { -- LSP Configuration & Plugins
         function(server_name)
           local server = servers[server_name] or {}
           local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+          -- disable lsp snippets support, as we use luasnip
           vim.tbl_extend("force", capabilities, {
             textDocument = {
               completion = {
@@ -45,7 +46,7 @@ return { -- LSP Configuration & Plugins
             },
           })
 
-          require("lspconfig")[server_name].setup({
+          vim.lsp.config(server_name, {
             settings = server.settings or {},
             capabilities = vim.tbl_deep_extend("force", require("blink.cmp")
               .get_lsp_capabilities(capabilities), capabilities),
@@ -71,7 +72,10 @@ return { -- LSP Configuration & Plugins
                 callback = require("tiny-inline-diagnostic").enable,
               })
             end,
+
           })
+
+          vim.lsp.enable(server_name)
         end,
       },
     })
@@ -81,12 +85,10 @@ return { -- LSP Configuration & Plugins
     {
       "williamboman/mason.nvim",
       config = true,
-      version = "v1.*",
     },
 
     {
       "williamboman/mason-lspconfig.nvim",
-      version = "v1.*",
     },
 
     "WhoIsSethDaniel/mason-tool-installer.nvim",
