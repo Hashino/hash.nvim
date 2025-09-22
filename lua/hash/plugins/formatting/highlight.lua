@@ -3,15 +3,15 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
 
-    dependencies = {
-      "OXY2DEV/markview.nvim",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-    },
-
     config = function()
       require("nvim-treesitter.install").prefer_git = true
 
       require("nvim-treesitter.configs").setup({
+        sync_install = true,
+
+        modules = {},
+        ignore_install = {},
+
         ensure_installed = {
           "lua",
           "c",
