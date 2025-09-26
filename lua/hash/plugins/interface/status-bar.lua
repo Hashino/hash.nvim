@@ -270,6 +270,7 @@ return {
       provider = function()
         local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.bo
           .filetype)
+
         return " " .. (icon or vim.bo.filetype) .. "  "
       end,
 

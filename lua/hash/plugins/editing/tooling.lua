@@ -14,7 +14,6 @@ return {
 
     config = function()
       local lsp_servers = { -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        copilot = {},
         bashls = {},
         clangd = {},
         rust_analyzer = {},
@@ -35,6 +34,7 @@ return {
 
       -- other mason tools we also want installed
       local tools = {
+        "copilot",
         "codelldb",
         "tree-sitter-cli",
       }
