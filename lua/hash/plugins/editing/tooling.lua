@@ -19,14 +19,12 @@ return {
         rust_analyzer = {},
         gopls = {},
         lua_ls = {
-          settings = {
-            Lua = { -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              hint = { enable = true, },
-              telemetry = { enable = false, },
-              diagnostics = {
-                globals = { "vim", },
-                disable = { "missing-fields", },
-              },
+          Lua = {   -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            hint = { enable = true, },
+            telemetry = { enable = false, },
+            diagnostics = {
+              globals = { "vim", },
+              disable = { "missing-fields", },
             },
           },
         },
@@ -57,7 +55,7 @@ return {
 
       for _, server_name in pairs(vim.tbl_keys(lsp_servers)) do
         vim.lsp.config(server_name, {
-          settings = lsp_servers[server_name].settings or {},
+          settings = lsp_servers[server_name] or {},
 
           capabilities = capabilities,
 

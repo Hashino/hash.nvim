@@ -11,31 +11,6 @@ return {
     end,
   },
   {
-    "f-person/git-blame.nvim",
-    config = function()
-      -- sets highlight for the virtual text
-      local colors = require("hash.theme").colors
-
-      require("hash.theme").highlight("GitBlame", {
-        fg    = colors.gray,
-        bg    = colors.active,
-        style = "italic",
-      })
-
-      require("gitblame").setup({
-        enabled = false,
-        message_when_not_committed = "",
-        message_template = "  <date> by [<author>] ⬪ <summary> ⬪ «<sha>»",
-        date_format = "%b %d, %Y at %H:%M",
-        virtual_text_column = 1,
-        highlight_group = "GitBlame",
-      })
-
-      vim.keymap.set("n", "<leader>gB", require("gitblame").toggle,
-        { desc = "Toggle [G]it [B]lame", })
-    end,
-  },
-  {
     "tpope/vim-fugitive",
     init = function()
       local function git_cmd(cmd)
@@ -62,30 +37,6 @@ return {
 
       vim.keymap.set("n", "<leader>gA", git_cmd("add ."),
         { desc = "[G]it [A]dd all", })
-    end,
-  },
-  {
-    "pwntester/octo.nvim",
-    event = "VeryLazy",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      -- OR 'ibhagwan/fzf-lua',
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      require("octo").setup({
-        enable_builtin = true,
-        default_to_projects_v2 = true,
-
-        suppress_missing_scope = {
-          projects_v2 = true,
-        },
-      })
-
-      vim.keymap.set("n", "<leader>gi", function()
-        vim.cmd("Octo issue list")
-      end, { desc = "[G]it [I]ssues", })
     end,
   },
 }
