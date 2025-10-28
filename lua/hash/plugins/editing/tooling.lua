@@ -32,7 +32,6 @@ return {
 
       -- other mason tools we also want installed
       local tools = {
-        "copilot",
         "codelldb",
         "tree-sitter-cli",
       }

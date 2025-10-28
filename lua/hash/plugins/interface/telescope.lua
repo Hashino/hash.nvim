@@ -14,7 +14,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     },
     { "nvim-telescope/telescope-ui-select.nvim", },
     "olimorris/persisted.nvim",
-    "nvim-telescope/telescope-symbols.nvim",
   },
   config = function()
     local mappings = {

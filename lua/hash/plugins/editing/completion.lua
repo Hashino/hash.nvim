@@ -50,7 +50,7 @@ return {
             draw = {
               columns = {
                 { "kind_icon", },
-                { "label",       "label_description", },
+                { "label",      "label_description", },
                 { "kind", },
                 { "source_name", },
               },
@@ -99,16 +99,16 @@ return {
 
         keymap = {
           ["<Tab>"] = { "select_next", "fallback", },
-          ["<S-Tab>"] = { "select_prev", "fallback", },
+          ["<S-Tab>"] = { "select_prev", },
 
           ["<Enter>"] = { "accept", "fallback", },
 
-          ["<A-l>"] = { "snippet_forward", "fallback", },
-          ["<A-h>"] = { "snippet_backward", "fallback", },
+          ["<A-l>"] = { "snippet_forward", },
+          ["<A-h>"] = { "snippet_backward", },
 
           ["<C- >"] = { "show", "hide", },
 
-          ["<C-d>"] = { "show_documentation", "hide_documentation", },
+          ["<C-d>"] = { "show_documentation", },
         },
 
         appearance = {
@@ -122,14 +122,6 @@ return {
 
   {
     "zbirenbaum/copilot.lua",
-    dependencies = {
-      {
-        "copilotlsp-nvim/copilot-lsp",
-        init = function()
-          vim.g.copilot_nes_debounce = 500
-        end,
-      },
-    },
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
@@ -142,15 +134,6 @@ return {
             accept = "<C-Enter>",
             next = "<C-n>",
             prev = "<C-p>",
-          },
-        },
-
-        nes = {
-          enabled = true,
-          keymap = {
-            accept_and_goto = "<C-Enter>",
-            accept = false,
-            dismiss = "<Esc>",
           },
         },
       })
