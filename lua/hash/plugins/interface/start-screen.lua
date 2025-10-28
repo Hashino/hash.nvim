@@ -1,5 +1,5 @@
 local dir_separator = "/"
-if (vim.loop or vim.uv).os_uname().sysname:find("Windows") then
+if vim.uv.os_uname().sysname:find("Windows") then
   dir_separator = "\\"
 end
 
