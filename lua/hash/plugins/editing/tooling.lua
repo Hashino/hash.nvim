@@ -13,21 +13,15 @@ return {
     },
 
     config = function()
-      local lsp_servers =
-      {   -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+      local lsp_servers = {
         bashls = {},
         clangd = {},
         rust_analyzer = {},
         gopls = {},
         lua_ls = {
-          settings = {
-            Lua = {
-              hint = { enable = true, },
-              telemetry = { enable = false, },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-              },
-            },
+          Lua = {
+            hint = { enable = true, },
+            telemetry = { enable = false, },
           },
         },
       }

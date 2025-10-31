@@ -32,8 +32,6 @@ return {
           },
         },
       },
-
-      "mikavilpas/blink-ripgrep.nvim",
     },
 
     config = function()
@@ -70,7 +68,6 @@ return {
             "lsp",
             "snippets",
             "path",
-            "ripgrep",
           },
 
           providers = {
@@ -78,21 +75,6 @@ return {
               name = "LazyDev",
               module = "lazydev.integrations.blink",
               score_offset = 100,
-            },
-
-            ripgrep = {
-              name = "RipGrep",
-              module = "blink-ripgrep",
-              score_offset = -2,
-              max_items = 3,
-              opts = {
-                prefix_min_len = 4,
-                backend = {
-                  ripgrep = {
-                    search_casing = "--smart-case",
-                  },
-                },
-              },
             },
           },
         },
