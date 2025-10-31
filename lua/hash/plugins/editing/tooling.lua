@@ -13,18 +13,20 @@ return {
     },
 
     config = function()
-      local lsp_servers = { -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+      local lsp_servers =
+      {   -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
         bashls = {},
         clangd = {},
         rust_analyzer = {},
         gopls = {},
         lua_ls = {
-          Lua = {   -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            hint = { enable = true, },
-            telemetry = { enable = false, },
-            diagnostics = {
-              globals = { "vim", },
-              disable = { "missing-fields", },
+          settings = {
+            Lua = {
+              hint = { enable = true, },
+              telemetry = { enable = false, },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+              },
             },
           },
         },
@@ -52,19 +54,18 @@ return {
         },
       })
 
-      for _, server_name in pairs(vim.tbl_keys(lsp_servers)) do
-        vim.lsp.config(server_name, {
-          settings = lsp_servers[server_name] or {},
-
+      for server, config in pairs(lsp_servers) do
+        vim.lsp.config(server, {
+          settings = config or {},
           capabilities = capabilities,
 
           on_attach = function(_, bufnr)
             vim.lsp.inlay_hint.enable(false) -- disable inlay hints by default
 
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition,
+            vim.keymap.set( "n", "grd", vim.lsp.buf.definition,
               { buffer = bufnr, desc = "LSP: [G]oto [D]efinition", })
 
-            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format,
+            vim.keymap.set( "n", "<leader>f", vim.lsp.buf.format,
               { buffer = bufnr, desc = "LSP: [F]ormat Document", })
 
             vim.api.nvim_create_autocmd("InsertLeave", {
