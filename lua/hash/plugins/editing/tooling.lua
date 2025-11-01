@@ -8,7 +8,7 @@ return {
         config = true,
       },
 
-      "williamboman/mason-lspconfig.nvim",         -- allows to use lspconfig names in mason
+      "williamboman/mason-lspconfig.nvim", -- allows to use lspconfig names in mason
       "WhoIsSethDaniel/mason-tool-installer.nvim", -- auto installs predefined list of mason tools
     },
 
@@ -20,8 +20,9 @@ return {
         gopls = {},
         lua_ls = {
           Lua = {
-            hint = { enable = true, },
-            telemetry = { enable = false, },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("lua", true),
+            },
           },
         },
       }
@@ -56,16 +57,24 @@ return {
           on_attach = function(_, bufnr)
             vim.lsp.inlay_hint.enable(false) -- disable inlay hints by default
 
-            vim.keymap.set( "n", "grd", vim.lsp.buf.definition,
-              { buffer = bufnr, desc = "LSP: [G]oto [D]efinition", })
+            vim.keymap.set(
+              "n",
+              "grd",
+              vim.lsp.buf.definition,
+              { buffer = bufnr, desc = "LSP: [G]oto [D]efinition" }
+            )
 
-            vim.keymap.set( "n", "<leader>f", vim.lsp.buf.format,
-              { buffer = bufnr, desc = "LSP: [F]ormat Document", })
+            vim.keymap.set(
+              "n",
+              "<leader>f",
+              vim.lsp.buf.format,
+              { buffer = bufnr, desc = "LSP: [F]ormat Document" }
+            )
 
             vim.api.nvim_create_autocmd("InsertLeave", {
               buffer = bufnr,
               callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr, })
+                vim.lsp.buf.format({ bufnr = bufnr })
               end,
             })
 
@@ -89,13 +98,13 @@ return {
   { -- inlay hints configs
     "MysticalDevil/inlay-hints.nvim",
     event = "LspAttach",
-    dependencies = { "neovim/nvim-lspconfig", },
+    dependencies = { "neovim/nvim-lspconfig" },
     config = function()
       require("inlay-hints").setup()
 
       vim.keymap.set("n", "<leader>I", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-      end, { desc = "Toggle [I]nlay Hints", })
+      end, { desc = "Toggle [I]nlay Hints" })
     end,
   },
 
@@ -103,9 +112,9 @@ return {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "LspAttach",
     config = function()
-      require("tiny-inline-diagnostic").setup({ preset = "minimal", })
+      require("tiny-inline-diagnostic").setup({ preset = "minimal" })
       require("tiny-inline-diagnostic").disable()
-      vim.diagnostic.config({ virtual_text = false, })
+      vim.diagnostic.config({ virtual_text = false })
     end,
   },
 }

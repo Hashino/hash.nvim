@@ -22,35 +22,25 @@ return {
           },
         },
       },
-
-      {
-        "folke/lazydev.nvim",
-        ft = "lua", -- only load on lua files
-        opts = {
-          library = {
-            { path = "${3rd}/luv/library", words = { "vim%.uv", }, },
-          },
-        },
-      },
     },
 
     config = function()
       require("blink.cmp").setup({
         enabled = function()
           return not vim.tbl_contains({}, vim.bo.filetype)
-             and vim.bo.buftype ~= "nofile"
-             and vim.bo.buftype ~= "prompt"
-             and vim.b.completion ~= false
+            and vim.bo.buftype ~= "nofile"
+            and vim.bo.buftype ~= "prompt"
+            and vim.b.completion ~= false
         end,
 
         completion = {
           menu = {
             draw = {
               columns = {
-                { "kind_icon", },
-                { "label",      "label_description", },
-                { "kind", },
-                { "source_name", },
+                { "kind_icon" },
+                { "label", "label_description" },
+                { "kind" },
+                { "source_name" },
               },
             },
           },
@@ -60,37 +50,28 @@ return {
           },
         },
 
-        snippets = { preset = "luasnip", },
+        snippets = { preset = "luasnip" },
 
         sources = {
           default = {
-            "lazydev",
             "lsp",
             "snippets",
             "path",
           },
-
-          providers = {
-            lazydev = {
-              name = "LazyDev",
-              module = "lazydev.integrations.blink",
-              score_offset = 100,
-            },
-          },
         },
 
         keymap = {
-          ["<Tab>"] = { "select_next", "fallback", },
-          ["<S-Tab>"] = { "select_prev", },
+          ["<Tab>"] = { "select_next", "fallback" },
+          ["<S-Tab>"] = { "select_prev" },
 
-          ["<Enter>"] = { "accept", "fallback", },
+          ["<Enter>"] = { "accept", "fallback" },
 
-          ["<A-l>"] = { "snippet_forward", },
-          ["<A-h>"] = { "snippet_backward", },
+          ["<A-l>"] = { "snippet_forward" },
+          ["<A-h>"] = { "snippet_backward" },
 
-          ["<C- >"] = { "show", "hide", },
+          ["<C- >"] = { "show", "hide" },
 
-          ["<C-d>"] = { "show_documentation", },
+          ["<C-d>"] = { "show_documentation" },
         },
 
         appearance = {
@@ -108,7 +89,7 @@ return {
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
-        panel = { enabled = false, },
+        panel = { enabled = false },
 
         suggestion = {
           auto_trigger = true,
@@ -127,7 +108,7 @@ return {
         else
           require("copilot.command").enable()
         end
-      end, { desc = "Toggle [C]opilot", })
+      end, { desc = "Toggle [C]opilot" })
     end,
   },
 }
