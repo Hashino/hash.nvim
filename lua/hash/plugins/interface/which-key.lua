@@ -17,6 +17,7 @@ return { -- Useful plugin to show you pending keybinds.
         { "<leader>L", icon = "", },
         { "<leader>N", icon = "󰯋", },
         { "<leader>e", icon = "", },
+        { "<leader>b", icon = "", },
       },
     })
   end,

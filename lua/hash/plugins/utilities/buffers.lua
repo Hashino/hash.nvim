@@ -5,20 +5,21 @@ return {
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      require("buffer_manager").setup {
+      require("buffer_manager").setup({
         order_buffers = "lastused",
-      }
+      })
 
-      vim.api.nvim_create_user_command("BufferManager", function()
-        require("buffer_manager.ui").toggle_quick_menu()
-      end, { desc = "Open Buffer Manager Quick Menu", })
+      local bui = require("buffer_manager.ui")
+
+      vim.keymap.set( "n", "<leader>b", bui.toggle_quick_menu,
+        { noremap = true, desc = "Open [B]uffer Manager", })
 
       local keys = "123456789"
 
       for i = 1, #keys do
         local key = keys:sub(i, i)
         vim.keymap.set("n", string.format("<A-%s>", key), function()
-          require("buffer_manager.ui").nav_file(i)
+          bui.nav_file(i)
         end, { noremap = true, })
       end
     end,
@@ -26,7 +27,7 @@ return {
   {
     "b0o/incline.nvim",
     config = function()
-      require("incline").setup {
+      require("incline").setup({
         hide = {
           focused_win = true,
           only_win = true,
@@ -42,12 +43,12 @@ return {
           },
         },
         render = function(props)
-          local filename = vim.fn.fnamemodify(
-            vim.api.nvim_buf_get_name(props.buf), ":t")
-          return filename ~= vim.api.nvim_buf_get_name(0) and
-             { " ", filename, " ", }
+          local filename =
+             vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+          return filename ~= vim.api.nvim_buf_get_name(0)
+             and { " ", filename, " ", }
         end,
-      }
+      })
     end,
   },
 }
