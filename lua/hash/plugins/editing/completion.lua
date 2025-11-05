@@ -48,7 +48,7 @@ return {
             draw = {
               columns = {
                 { "kind_icon", },
-                { "label",      "label_description", },
+                { "label",       "label_description", },
                 { "kind", },
                 { "source_name", },
               },

@@ -11,7 +11,7 @@ return {
 
       local bui = require("buffer_manager.ui")
 
-      vim.keymap.set( "n", "<leader>b", bui.toggle_quick_menu,
+      vim.keymap.set("n", "<leader>b", bui.toggle_quick_menu,
         { noremap = true, desc = "Open [B]uffer Manager", })
 
       local keys = "123456789"
