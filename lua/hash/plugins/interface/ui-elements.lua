@@ -102,4 +102,19 @@ return {
       },
     },
   },
+  { -- animations
+    "rachartier/tiny-glimmer.nvim",
+    event = "VeryLazy",
+    priority = 10, -- Low priority to catch other plugins' keybindings
+    config = function()
+      require("tiny-glimmer").setup({
+        overwrite = {
+          yank  = { enabled = true, },
+          paste = { enabled = true, },
+          undo  = { enabled = true, },
+          redo  = { enabled = true, },
+        },
+      })
+    end,
+  },
 }

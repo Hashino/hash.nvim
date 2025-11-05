@@ -1,7 +1,7 @@
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.hl.on_yank({
-      higroup = "CommandMode",
-    })
-  end,
-})
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--   callback = function()
+--     vim.hl.on_yank({
+--       higroup = "CommandMode",
+--     })
+--   end,
+-- })
