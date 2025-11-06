@@ -38,7 +38,7 @@ end
 Theme.plugin = {   -- Theme
   "rmehri01/onenord.nvim",
   priority = 1000, -- Make sure to load this before all the other start plugins.
-  event = "VimEnter",
+  -- event = "VimEnter",
   config = function()
     local colors = {
       fg           = "#C8D0E0",
