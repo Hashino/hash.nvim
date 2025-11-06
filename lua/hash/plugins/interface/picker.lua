@@ -117,74 +117,74 @@ return {
         { desc = "[S]earch [S]essions", })
     end,
   },
-  {
-    "folke/snacks.nvim",
-    opts = {
-      picker = {
-        win = {
-          -- input window
-          input = {
-            keys = {
-              ["<C-Space>"] = { "toggle_focus", mode = { "i", "n", }, },
-
-              ["<C-j>"] = { "list_down", mode = { "i", "n", }, },
-              ["<C-k>"] = { "list_up", mode = { "i", "n", }, },
-
-              ["<C-l>"] = { "history_forward", mode = { "i", "n", }, },
-              ["<C-h>"] = { "history_back", mode = { "i", "n", }, },
-
-              ["<A-j>"] = { "preview_scroll_down", mode = { "i", "n", }, },
-              ["<A-k>"] = { "preview_scroll_up", mode = { "i", "n", }, },
-            },
-          },
-          -- result list window
-          list = {
-            keys = {
-              ["<C-Space>"] = { "toggle_focus", mode = { "i", "n", }, },
-
-              ["<Tab>"] = { "select_and_next", mode = { "n", "x", }, },
-              ["<S-Tab>"] = { "select_and_prev", mode = { "n", "x", }, },
-
-              ["<A-j>"] = { "preview_scroll_down", mode = { "i", "n", }, },
-              ["<A-k>"] = { "preview_scroll_up", mode = { "i", "n", }, },
-            },
-          },
-          -- preview window
-          preview = {
-            wo = {
-              wrap = false,
-            },
-          },
-        },
-      },
-    },
-
-    init = function()
-      local builtin = require("snacks")
-
-      vim.keymap.set("n", "<leader>Ss", function() builtin.picker.pick() end,
-        { desc = "[S]earch [S]elect Telescope", })
-
-      -- vim.keymap.set("n", "<leader>sf", builtin.picker.files,
-      --   { desc = "[S]earch [F]iles", })
-      --
-      -- vim.keymap.set("n", "<leader>sw", builtin.grep_string,
-      --   { desc = "[S]earch current [W]ord", })
-      --
-      -- vim.keymap.set("n", "<leader>sg", builtin.live_grep,
-      --   { desc = "[S]earch by [G]rep", })
-      --
-      -- vim.keymap.set("n", "<leader>sr", builtin.resume,
-      --   { desc = "[S]earch [R]esume", })
-      --
-      -- vim.keymap.set("n", "<leader>sh", builtin.help_tags,
-      --   { desc = "[S]earch [H]elp", })
-      --
-      -- vim.keymap.set("n", "<leader>sm", builtin.man_pages,
-      --   { desc = "[S]earch [M]anuals", })
-      --
-      -- vim.keymap.set("n", "<leader>sS", "<CMD>Telescope persisted<CR>",
-      --   { desc = "[S]earch [S]essions", })
-    end,
-  },
+  -- {
+  --   "folke/snacks.nvim",
+  --   config = function()
+  --     require("snacks").setup({
+  --       picker = {
+  --         win = {
+  --           -- input window
+  --           input = {
+  --             keys = {
+  --               ["<C-Space>"] = { "toggle_focus", mode = { "i", "n", }, },
+  --
+  --               ["<C-j>"] = { "list_down", mode = { "i", "n", }, },
+  --               ["<C-k>"] = { "list_up", mode = { "i", "n", }, },
+  --
+  --               ["<C-l>"] = { "history_forward", mode = { "i", "n", }, },
+  --               ["<C-h>"] = { "history_back", mode = { "i", "n", }, },
+  --
+  --               ["<A-j>"] = { "preview_scroll_down", mode = { "i", "n", }, },
+  --               ["<A-k>"] = { "preview_scroll_up", mode = { "i", "n", }, },
+  --             },
+  --           },
+  --           -- result list window
+  --           list = {
+  --             keys = {
+  --               ["<C-Space>"] = { "toggle_focus", mode = { "i", "n", }, },
+  --
+  --               ["<Tab>"] = { "select_and_next", mode = { "n", "x", }, },
+  --               ["<S-Tab>"] = { "select_and_prev", mode = { "n", "x", }, },
+  --
+  --               ["<A-j>"] = { "preview_scroll_down", mode = { "i", "n", }, },
+  --               ["<A-k>"] = { "preview_scroll_up", mode = { "i", "n", }, },
+  --             },
+  --           },
+  --           -- preview window
+  --           preview = {
+  --             wo = {
+  --               wrap = false,
+  --             },
+  --           },
+  --         },
+  --       },
+  --     })
+  --
+  --     local builtin = require("snacks")
+  --
+  --     vim.keymap.set("n", "<leader>Ss", function() builtin.picker.pick() end,
+  --       { desc = "[S]earch [S]elect Telescope", })
+  --
+  --     -- vim.keymap.set("n", "<leader>sf", builtin.picker.files,
+  --     --   { desc = "[S]earch [F]iles", })
+  --     --
+  --     -- vim.keymap.set("n", "<leader>sw", builtin.grep_string,
+  --     --   { desc = "[S]earch current [W]ord", })
+  --     --
+  --     -- vim.keymap.set("n", "<leader>sg", builtin.live_grep,
+  --     --   { desc = "[S]earch by [G]rep", })
+  --     --
+  --     -- vim.keymap.set("n", "<leader>sr", builtin.resume,
+  --     --   { desc = "[S]earch [R]esume", })
+  --     --
+  --     -- vim.keymap.set("n", "<leader>sh", builtin.help_tags,
+  --     --   { desc = "[S]earch [H]elp", })
+  --     --
+  --     -- vim.keymap.set("n", "<leader>sm", builtin.man_pages,
+  --     --   { desc = "[S]earch [M]anuals", })
+  --     --
+  --     -- vim.keymap.set("n", "<leader>sS", "<CMD>Telescope persisted<CR>",
+  --     --   { desc = "[S]earch [S]essions", })
+  --   end,
+  -- },
 }

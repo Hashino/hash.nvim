@@ -5,6 +5,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "Hashino/doing.nvim",
   },
+  event = "UIEnter",
 
   config = function()
     local conditions = require("heirline.conditions")
