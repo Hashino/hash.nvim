@@ -38,7 +38,8 @@ end
 Theme.plugin = {   -- Theme
   "rmehri01/onenord.nvim",
   priority = 1000, -- Make sure to load this before all the other start plugins.
-  init = function()
+  event = "VimEnter",
+  config = function()
     local colors = {
       fg           = "#C8D0E0",
       fg_light     = "#E5E9F0",
@@ -63,9 +64,9 @@ Theme.plugin = {   -- Theme
     }
 
     require("onenord").setup({ custom_colors = colors, })
-    vim.cmd.colorscheme("onenord") -- Load the colorscheme here.
-
     Theme.colors = require("onenord.colors").load()
+
+    vim.cmd.colorscheme("onenord") -- Load the colorscheme here.
   end,
 }
 
