@@ -1,48 +1,23 @@
-return {
-  { -- indent lines for context
-    "nvimdev/indentmini.nvim",
-    event = "UIEnter",
+vim.pack.add({
+  "https://github.com/nvimdev/indentmini.nvim",
+  "https://github.com/VidocqH/auto-indent.nvim",
+  "https://github.com/folke/todo-comments.nvim",
+  "https://github.com/numToStr/Comment.nvim",
+  "https://github.com/norcalli/nvim-colorizer.lua",
+  "https://github.com/windwp/nvim-autopairs",
+}, { confirm = false, })
 
-    config = function()
-      require("indentmini").setup({
-        char = "┆",
-        exclude = { "yaml", },
-      })
-      local colors = require("hash.theme").colors
+require("indentmini").setup({
+  char = "┆",
+  exclude = { "yaml", },
+})
+local colors = require("hash.plugins.theme").colors
 
-      vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
-      vim.api.nvim_set_hl(0, "IndentLine", { fg = colors.selection, })
-    end,
-  },
+vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
+vim.api.nvim_set_hl(0, "IndentLine", { fg = colors.selection, })
 
-  { -- set indent on insert enter
-    "vidocqh/auto-indent.nvim",
-    opts = {},
-  },
-
-  { -- Highlight todo, notes, etc in comments
-    "folke/todo-comments.nvim",
-    event = "VimEnter",
-    dependencies = { "nvim-lua/plenary.nvim", },
-    config = true,
-  },
-
-  { -- "gb"/"gc" to comment regions/lines
-    "numToStr/Comment.nvim",
-    opts = {},
-  },
-
-  {
-    "catgoose/nvim-colorizer.lua",
-    event = "BufReadPre",
-    config = function()
-      require("colorizer").setup()
-    end,
-  },
-
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = true,
-  },
-}
+require("auto-indent").setup({})
+require("todo-comments").setup({})
+require("Comment").setup({})
+require("colorizer").setup({})
+require("nvim-autopairs").setup({})

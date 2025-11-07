@@ -10,21 +10,4 @@
 require("hash.opts")     -- neovim options
 require("hash.autocmds") -- autocommands
 require("hash.keymaps")  -- global keymaps.
-
-vim.pack.add({ "https://github.com/folke/lazy.nvim", })
-
-vim.keymap.set("n", "<leader>L", require("lazy.view").show,
-  { desc = "Open [L]azy UI", })
-
-require("lazy").setup({
-  spec = {
-    require("hash.theme").plugin,
-
-    { import = "hash.plugins.debugging", },
-    { import = "hash.plugins.editing", },
-    { import = "hash.plugins.interface", },
-    { import = "hash.plugins.utilities", },
-  },
-  change_detection = { notify = false, },
-  rocks = { enabled = false, },
-})
+require("hash.plugins")  -- plugins
