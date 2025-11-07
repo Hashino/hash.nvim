@@ -12,7 +12,6 @@ require("notify").setup({
   stages = "static",
 })
 
--- FIX: something is wrong
 require("dressing").setup({
   select = {
     backend = { "nui", },
