@@ -1,0 +1,105 @@
+{
+  "plugins": {
+    "Comment.nvim": [],
+    "LuaSnip": [],
+    "actions-preview.nvim": {
+      "rev": "cb938c2",
+      "src": "https://github.com/aznhe21/actions-preview.nvim"
+    },
+    "alpha-nvim": {
+      "rev": "3979b01",
+      "src": "https://github.com/goolord/alpha-nvim"
+    },
+    "auto-indent.nvim": [],
+    "auto-save.nvim": {
+      "rev": "979b6c8",
+      "src": "https://github.com/pocco81/auto-save.nvim"
+    },
+    "blink.cmp": [],
+    "buffer_manager.nvim": [],
+    "copilot.lua": {
+      "rev": "5bde2cf",
+      "src": "https://github.com/zbirenbaum/copilot.lua"
+    },
+    "doing.nvim": [],
+    "dressing.nvim": [],
+    "friendly-snippets": {
+      "rev": "572f566",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
+    "gitsigns.nvim": [],
+    "heirline.nvim": [],
+    "helpview.nvim": [],
+    "hiPairs": {
+      "rev": "8272bf6",
+      "src": "https://github.com/Yggdroot/hiPairs"
+    },
+    "incline.nvim": [],
+    "indentmini.nvim": {
+      "rev": "e0f1e38",
+      "src": "https://github.com/nvimdev/indentmini.nvim"
+    },
+    "inlay-hints.nvim": {
+      "rev": "990e1f9",
+      "src": "https://github.com/MysticalDevil/inlay-hints.nvim"
+    },
+    "lazy.nvim": [],
+    "lazydev.nvim": [],
+    "markview.nvim": {
+      "rev": "5529dc4",
+      "src": "https://github.com/OXY2DEV/markview.nvim"
+    },
+    "mason-lspconfig.nvim": [],
+    "mason-tool-installer.nvim": [],
+    "mason.nvim": [],
+    "neogen": [],
+    "noice.nvim": [],
+    "nui.nvim": [],
+    "nvim-autopairs": [],
+    "nvim-colorizer.lua": [],
+    "nvim-dap": [],
+    "nvim-dap-projects": {
+      "rev": "f319ffd",
+      "src": "https://github.com/ldelossa/nvim-dap-projects"
+    },
+    "nvim-dap-ui": {
+      "rev": "cf91d5e",
+      "src": "https://github.com/rcarriga/nvim-dap-ui"
+    },
+    "nvim-dap-virtual-text": [],
+    "nvim-lspconfig": [],
+    "nvim-nio": {
+      "rev": "21f5324",
+      "src": "https://github.com/nvim-neotest/nvim-nio"
+    },
+    "nvim-notify": {
+      "rev": "8701bec",
+      "src": "https://github.com/rcarriga/nvim-notify"
+    },
+    "nvim-tree.lua": [],
+    "nvim-treesitter": [],
+    "onenord.nvim": [],
+    "persisted.nvim": {
+      "rev": "5063ee8",
+      "src": "https://github.com/olimorris/persisted.nvim"
+    },
+    "telescope-fzf-native.nvim": [],
+    "telescope-ui-select.nvim": {
+      "rev": "6e51d7d",
+      "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
+    },
+    "telescope.nvim": [],
+    "tiny-inline-diagnostic.nvim": {
+      "rev": "63dd87d",
+      "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
+    },
+    "todo-comments.nvim": [],
+    "toggleterm.nvim": {
+      "rev": "9a88eae",
+      "src": "https://github.com/akinsho/toggleterm.nvim"
+    },
+    "trouble.nvim": [],
+    "vim-fugitive": [],
+    "which-key.nvim": []
+  }
+}

@@ -4,13 +4,15 @@ local function import(dir)
 
   if handle then
     repeat
+      -- iterates to next entry in directory
       local file = vim.uv.fs_readdir(handle)
-      if file then
+      -- if file is not nil and is a .lua file, require it
+      if file and file[1].name:find(".lua") then
+        -- strip .lua extension from filename
         local filename = file[1].name:gsub("%.lua$", "")
         require(dir .. "." .. filename)
       end
     until not file
-
 
     vim.uv.fs_closedir(handle)
   end
@@ -27,3 +29,4 @@ vim.pack.add({
 import("hash.plugins.editing")
 import("hash.plugins.utilities")
 import("hash.plugins.interface")
+import("hash.plugins.debugging")

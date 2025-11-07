@@ -14,10 +14,6 @@ local function git_cmd(cmd)
   return "<cmd>Git " .. cmd .. "<CR>"
 end
 
--- FIX: figure it out
--- vim.keymap.set("n", "<leader>gs", require("telescope.builtin").git_status,
---   { desc = "[G]it [S]tatus", })
-
 vim.keymap.set("n", "<leader>gc", git_cmd("commit"),
   { desc = "[G]it [C]ommit", })
 
