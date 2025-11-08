@@ -113,7 +113,10 @@
       "rev": "7a2c97c",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
-    "nvim-colorizer.lua": [],
+    "nvim-colorizer.lua": {
+      "rev": "a065833",
+      "src": "https://github.com/norcalli/nvim-colorizer.lua"
+    },
     "nvim-dap": {
       "rev": "e97dc47",
       "src": "https://github.com/mfussenegger/nvim-dap"
