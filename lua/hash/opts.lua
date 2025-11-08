@@ -69,9 +69,6 @@ vim.opt.scrolloff = 42069
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
--- Hides cmd bar
-vim.o.cmdheight = 0
-
 vim.opt.wrap = true
 
 -- formatting

@@ -90,6 +90,9 @@ require("noice").setup({
   },
 })
 
+-- Hides cmd bar
+vim.o.cmdheight = 0
+
 vim.keymap.set("n", "<leader>N", function()
   require("noice").cmd("history")
 end, { desc = "Open [N]otifications", })
