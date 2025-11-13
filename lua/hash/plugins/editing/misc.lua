@@ -1,6 +1,5 @@
 vim.pack.add({
   "https://github.com/nvimdev/indentmini.nvim",
-  "https://github.com/VidocqH/auto-indent.nvim",
   "https://github.com/folke/todo-comments.nvim",
   "https://github.com/windwp/nvim-autopairs",
   "https://github.com/folke/trouble.nvim",
@@ -45,7 +44,6 @@ vim.keymap.set("n", "<leader>ts", function()
   api.toggle({ mode = "symbols", win = win_opts, })
 end, { desc = "[T]rouble: [S]ymbols", })
 
-require("auto-indent").setup({})
 require("todo-comments").setup({})
 require("nvim-autopairs").setup({})
 require("colorizer").setup({})
