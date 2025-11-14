@@ -7,10 +7,6 @@ require("doing").setup({
   show_remaining = false,
   show_messages = false,
 
-  store = {
-    sync_tasks = true,
-  },
-
   ignored_buffers = { "trouble", "no-neck-pain", ".tasks", },
 
   winbar = { enabled = false, },
