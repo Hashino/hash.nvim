@@ -1,23 +1,3 @@
-local function import(dir)
-  local config_dir = vim.fn.stdpath("config") .. "/lua/" .. dir:gsub("%.", "/")
-  local handle = vim.uv.fs_opendir(config_dir)
-
-  if handle then
-    repeat
-      -- iterates to next entry in directory
-      local file = vim.uv.fs_readdir(handle)
-      -- if file is not nil and is a .lua file, require it
-      if file and file[1].name:find(".lua") then
-        -- strip .lua extension from filename
-        local filename = file[1].name:gsub("%.lua$", "")
-        require(dir .. "." .. filename)
-      end
-    until not file
-
-    vim.uv.fs_closedir(handle)
-  end
-end
-
 require("hash.plugins.theme")
 
 -- INFO: library dependencies
@@ -26,7 +6,25 @@ vim.pack.add({
   "https://github.com/nvim-tree/nvim-web-devicons",
 }, { confirm = false, })
 
-import("hash.plugins.editing")
-import("hash.plugins.utilities")
-import("hash.plugins.interface")
-import("hash.plugins.debugging")
+require("hash.plugins.editing.completion")
+require("hash.plugins.editing.highlight")
+require("hash.plugins.editing.tooling")
+require("hash.plugins.editing.documentation")
+require("hash.plugins.editing.misc")
+
+require("hash.plugins.utilities.git")
+require("hash.plugins.utilities.buffers")
+require("hash.plugins.utilities.auto-save")
+require("hash.plugins.utilities.sessions")
+require("hash.plugins.utilities.docgen")
+
+require("hash.plugins.interface.ui")
+require("hash.plugins.interface.start-screen")
+require("hash.plugins.interface.task-list")
+require("hash.plugins.interface.status-bar")
+require("hash.plugins.interface.file-explorer")
+require("hash.plugins.interface.picker")
+require("hash.plugins.interface.terminal")
+require("hash.plugins.interface.which-key")
+
+require("hash.plugins.debugging.dap")
