@@ -11,3 +11,5 @@ require("hash.opts")     -- neovim options
 require("hash.autocmds") -- autocommands
 require("hash.keymaps")  -- global keymaps.
 require("hash.plugins")  -- plugins
+
+vim.pack.add({ "https://github.com/ibhagwan/ts-vimdoc.nvim", })
