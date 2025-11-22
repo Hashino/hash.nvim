@@ -12,7 +12,6 @@ require("which-key").setup({
     { "<leader>s", group = "[S]earch", icon = { icon = "", color = "grey", }, },
     { "<leader>t", group = "[T]rouble", icon = { icon = "󱖫", color = "yellow", }, },
 
-    { "<leader>L", icon = "", },
     { "<leader>N", icon = "󰯋", },
     { "<leader>e", icon = "", },
     { "<leader>b", icon = "", },
