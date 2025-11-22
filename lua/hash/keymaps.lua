@@ -1,10 +1,10 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- for quick navigation between windows
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window", })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window", })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window", })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window", })
+vim.keymap.set({ "n", "v", }, "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window", })
+vim.keymap.set({ "n", "v", }, "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window", })
+vim.keymap.set({ "n", "v", }, "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window", })
+vim.keymap.set({ "n", "v", }, "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window", })
 
 -- navigation in insert mode
 vim.keymap.set("i", "<C-h>", "<Left>", { desc = "navigate left in insert mode", })
@@ -19,7 +19,8 @@ vim.keymap.set("n", "<A-q>", "<Cmd>q<CR>", { desc = "quick quit", })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true, })
 
 -- edit variable value
-vim.keymap.set("n", "<leader>ma", "0f=lC ", { desc = "[M]acro: [A]ssign new value to variable", })
+vim.keymap.set("n", "<leader>ma", "0f=lC ",
+  { desc = "[M]acro: [A]ssign new value to variable", })
 
 -- makes more sense to me that way
 vim.keymap.set("x", "p", "P", { desc = "paste without replacing clipboard", })
