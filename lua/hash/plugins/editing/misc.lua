@@ -3,13 +3,13 @@ vim.pack.add({
   "https://github.com/folke/todo-comments.nvim",
   "https://github.com/windwp/nvim-autopairs",
   "https://github.com/folke/trouble.nvim",
-  "https://github.com/norcalli/nvim-colorizer.lua",
 }, { confirm = false, })
 
 require("indentmini").setup({
   char = "┆",
   exclude = { "yaml", },
 })
+
 local colors = require("hash.plugins.theme").colors
 
 vim.api.nvim_set_hl(0, "IndentLineCurrent", { fg = colors.light_gray, })
@@ -46,4 +46,3 @@ end, { desc = "[T]rouble: [S]ymbols", })
 
 require("todo-comments").setup({})
 require("nvim-autopairs").setup({})
-require("colorizer").setup({})
