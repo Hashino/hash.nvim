@@ -14,7 +14,6 @@ require("hash.plugins.editing.misc")
 
 require("hash.plugins.utilities.git")
 require("hash.plugins.utilities.buffers")
-require("hash.plugins.utilities.auto-save")
 require("hash.plugins.utilities.sessions")
 require("hash.plugins.utilities.docgen")
 require("hash.plugins.utilities.plugin-dev")

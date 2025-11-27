@@ -75,7 +75,7 @@ require("noice").setup({
       filter = {
         event = "msg_show",
         any = {
-          { kind = "echo", },
+          -- { kind = "echo", },
           { kind = "bufwrite", },
           { find = "fewer lines", },
           { find = "after #", },
