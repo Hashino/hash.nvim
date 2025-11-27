@@ -35,6 +35,7 @@ require("mason-tool-installer").setup({
   ensure_installed = vim.list_extend(vim.tbl_keys(lsp_servers), tools),
 })
 
+-- disable snippets from lsp
 local capabilities = require("blink.cmp").get_lsp_capabilities({
   textDocument = {
     completion = {
@@ -51,14 +52,13 @@ for server, config in pairs(lsp_servers) do
     capabilities = capabilities,
 
     on_attach = function(_, bufnr)
-      vim.lsp.inlay_hint.enable(false) -- disable inlay hints by default
-
       vim.keymap.set("n", "grd", vim.lsp.buf.definition,
         { buffer = bufnr, desc = "LSP: [G]oto [D]efinition", })
 
       vim.keymap.set("n", "<leader>f", vim.lsp.buf.format,
         { buffer = bufnr, desc = "LSP: [F]ormat Document", })
 
+      -- auto format
       vim.api.nvim_create_autocmd("InsertLeave", {
         buffer = bufnr,
         callback = function()
@@ -66,17 +66,20 @@ for server, config in pairs(lsp_servers) do
         end,
       })
 
+      -- code actions
       vim.lsp.buf.code_action = require("actions-preview").code_actions
 
+      -- inlay hints
       require("inlay-hints").setup()
 
       vim.keymap.set("n", "<leader>I", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end, { desc = "Toggle [I]nlay Hints", })
 
+      vim.lsp.inlay_hint.enable(false) -- disable inlay hints by default
+
+      -- inline diagnostics
       require("tiny-inline-diagnostic").setup({ preset = "minimal", })
-      -- FIX: is this needed?
-      require("tiny-inline-diagnostic").disable()
 
       vim.api.nvim_create_autocmd("CursorHold", {
         buffer = bufnr,
