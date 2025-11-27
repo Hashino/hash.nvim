@@ -24,9 +24,6 @@ vim.api.nvim_create_autocmd({ "User", }, {
       for _, filetype in pairs({ "gitcommit", }) do
         if vim.bo[buf].filetype == filetype then
           vim.api.nvim_buf_delete(buf, { force = true, })
-          -- to bypass the "Press any key to continue" when exiting
-          -- FIX: is this needed?
-          vim.api.nvim_feedkeys(" ", "m", true)
         end
       end
     end
