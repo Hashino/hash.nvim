@@ -6,8 +6,6 @@ vim.pack.add({
   "https://github.com/zbirenbaum/copilot.lua",
 }, { confirm = false, })
 
--- INFO: no lazydev for now
-
 require("luasnip.loaders.from_vscode").lazy_load()
 
 require("lazydev").setup({
