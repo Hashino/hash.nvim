@@ -16,10 +16,12 @@ require("lazydev").setup({
 
 require("blink.cmp").setup({
   enabled = function()
-    return not vim.tbl_contains({}, vim.bo.filetype)
-       and vim.bo.buftype ~= "nofile"
-       and vim.bo.buftype ~= "prompt"
-       and vim.b.completion ~= false
+    return not (
+      vim.tbl_contains({}, vim.bo.filetype)
+      or vim.bo.buftype == "nofile"
+      or vim.bo.buftype == "prompt"
+      or vim.b.completion == false
+    )
   end,
 
   fuzzy = {
@@ -47,19 +49,19 @@ require("blink.cmp").setup({
 
   sources = {
     default = {
-      -- "lazydev",
+      "lazydev",
       "lsp",
       "snippets",
       "path",
     },
 
-    -- providers = {
-    --   lazydev = {
-    --     name = "LazyDev",
-    --     module = "lazydev.integrations.blink",
-    --     score_offset = 100,
-    --   },
-    -- },
+    providers = {
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
+    },
   },
 
   keymap = {
