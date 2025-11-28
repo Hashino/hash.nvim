@@ -101,6 +101,3 @@ vim.keymap.set("n", "<leader>sh", builtin.help_tags,
 
 vim.keymap.set("n", "<leader>sm", builtin.man_pages,
   { desc = "[S]earch [M]anuals", })
-
-vim.keymap.set("n", "<leader>sS", "<CMD>Telescope persisted<CR>",
-  { desc = "[S]earch [S]essions", })
