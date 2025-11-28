@@ -15,6 +15,9 @@ vim.keymap.set("i", "<C-k>", "<Up>", { desc = "navigate up in insert mode", })
 -- :q Shortcut
 vim.keymap.set("n", "<A-q>", "<Cmd>q<CR>", { desc = "quick quit", })
 
+-- update plugins
+vim.keymap.set("n", "<leader>U", vim.pack.update, { desc = "[U]pdate plugins", })
+
 -- enter normal mode in terminal with <esc><esc>
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true, })
 
