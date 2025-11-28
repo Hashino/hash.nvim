@@ -80,7 +80,6 @@ local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>gs", builtin.git_status,
   { desc = "[G]it [S]tatus", })
 
-
 vim.keymap.set("n", "<leader>sf", builtin.find_files,
   { desc = "[S]earch [F]iles", })
 
