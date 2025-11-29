@@ -52,6 +52,9 @@ for server, config in pairs(lsp_servers) do
     capabilities = capabilities,
 
     on_attach = function(_, bufnr)
+      -- TODO: figure out the lsp mapping namespace
+      --  why `gO` is outside the `gr*` mapping namespace? 🤔
+
       vim.keymap.set("n", "grd", vim.lsp.buf.definition,
         { buffer = bufnr, desc = "LSP: [G]oto [D]efinition", })
 
