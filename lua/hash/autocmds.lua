@@ -18,3 +18,13 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", }, {
     end
   end,
 })
+
+-- load project-specific config
+vim.api.nvim_create_autocmd("DirChanged", {
+  callback = function(opts)
+    local file = opts.file .. "/.nvim.lua"
+    if vim.secure.read(file) then
+      dofile(file)
+    end
+  end,
+})
