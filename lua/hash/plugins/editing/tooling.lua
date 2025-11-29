@@ -23,6 +23,8 @@ local lsp_servers = {
   },
 }
 
+-- FIX: I have no idea why tree-sitter-cli doesn't instegrate properly
+
 -- other mason tools we also want installed
 local tools = {
   "codelldb",
