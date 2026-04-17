@@ -21,6 +21,7 @@ local lsp_servers = {
       },
     },
   },
+  basedpyright = {},
 }
 
 -- FIX: I have no idea why tree-sitter-cli doesn't instegrate properly

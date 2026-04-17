@@ -55,7 +55,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", }
+vim.opt.listchars = { space = " ", tab = "» ", trail = "·", nbsp = "␣", }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -97,16 +97,7 @@ vim.diagnostic.config({
 
 -- neovide stuff
 if vim.g.neovide then
-  vim.opt.linespace = -1
-
-  -- TODO: this is a mess
-  local function get_font_size()
-    local ui_scaling = os.getenv("UI_SCALING") or 32
-
-    return 22 - ((ui_scaling - 32) * 2)
-  end
-
-  vim.o.guifont = "UbuntuMono Nerd Font:h" .. get_font_size()
+  vim.o.guifont = "UbuntuMono Nerd Font:h20"
 
   vim.g.neovide_cursor_animation_length = 0
 

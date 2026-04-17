@@ -10,9 +10,6 @@ local WIDTH_RATIO = 0.5
 
 require("nvim-tree").setup({
 
-  vim.keymap.set("n", "<leader>e", api.tree.toggle,
-    { desc = "Open [E]xplorer", }),
-
   -- mappings inside nvim-tree
   on_attach = function(bufnr)
     local function opts(desc)
@@ -56,7 +53,7 @@ require("nvim-tree").setup({
   filters = { git_ignored = false, },
   git = { enable = true, },
 
-  view = {     -- configures floating
+  view = { -- configures floating
     float = {
       enable = true,
       open_win_config = function()
@@ -126,3 +123,7 @@ require("nvim-tree").setup({
     },
   },
 })
+
+
+vim.keymap.set("n", "<leader>e", api.tree.toggle,
+  { desc = "Open [E]xplorer", })

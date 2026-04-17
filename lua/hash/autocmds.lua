@@ -28,3 +28,11 @@ vim.api.nvim_create_autocmd("DirChanged", {
     end
   end,
 })
+
+-- TODO: reenable when the issue is resolved
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "markdown_inline", },
+  callback = function()
+    vim.treesitter.stop()
+  end,
+})

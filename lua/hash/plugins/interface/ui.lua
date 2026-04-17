@@ -23,6 +23,13 @@ require("dressing").setup({
 })
 
 require("noice").setup({
+  -- TODO: reenable when the issue is resolved
+  highlight = {
+    patterns = {
+      { filter = { filetype = "markdown", }, hl_group = "", },
+    },
+  },
+
   cmdline = {
     format = {
       cmdline = { title = "", },
