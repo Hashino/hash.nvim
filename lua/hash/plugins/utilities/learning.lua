@@ -10,3 +10,9 @@ require("learning").setup({
     model = "mercury-2",
   },
 })
+
+vim.keymap.set("v", "<leader>le", require("learning").explain,
+  { noremap = true, silent = true, })
+
+vim.keymap.set("n", "<leader>lt", require("learning").toggle,
+  { noremap = true, silent = true, })

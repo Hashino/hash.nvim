@@ -8,11 +8,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- auto-save
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", }, {
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
   callback = function()
     if
-       vim.fn.getbufvar(0, "&modifiable") == 1
-       and not string.find(vim.fn.expand("%"), ".git/COMMIT_EDITMSG")
+      vim.bo.modified
+      and vim.bo.modifiable
+      and vim.bo.buftype == ""
+      and vim.fn.empty(vim.fn.expand("%:t")) == 0
+      and not vim.fn.expand("%"):find(".git/COMMIT_EDITMSG")
     then
       vim.cmd("silent! write")
     end
