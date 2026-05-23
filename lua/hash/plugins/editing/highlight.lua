@@ -1,47 +1,36 @@
 vim.pack.add({
-  {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    version = "main",
-  },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main", },
   "https://github.com/Yggdroot/hiPairs",
 }, { confirm = false, })
 
-require("nvim-treesitter.install").prefer_git = true
+require("nvim-treesitter").setup()
 
-require("nvim-treesitter").setup({
-  sync_install = false,
+require("nvim-treesitter").install({
+  "lua",
+  "c",
+  "rust",
+  "bash",
+  "html",
+  "regex",
+  "markdown",
+  "markdown_inline",
+  "vim",
+  "vimdoc",
+  "latex",
+})
 
-  modules = {},
-  ignore_install = {},
 
-  ensure_installed = {
-    "lua",
-    "c",
-    "rust",
-    "bash",
-    "html",
-    "regex",
-    "markdown",
-    "markdown_inline",
-    "vim",
-    "vimdoc",
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function(args)
+    local parsers = require("nvim-treesitter.parsers")
+    local lang = vim.treesitter.language.get_lang(args.match)
 
-    -- TODO: reenable when the issue is resolved
-    -- "latex",
-  },
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-
-  auto_install = true, -- Autoinstall languages that are not installed yet
-
-  disable = function(_, buf)
-    local max_filesize = 100 * 1024 -- 100 KB
-    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-    if ok and stats and stats.size > max_filesize then
-      return true
+    -- checks if the parser is available and not installed, then install it
+    if lang and parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) then
+      vim.schedule(function()
+        vim.cmd("TSInstall " .. lang)
+      end)
     end
   end,
 })

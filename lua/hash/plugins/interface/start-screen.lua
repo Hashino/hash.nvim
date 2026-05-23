@@ -1,9 +1,6 @@
 vim.pack.add({ "https://github.com/goolord/alpha-nvim", }, { confirm = false, })
 
-local dir_separator = "/"
-if vim.uv.os_uname().sysname:find("Windows") then
-  dir_separator = "\\"
-end
+local dir_separator = package.config:sub(1, 1)
 
 -- helper function to simplify section declaration
 local function section(type, val, hl, spacing)
@@ -22,7 +19,7 @@ local function button(keybind, txt, action, keybind_opts)
     opts = {
       hl = "Normal",
       position = "center",
-      width = 50,
+      width = 75,
       cursor = 1,
 
       keymap = {
