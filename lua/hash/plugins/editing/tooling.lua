@@ -24,8 +24,6 @@ local lsp_servers = {
   basedpyright = {},
 }
 
--- FIX: I have no idea why tree-sitter-cli doesn't instegrate properly
-
 -- other mason tools we also want installed
 local tools = {
   "codelldb",
@@ -75,15 +73,6 @@ for server, config in pairs(lsp_servers) do
       -- code actions
       vim.lsp.buf.code_action = require("actions-preview").code_actions
 
-      -- inlay hints
-      require("inlay-hints").setup()
-
-      vim.keymap.set("n", "<leader>I", function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-      end, { desc = "Toggle [I]nlay Hints", })
-
-      vim.lsp.inlay_hint.enable(false) -- disable inlay hints by default
-
       -- inline diagnostics
       require("tiny-inline-diagnostic").setup({ preset = "minimal", })
 
@@ -94,3 +83,12 @@ for server, config in pairs(lsp_servers) do
     end,
   })
 end
+
+-- inlay hints
+require("inlay-hints").setup({
+  autocmd = { enable = false, },
+})
+
+vim.keymap.set("n", "<leader>I", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle [I]nlay Hints", })
