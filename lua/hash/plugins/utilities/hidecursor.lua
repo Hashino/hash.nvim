@@ -4,4 +4,4 @@ vim.pack.add({
 
 vim.keymap.set('n', '<leader>c', function()
   require('hidecursor').toggle()
-
+end, { desc = '[T]oggle [C]ursor' })
